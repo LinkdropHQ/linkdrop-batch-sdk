@@ -1,21 +1,17 @@
 "use strict";
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
+};
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.computeProxyAddress = exports.computeBytecode = exports.buildCreate2Address = void 0;
-var ethers = require('ethers');
-var Wallet = require('ethereumjs-wallet');
-// Turn off annoying warnings
-ethers.errors.setLogLevel('error');
-var buildCreate2Address = function (
-// creatorAddress, saltHex, byteCode
-) {
-    // const byteCodeHash = ethers.utils.keccak256(byteCode)
-    // return `0x${ethers.utils
-    //   .keccak256(
-    //     `0x${['ff', creatorAddress, saltHex, byteCodeHash]
-    //       .map(x => x.replace(/0x/, ''))
-    //       .join('')}`
-    //   )
-    //   .slice(-40)}`.toLowerCase()
+var ethers_1 = __importDefault(require("ethers"));
+var buildCreate2Address = function (creatorAddress, saltHex, byteCode) {
+    var byteCodeHash = ethers_1.default.utils.keccak256(byteCode);
+    return ("0x" + ethers_1.default.utils
+        .keccak256("0x" + ['ff', creatorAddress, saltHex, byteCodeHash]
+        .map(function (x) { return x.replace(/0x/, ''); })
+        .join(''))
+        .slice(-40)).toLowerCase();
 };
 exports.buildCreate2Address = buildCreate2Address;
 var computeBytecode = function (
@@ -27,26 +23,19 @@ var computeBytecode = function (
     // return bytecode
 };
 exports.computeBytecode = computeBytecode;
-var computeProxyAddress = function (
-// factoryAddress,
-// linkdropMasterAddress,
-// campaignId
-) {
-    // if (factoryAddress == null || factoryAddress === '') {
-    //   throw new Error('Please provide factory address')
-    // }
-    // if (linkdropMasterAddress == null || linkdropMasterAddress === '') {
-    //   throw new Error('Please provide linkdrop master address')
-    // }
-    // if (campaignId == null || campaignId === '') {
-    //   throw new Error('Please provide campaign id')
-    // }
-    // const salt = ethers.utils.solidityKeccak256(
-    //   ['address', 'uint256'],
-    //   [linkdropMasterAddress, campaignId]
-    // )
-    // const initcode = '0x6352c7420d6000526103ff60206004601c335afa6040516060f3'
-    // const proxyAddress = buildCreate2Address(factoryAddress, salt, initcode)
-    // return proxyAddress
+var computeProxyAddress = function (factoryAddress, linkdropMasterAddress, campaignId) {
+    if (factoryAddress == null || factoryAddress === '') {
+        throw new Error('Please provide factory address');
+    }
+    if (linkdropMasterAddress == null || linkdropMasterAddress === '') {
+        throw new Error('Please provide linkdrop master address');
+    }
+    if (campaignId == null || campaignId === '') {
+        throw new Error('Please provide campaign id');
+    }
+    var salt = ethers_1.default.utils.solidityKeccak256(['address', 'uint256'], [linkdropMasterAddress, campaignId]);
+    var initcode = '0x6352c7420d6000526103ff60206004601c335afa6040516060f3';
+    var proxyAddress = exports.buildCreate2Address(factoryAddress, salt, initcode);
+    return proxyAddress;
 };
 exports.computeProxyAddress = computeProxyAddress;

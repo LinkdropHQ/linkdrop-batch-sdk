@@ -63,3 +63,5 @@ class LinkdropSDK implements ILinkdropSDK {
     }
   }
 }
+
+export default LinkdropSDK

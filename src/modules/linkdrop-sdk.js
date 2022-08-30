@@ -36,17 +36,51 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
     }
 };
 Object.defineProperty(exports, "__esModule", { value: true });
+var utils_1 = require("../utils");
+var helpers_1 = require("../helpers");
 var LinkdropSDK = /** @class */ (function () {
     function LinkdropSDK(chain, options) {
         var _this = this;
         if (options === void 0) { options = {}; }
         this.generateLink = function (_a) {
-            var signer = _a.signer, weiAmount = _a.weiAmount, tokenAddress = _a.tokenAddress, tokenAmount = _a.tokenAmount, tokenId = _a.tokenId, _b = _a.expirationTime, expirationTime = _b === void 0 ? '12345678910' : _b, campaignId = _a.campaignId, wallet = _a.wallet, manual = _a.manual, type = _a.type;
+            var signer = _a.signer, // private key
+            weiAmount = _a.weiAmount, tokenAddress = _a.tokenAddress, tokenAmount = _a.tokenAmount, tokenId = _a.tokenId, _b = _a.expirationTime, expirationTime = _b === void 0 ? '12345678910' : _b, campaignId = _a.campaignId, wallet = _a.wallet, manual = _a.manual, type = _a.type, masterAddress = _a.masterAddress // wallet of user where tokens are located
+            ;
             return __awaiter(_this, void 0, void 0, function () {
+                var result, err_1;
                 return __generator(this, function (_c) {
-                    return [2 /*return*/, {
-                            txHash: ''
-                        }];
+                    switch (_c.label) {
+                        case 0:
+                            _c.trys.push([0, 2, , 3]);
+                            return [4 /*yield*/, utils_1.generateLink({
+                                    factoryAddress: this.factoryAddress,
+                                    chainId: this.chainId,
+                                    claimHost: this.claimHost,
+                                    masterAddress: masterAddress,
+                                    signer: signer,
+                                    weiAmount: weiAmount,
+                                    tokenAddress: tokenAddress,
+                                    tokenAmount: tokenAmount,
+                                    expirationTime: expirationTime,
+                                    version: '1',
+                                    campaignId: campaignId,
+                                    wallet: wallet,
+                                    tokenId: tokenId,
+                                    manual: manual,
+                                    type: type
+                                })];
+                        case 1:
+                            result = _c.sent();
+                            if (!result) {
+                                return [2 /*return*/];
+                            }
+                            return [2 /*return*/, result];
+                        case 2:
+                            err_1 = _c.sent();
+                            console.log(err_1);
+                            return [3 /*break*/, 3];
+                        case 3: return [2 /*return*/];
+                    }
                 });
             });
         };
@@ -55,6 +89,7 @@ var LinkdropSDK = /** @class */ (function () {
         this.factoryAddress = factoryAddress;
         this.apiHost = apiHost;
         this.claimHost = claimHost;
+        this.chainId = helpers_1.getChainId(chain);
     }
     return LinkdropSDK;
 }());

@@ -41,51 +41,78 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.generateLink = void 0;
 var ethers_1 = __importDefault(require("ethers"));
+var compute_proxy_address_1 = require("../compute-proxy-address");
+var create_link_erc20_1 = require("../create-link-erc20");
 var generateLink = function (_a) {
-    var factoryAddress = _a.factoryAddress, chain = _a.chain, claimHost = _a.claimHost, linkdropMasterAddress = _a.linkdropMasterAddress, signer = _a.signer, weiAmount = _a.weiAmount, tokenAddress = _a.tokenAddress, tokenAmount = _a.tokenAmount, expirationTime = _a.expirationTime, version = _a.version, campaignId = _a.campaignId, wallet = _a.wallet;
+    var factoryAddress = _a.factoryAddress, chainId = _a.chainId, claimHost = _a.claimHost, signer = _a.signer, weiAmount = _a.weiAmount, tokenAddress = _a.tokenAddress, tokenAmount = _a.tokenAmount, expirationTime = _a.expirationTime, version = _a.version, campaignId = _a.campaignId, wallet = _a.wallet, masterAddress = _a.masterAddress, tokenId = _a.tokenId;
     return __awaiter(void 0, void 0, void 0, function () {
-        var linkdropSigner;
-        return __generator(this, function (_b) {
-            if (factoryAddress === null || factoryAddress === '') {
-                throw new Error('Please provide factory address');
+        var linkdropSigner, proxyAddress, _b, linkKey, linkId, linkdropSignerSignature, url;
+        return __generator(this, function (_c) {
+            switch (_c.label) {
+                case 0:
+                    if (factoryAddress === null || factoryAddress === '') {
+                        throw new Error('Please provide factory address');
+                    }
+                    if (!chainId || chainId === null || !chainId) {
+                        throw new Error('Please provide chainId');
+                    }
+                    if (claimHost === null || claimHost === '') {
+                        throw new Error('Please provide claim host');
+                    }
+                    if (masterAddress === null || masterAddress === '') {
+                        throw new Error("Please provide linkdrop master's address");
+                    }
+                    if (signer === null || signer === '') {
+                        throw new Error('Please provide signing key or wallet');
+                    }
+                    if (weiAmount === null || weiAmount === '') {
+                        throw new Error('Please provide amount of eth to claim');
+                    }
+                    if (tokenAddress === null || tokenAddress === '') {
+                        throw new Error('Please provide ERC20 token address');
+                    }
+                    if (tokenAmount === null || tokenAmount === '') {
+                        throw new Error('Please provide amount of tokens to claim');
+                    }
+                    if (expirationTime === null || expirationTime === '') {
+                        throw new Error('Please provide expiration time');
+                    }
+                    if (version === null || !version) {
+                        throw new Error('Please provide contract version');
+                    }
+                    if (campaignId === null || campaignId === '') {
+                        throw new Error('Please provide campaign id');
+                    }
+                    if (typeof signer === 'string') {
+                        linkdropSigner = new ethers_1.default.Wallet(signer);
+                    }
+                    else if (typeof signer === 'object') {
+                        linkdropSigner = signer;
+                    }
+                    else {
+                        return [2 /*return*/];
+                    }
+                    proxyAddress = compute_proxy_address_1.computeProxyAddress(factoryAddress, masterAddress, campaignId);
+                    return [4 /*yield*/, create_link_erc20_1.createLinkERC20({
+                            linkdropSigner: linkdropSigner,
+                            weiAmount: weiAmount,
+                            tokenAddress: tokenAddress,
+                            tokenAmount: tokenAmount,
+                            expirationTime: expirationTime,
+                            version: version,
+                            chainId: chainId,
+                            proxyAddress: proxyAddress
+                        })
+                        // // Construct link
+                    ];
+                case 1:
+                    _b = _c.sent(), linkKey = _b.linkKey, linkId = _b.linkId, linkdropSignerSignature = _b.linkdropSignerSignature;
+                    url = claimHost + "/#/receive?weiAmount=" + weiAmount + "&tokenAddress=" + tokenAddress + "&tokenAmount=" + tokenAmount + "&expirationTime=" + expirationTime + "&version=" + version + "&chainId=" + chainId + "&linkKey=" + linkKey + "&linkdropMasterAddress=" + masterAddress + "&linkdropSignerSignature=" + linkdropSignerSignature + "&campaignId=" + campaignId;
+                    if (wallet) {
+                        url = url + "&w=" + wallet;
+                    }
+                    return [2 /*return*/, { url: url, linkId: linkId, linkKey: linkKey, linkdropSignerSignature: linkdropSignerSignature }];
             }
-            if (!chain || chain === null || chain === '') {
-                throw new Error('Please provide chainId');
-            }
-            if (claimHost === null || claimHost === '') {
-                throw new Error('Please provide claim host');
-            }
-            if (linkdropMasterAddress === null || linkdropMasterAddress === '') {
-                throw new Error("Please provide linkdrop master's address");
-            }
-            if (signer === null || signer === '') {
-                throw new Error('Please provide signing key or wallet');
-            }
-            if (weiAmount === null || weiAmount === '') {
-                throw new Error('Please provide amount of eth to claim');
-            }
-            if (tokenAddress === null || tokenAddress === '') {
-                throw new Error('Please provide ERC20 token address');
-            }
-            if (tokenAmount === null || tokenAmount === '') {
-                throw new Error('Please provide amount of tokens to claim');
-            }
-            if (expirationTime === null || expirationTime === '') {
-                throw new Error('Please provide expiration time');
-            }
-            if (version === null || !version) {
-                throw new Error('Please provide contract version');
-            }
-            if (campaignId === null || campaignId === '') {
-                throw new Error('Please provide campaign id');
-            }
-            if (typeof signer === 'string') {
-                linkdropSigner = new ethers_1.default.Wallet(signer);
-            }
-            else if (typeof signer === 'object') {
-                linkdropSigner = signer;
-            }
-            return [2 /*return*/];
         });
     });
 };
