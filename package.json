@@ -1,5 +1,5 @@
 {
-  "name": "sdk",
+  "name": "linkdrop-sdk",
   "version": "1.0.0",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,15 +12,15 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LinkdropHQ/sdk.git"
+    "url": "git+https://github.com/LinkdropHQ/linkdrop-sdk.git"
   },
   "author": "spacehaz <spacehaz@gmail.com>",
   "license": "ISC",
   "description": "",
   "bugs": {
-    "url": "https://github.com/LinkdropHQ/sdk/issues"
+    "url": "https://github.com/LinkdropHQ/linkdrop-sdk/issues"
   },
-  "homepage": "https://github.com/LinkdropHQ/sdk#readme",
+  "homepage": "https://github.com/LinkdropHQ/linkdrop-sdk#readme",
   "keywords": [],
   "dependencies": {
     "ethereumjs-wallet": "^1.0.2",
