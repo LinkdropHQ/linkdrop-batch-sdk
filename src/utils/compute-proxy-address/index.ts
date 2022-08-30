@@ -1,4 +1,4 @@
-import ethers from 'ethers'
+import { ethers } from 'ethers'
 import Wallet from 'ethereumjs-wallet'
 // Turn off annoying warnings
 

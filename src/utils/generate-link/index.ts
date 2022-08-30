@@ -1,4 +1,4 @@
-import ethers from 'ethers'
+import { ethers } from 'ethers'
 import { TGenerateLinkUtil } from './type'
 import { computeProxyAddress } from '../compute-proxy-address'
 import { createLinkERC20 } from '../create-link-erc20'
