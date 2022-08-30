@@ -1,0 +1,1 @@
+export type TNetworkName = 'mainnet' | 'polygon'

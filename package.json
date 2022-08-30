@@ -1,0 +1,29 @@
+{
+  "name": "sdk",
+  "version": "1.0.0",
+  "main": "dist/index.js",
+  "types": "dist/index.d.ts",
+  "files": [
+    "dist"
+  ],
+  "scripts": {
+    "build": "tsc",
+    "prepare": "npm run build"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/LinkdropHQ/sdk.git"
+  },
+  "author": "spacehaz <spacehaz@gmail.com>",
+  "license": "ISC",
+  "description": "",
+  "bugs": {
+    "url": "https://github.com/LinkdropHQ/sdk/issues"
+  },
+  "homepage": "https://github.com/LinkdropHQ/sdk#readme",
+  "keywords": [],
+  "dependencies": {
+    "ethereumjs-wallet": "^1.0.2",
+    "ethers": "^5.7.0"
+  }
+}
