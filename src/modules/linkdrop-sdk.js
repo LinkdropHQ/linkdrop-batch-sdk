@@ -93,3 +93,4 @@ var LinkdropSDK = /** @class */ (function () {
     }
     return LinkdropSDK;
 }());
+exports.default = LinkdropSDK;
