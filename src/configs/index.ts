@@ -1,10 +1,8 @@
-type TContracts = {
-  [networkId: string | number]: {
+type TContracts = Record<string | number, {
     factory: string;
     claimHost: string;
     apiHost: string;
-  }
-}
+}>
 
 const contracts: TContracts = {
   1: {
