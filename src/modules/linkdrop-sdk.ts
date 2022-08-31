@@ -3,6 +3,7 @@ import { TGenerateLink } from '../types/linkdrop-sdk/generate-link'
 import { TGetProxyAddress } from '../types/linkdrop-sdk/get-proxy-address'
 import { generateLink, computeProxyAddress } from '../utils'
 import { getChainId } from '../helpers'
+import contracts from '../configs'
 
 class LinkdropSDK implements ILinkdropSDK {
   chain: TNetworkName;
@@ -13,16 +14,18 @@ class LinkdropSDK implements ILinkdropSDK {
 
   constructor (chain: TNetworkName, options: TSDKOptions = {}) {
     this.chain = chain
+    const chainId = getChainId(chain)
+    const contract = contracts[chainId]
     const {
-      factoryAddress = '',
-      apiHost = '',
-      claimHost = ''
+      factoryAddress = contract.factory,
+      apiHost = contract.apiHost,
+      claimHost = contract.claimHost
     } = options
 
     this.factoryAddress = factoryAddress
     this.apiHost = apiHost
     this.claimHost = claimHost
-    this.chainId = getChainId(chain)
+    this.chainId = chainId
   }
 
   getProxyAddress: TGetProxyAddress = ({
@@ -67,7 +70,6 @@ class LinkdropSDK implements ILinkdropSDK {
         manual,
         type
       })
-
       if (!result) { return }
       return result
     } catch (err) {
