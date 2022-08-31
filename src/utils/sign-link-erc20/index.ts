@@ -1,7 +1,7 @@
 import { ethers } from 'ethers'
-import { TSignLink } from './types'
+import { TSignLinkERC20 } from './types'
 
-export const signLink: TSignLink = async ({
+export const signLinkERC20: TSignLinkERC20 = async ({
   linkdropSigner, // Wallet
   weiAmount,
   tokenAddress,

@@ -18,5 +18,6 @@ export type TGenerateLinkUtil = ({
   factoryAddress: string,
   chainId: number,
   claimHost: string,
-  version: string
+  version: string,
+  manual: boolean
 }) => Promise<void | { url: string, linkId: string, linkKey: string, linkdropSignerSignature: string }>

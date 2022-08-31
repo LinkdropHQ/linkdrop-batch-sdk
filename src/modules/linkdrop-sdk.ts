@@ -1,6 +1,7 @@
 import { ILinkdropSDK, TNetworkName, TSDKOptions } from '../types'
 import { TGenerateLink } from '../types/linkdrop-sdk/generate-link'
-import { generateLink } from '../utils'
+import { TGetProxyAddress } from '../types/linkdrop-sdk/get-proxy-address'
+import { generateLink, computeProxyAddress } from '../utils'
 import { getChainId } from '../helpers'
 
 class LinkdropSDK implements ILinkdropSDK {
@@ -24,6 +25,16 @@ class LinkdropSDK implements ILinkdropSDK {
     this.chainId = getChainId(chain)
   }
 
+  getProxyAddress: TGetProxyAddress = ({
+    campaignId,
+    masterAddress // wallet of user where tokens are located
+  }) => {
+    return computeProxyAddress(
+      this.factoryAddress,
+      masterAddress,
+      campaignId
+    )
+  }
 
   generateLink: TGenerateLink = async ({
     signer, // private key
@@ -56,6 +67,7 @@ class LinkdropSDK implements ILinkdropSDK {
         manual,
         type
       })
+
       if (!result) { return }
       return result
     } catch (err) {

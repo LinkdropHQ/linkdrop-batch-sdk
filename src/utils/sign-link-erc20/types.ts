@@ -1,6 +1,6 @@
 import { TLinkdropSigner } from '../../types'
 
-type TSignLinkArgs = {
+type TSignLinkERC20Args = {
   linkdropSigner: TLinkdropSigner,
   weiAmount: string,
   tokenAddress: string,
@@ -12,7 +12,7 @@ type TSignLinkArgs = {
   proxyAddress: string
 }
 
-export type TSignLink = ({
+export type TSignLinkERC20 = ({
   linkdropSigner,
   weiAmount,
   tokenAddress,
@@ -22,4 +22,4 @@ export type TSignLink = ({
   chainId,
   linkId,
   proxyAddress
-}: TSignLinkArgs) => Promise<string>
+}: TSignLinkERC20Args) => Promise<string>

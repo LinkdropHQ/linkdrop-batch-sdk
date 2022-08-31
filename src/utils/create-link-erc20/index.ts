@@ -1,5 +1,5 @@
 import { TCreateLinkERC20 } from './types'
-import { generateAccount, signLink } from '../index'
+import { generateAccount, signLinkERC20 } from '../index'
 
 export const createLinkERC20: TCreateLinkERC20 = async ({
   linkdropSigner,
@@ -13,7 +13,7 @@ export const createLinkERC20: TCreateLinkERC20 = async ({
 }) => {
   const { address: linkId, privateKey: linkKey } = generateAccount()
 
-  const linkdropSignerSignature = await signLink({
+  const linkdropSignerSignature = await signLinkERC20({
     linkdropSigner,
     weiAmount,
     tokenAddress,
