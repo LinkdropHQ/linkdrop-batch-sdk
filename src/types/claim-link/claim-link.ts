@@ -15,11 +15,12 @@ interface IClaimLink {
   campaignId: string,
   wallet: string,
   manual: boolean,
-  linkdropMasterAddress: string,
+  masterAddress: string,
   linkKey: string,
   weiAmount: string,
   type: TokenType,
   linkdropSignerSignature: string,
+  linkId: string,
   claim: TClaim,
   defineTokenType: TDefineTokenType
 }

@@ -13,7 +13,7 @@ export const claimLink: TClaimLink = async ({
   version,
   chainId,
   linkKey,
-  linkdropMasterAddress,
+  masterAddress,
   linkdropSignerSignature,
   receiverAddress,
   factoryAddress,
@@ -49,7 +49,7 @@ export const claimLink: TClaimLink = async ({
     throw new Error('Please provide link key')
   }
 
-  if (linkdropMasterAddress === null || linkdropMasterAddress === '') {
+  if (masterAddress === null || masterAddress === '') {
     throw new Error('Please provide linkdropMaster address')
   }
 
@@ -79,7 +79,7 @@ export const claimLink: TClaimLink = async ({
     version,
     chainId,
     linkId,
-    linkdropMasterAddress,
+    linkdropMasterAddress: masterAddress,
     linkdropSignerSignature,
     receiverAddress,
     receiverSignature,

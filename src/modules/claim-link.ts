@@ -3,7 +3,8 @@ import { parseLinkParams } from '../helpers'
 import { TokenType } from '../types/token-type'
 import { TClaimLinkOptions } from '../types/claim-link/claim-link-options'
 import contracts from '../configs'
-import { claimLink } from '../utils'
+import { claimLink, cancelLink } from '../utils'
+import { ethers } from 'ethers'
 
 class ClaimLink implements IClaimLink {
   link: string
@@ -17,13 +18,13 @@ class ClaimLink implements IClaimLink {
   campaignId: string
   wallet: string
   manual: boolean
-  linkdropMasterAddress: string
+  masterAddress: string
   linkKey: string
   weiAmount: string
   type: TokenType
   linkdropSignerSignature: string
   factoryAddress: string
-
+  linkId: string
 
   constructor (link: string, options: TClaimLinkOptions = {}) {
     this.link = link
@@ -50,6 +51,10 @@ class ClaimLink implements IClaimLink {
       factoryAddress = contract.factory
     } = options
 
+    const linkWallet = new ethers.Wallet(linkKey)
+    const linkId = linkWallet.address
+    this.linkId = linkId
+
     this.tokenAddress = nftAddress || tokenAddress
     this.chainId = chainId
     this.tokenAmount = tokenAmount
@@ -59,7 +64,7 @@ class ClaimLink implements IClaimLink {
     this.campaignId = campaignId
     this.wallet = w
     this.manual = manual === "true" ? true : false
-    this.linkdropMasterAddress = linkdropMasterAddress
+    this.masterAddress = linkdropMasterAddress
     this.linkKey = linkKey
     this.weiAmount = weiAmount
     this.type = this.defineTokenType()
@@ -85,18 +90,21 @@ class ClaimLink implements IClaimLink {
       version: this.version,
       chainId: this.version,
       linkKey: this.linkKey,
-      linkdropMasterAddress: this.linkdropMasterAddress,
+      masterAddress: this.masterAddress,
       receiverAddress,
       linkdropSignerSignature: this.linkdropSignerSignature,
       factoryAddress: this.factoryAddress,
       campaignId: this.campaignId,
       type: this.type
     })
-  
   }
 
   cancel () {
-
+    return cancelLink({
+      apiHost: this.apiHost,
+      masterAddress: this.masterAddress,
+      linkId: this.linkId
+    })
   }
 }
 

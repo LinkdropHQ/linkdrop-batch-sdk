@@ -10,7 +10,7 @@ type TClaimLinkArgs = {
   version: string
   chainId: string
   linkKey: string
-  linkdropMasterAddress: string
+  masterAddress: string
   linkdropSignerSignature: string
   receiverAddress: string
   factoryAddress: string
@@ -34,7 +34,7 @@ export type TClaimLink = ({
   version,
   chainId,
   linkKey,
-  linkdropMasterAddress,
+  masterAddress,
   linkdropSignerSignature,
   receiverAddress,
   factoryAddress,
