@@ -113,7 +113,7 @@ export const claimLink: TClaimLink = async ({
 
     linkData.tokenAmount = tokenAmount
     linkData.tokenId = tokenId
-    linkData.tokenAddress = tokenAddress
+    linkData.nftAddress = tokenAddress
   }
 
   const response = await axios.post(
