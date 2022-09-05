@@ -22,6 +22,7 @@ export const generateLink: TGenerateLinkUtil = async ({
   type,
   manual
 }) => {
+  console.log({ type, tokenId })
   if (!factoryAddress || factoryAddress === '') {
     throw new Error('Please provide factory address')
   }

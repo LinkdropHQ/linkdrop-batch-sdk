@@ -53,6 +53,7 @@ class LinkdropSDK implements ILinkdropSDK {
     masterAddress // wallet of user where tokens are located
   }) => {
     try {
+      console.log({ type, tokenId })
       const result = await generateLink({
         factoryAddress: this.factoryAddress,
         chainId: this.chainId,
