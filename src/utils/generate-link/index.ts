@@ -132,7 +132,7 @@ export const generateLink: TGenerateLinkUtil = async ({
   const { linkKey, linkId, linkdropSignerSignature } = linkData
 
   // // Construct link
-  let url = `${claimHost}/#/receive?weiAmount=${weiAmount}&tokenAddress=${tokenAddress}&expirationTime=${expirationTime}&version=${version}&chainId=${chainId}&linkKey=${linkKey}&linkdropMasterAddress=${masterAddress}&linkdropSignerSignature=${linkdropSignerSignature}&campaignId=${campaignId}${manual ? '&manual=true' : ''}${tokenId ? `&tokenId=${tokenId}` : ''}${tokenAmount ? `&tokenAmount=${tokenAmount}` : ''}`
+  let url = `${claimHost}/#/receive?weiAmount=${weiAmount}&expirationTime=${expirationTime}&version=${version}&chainId=${chainId}&linkKey=${linkKey}&linkdropMasterAddress=${masterAddress}&linkdropSignerSignature=${linkdropSignerSignature}&campaignId=${campaignId}${manual ? '&manual=true' : ''}${tokenId ? `&tokenId=${tokenId}` : ''}${tokenAmount ? `&tokenAmount=${tokenAmount}` : ''}${type === 'erc20' ? `&tokenAddress=${tokenAddress}` : `&nftAddress=${tokenAddress}`}`
 
   if (wallet) {
     url = `${url}&w=${wallet}`
