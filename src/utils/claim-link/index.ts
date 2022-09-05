@@ -1,6 +1,7 @@
 import { ethers } from 'ethers'
 import { TClaimLink, TLinkData } from './types'
 import { signReceiverAddress } from '../index'
+import { getClaimEndpoint } from '../../helpers'
 import axios from 'axios'
 
 export const claimLink: TClaimLink = async ({
@@ -112,11 +113,11 @@ export const claimLink: TClaimLink = async ({
 
     linkData.tokenAmount = tokenAmount
     linkData.tokenId = tokenId
-    linkData.nftAddress = tokenAddress
+    linkData.tokenAddress = tokenAddress
   }
 
   const response = await axios.post(
-    `${apiHost}/api/v1/linkdrops/claim`,
+    `${apiHost}/api/v1/linkdrops/${getClaimEndpoint(type)}`,
     linkData
   )
 
