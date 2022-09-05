@@ -58,14 +58,6 @@ export const generateLink: TGenerateLinkUtil = async ({
     throw new Error('Please provide contract version')
   }
 
-  if (!campaignId || campaignId === '') {
-    throw new Error('Please provide campaign id')
-  }
-
-  if (!tokenAmount || tokenAmount === '') {
-    throw new Error('Please provide amount of tokens to claim')
-  }
-
   let linkdropSigner
   if (typeof signer === 'string') {
     linkdropSigner = new ethers.Wallet(signer)
@@ -83,6 +75,9 @@ export const generateLink: TGenerateLinkUtil = async ({
 
   let linkData
   if (type === 'erc20') {
+    if (!tokenAmount || tokenAmount === '') {
+      throw new Error('Please provide amount of tokens to claim')
+    }
     linkData = await createLinkERC20({
       linkdropSigner,
       weiAmount,
@@ -94,6 +89,9 @@ export const generateLink: TGenerateLinkUtil = async ({
       proxyAddress
     })
   } else if (type === 'erc721') {
+    if (!campaignId || campaignId === '') {
+      throw new Error('Please provide campaign id')
+    }
     linkData = await createLinkERC721({
       linkdropSigner,
       weiAmount,
@@ -105,6 +103,12 @@ export const generateLink: TGenerateLinkUtil = async ({
       proxyAddress
     })
   } else {
+    if (!tokenAmount || tokenAmount === '') {
+      throw new Error('Please provide amount of tokens to claim')
+    }
+    if (!campaignId || campaignId === '') {
+      throw new Error('Please provide campaign id')
+    }
     linkData = await createLinkERC1155({
       linkdropSigner,
       weiAmount,
@@ -117,7 +121,6 @@ export const generateLink: TGenerateLinkUtil = async ({
       proxyAddress
     })
   }
-   
 
   const { linkKey, linkId, linkdropSignerSignature } = linkData
 
