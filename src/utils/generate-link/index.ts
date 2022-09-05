@@ -92,6 +92,9 @@ export const generateLink: TGenerateLinkUtil = async ({
     if (!campaignId || campaignId === '') {
       throw new Error('Please provide campaign id')
     }
+    if (!tokenId || tokenId === '') {
+      throw new Error('Please provide token id')
+    }
     linkData = await createLinkERC721({
       linkdropSigner,
       weiAmount,
@@ -108,6 +111,9 @@ export const generateLink: TGenerateLinkUtil = async ({
     }
     if (!campaignId || campaignId === '') {
       throw new Error('Please provide campaign id')
+    }
+    if (!tokenId || tokenId === '') {
+      throw new Error('Please provide token id')
     }
     linkData = await createLinkERC1155({
       linkdropSigner,
