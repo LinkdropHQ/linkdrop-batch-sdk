@@ -1,4 +1,4 @@
-{
+export default {
   "abi": [
     {
       "inputs": [

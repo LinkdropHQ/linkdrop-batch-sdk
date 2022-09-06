@@ -1,4 +1,4 @@
-const LinkdropFactory = require('./factory.json')
+import LinkdropFactory from './factory'
 
 export {
   LinkdropFactory
