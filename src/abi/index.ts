@@ -1,5 +1,4 @@
-// @ts-ignore
-import LinkdropFactory from './factory.json'
+const LinkdropFactory = require('./factory.json')
 
 export {
   LinkdropFactory
