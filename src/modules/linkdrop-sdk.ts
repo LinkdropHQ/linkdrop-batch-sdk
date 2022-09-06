@@ -15,9 +15,9 @@ class LinkdropSDK implements ILinkdropSDK {
   chainId: number;
   options: TSDKOptions;
   jsonRPCUrl: string;
-  initialized: boolean;
+  initialized: boolean = false;
   provider: ethers.providers.JsonRpcProvider;
-  versions: Record<string, string>
+  versions: Record<string, string> = {};
 
   async initialization () {
     const provider = new ethers.providers.JsonRpcProvider(this.jsonRPCUrl)
