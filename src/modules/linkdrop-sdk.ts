@@ -2,8 +2,10 @@ import { ILinkdropSDK, TNetworkName, TSDKOptions } from '../types'
 import { TGenerateLink } from '../types/linkdrop-sdk/generate-link'
 import { TGetProxyAddress } from '../types/linkdrop-sdk/get-proxy-address'
 import { generateLink, computeProxyAddress } from '../utils'
-import { getChainId } from '../helpers'
+import { getChainName } from '../helpers'
+import { LinkdropFactory } from '../abi'
 import contracts from '../configs'
+import { ethers } from 'ethers'
 
 class LinkdropSDK implements ILinkdropSDK {
   chain: TNetworkName;
@@ -11,21 +13,43 @@ class LinkdropSDK implements ILinkdropSDK {
   apiHost: string;
   claimHost: string;
   chainId: number;
+  options: TSDKOptions;
+  jsonRPCUrl: string;
+  initialized: boolean;
+  provider: ethers.providers.JsonRpcProvider;
+  versions: Record<string, string>
 
-  constructor (chain: TNetworkName, options: TSDKOptions = {}) {
-    this.chain = chain
-    const chainId = getChainId(chain)
-    const contract = contracts[chainId]
+  async initialization () {
+    const provider = new ethers.providers.JsonRpcProvider(this.jsonRPCUrl)
+    const { chainId }: { chainId: number} = await provider.getNetwork()
+
+    this.chain = getChainName(chainId)
+    const contract = contracts[String(chainId)]
     const {
       factoryAddress = contract.factory,
       apiHost = contract.apiHost,
       claimHost = contract.claimHost
-    } = options
+    } = this.options
 
     this.factoryAddress = factoryAddress
     this.apiHost = apiHost
     this.claimHost = claimHost
     this.chainId = chainId
+    this.provider = provider
+    this.initialized = true
+  }
+
+  constructor (jsonRPCUrl: string, options: TSDKOptions = {}) {
+    this.jsonRPCUrl = jsonRPCUrl
+    this.options = options
+  }
+
+  async getVersion (masterAddress: string, campaignId: string) {
+    const version = this.versions[campaignId]
+    if (version) return version
+    const factoryContract = await new ethers.Contract(this.factoryAddress, LinkdropFactory.abi, this.provider)
+    this.versions[campaignId] = await factoryContract.getProxyMasterCopyVersion(masterAddress)
+    return this.versions[campaignId]
   }
 
   getProxyAddress: TGetProxyAddress = ({
@@ -53,7 +77,7 @@ class LinkdropSDK implements ILinkdropSDK {
     masterAddress // wallet of user where tokens are located
   }) => {
     try {
-      console.log({ type, tokenId })
+      if (!this.initialized) { await this.initialization() }
       const result = await generateLink({
         factoryAddress: this.factoryAddress,
         chainId: this.chainId,
@@ -64,7 +88,7 @@ class LinkdropSDK implements ILinkdropSDK {
         tokenAddress,
         tokenAmount,
         expirationTime,
-        version: '1',
+        version: await this.getVersion(masterAddress, campaignId),
         campaignId,
         wallet,
         tokenId,

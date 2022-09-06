@@ -14,7 +14,7 @@ const contracts: TContracts = {
     factory: '0x632E4Ef82188d466462Aecdc0193059C4Cd294Ec',
     claimHost: 'https://v1-2.claim.linkdrop.io',
     apiHost: 'https://matic-v1-1.linkdrop.io'
-  }
+  } // pol
 }
 
 export default contracts
