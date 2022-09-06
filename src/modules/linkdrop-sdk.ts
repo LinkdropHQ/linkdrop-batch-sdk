@@ -48,7 +48,7 @@ class LinkdropSDK implements ILinkdropSDK {
     const version = this.versions[campaignId]
     if (version) return version
     const factoryContract = await new ethers.Contract(this.factoryAddress, LinkdropFactory.abi, this.provider)
-    this.versions[campaignId] = await factoryContract.getProxyMasterCopyVersion(masterAddress)
+    this.versions[campaignId] = await factoryContract.getProxyMasterCopyVersion(masterAddress, campaignId)
     return this.versions[campaignId]
   }
 
