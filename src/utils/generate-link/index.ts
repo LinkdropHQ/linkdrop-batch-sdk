@@ -75,7 +75,7 @@ export const generateLink: TGenerateLinkUtil = async ({
   )
 
   let linkData
-  if (type === 'erc20') {
+  if (type === 'ERC20') {
     if (!tokenAmount || tokenAmount === '') {
       throw new Error('Please provide amount of tokens to claim')
     }
@@ -89,7 +89,7 @@ export const generateLink: TGenerateLinkUtil = async ({
       chainId,
       proxyAddress
     })
-  } else if (type === 'erc721') {
+  } else if (type === 'ERC721') {
     if (!campaignId || campaignId === '') {
       throw new Error('Please provide campaign id')
     }
@@ -132,7 +132,7 @@ export const generateLink: TGenerateLinkUtil = async ({
   const { linkKey, linkId, linkdropSignerSignature } = linkData
 
   // // Construct link
-  let url = `${claimHost}/#/receive?weiAmount=${weiAmount}&expirationTime=${expirationTime}&version=${version}&chainId=${chainId}&linkKey=${linkKey}&linkdropMasterAddress=${masterAddress}&linkdropSignerSignature=${linkdropSignerSignature}&campaignId=${campaignId}${manual ? '&manual=true' : ''}${tokenId ? `&tokenId=${tokenId}` : ''}${tokenAmount ? `&tokenAmount=${tokenAmount}` : ''}${type === 'erc20' ? `&tokenAddress=${tokenAddress}` : `&nftAddress=${tokenAddress}`}`
+  let url = `${claimHost}/#/receive?weiAmount=${weiAmount}&expirationTime=${expirationTime}&version=${version}&chainId=${chainId}&linkKey=${linkKey}&linkdropMasterAddress=${masterAddress}&linkdropSignerSignature=${linkdropSignerSignature}&campaignId=${campaignId}${manual ? '&manual=true' : ''}${tokenId ? `&tokenId=${tokenId}` : ''}${tokenAmount ? `&tokenAmount=${tokenAmount}` : ''}${type === 'ERC20' ? `&tokenAddress=${tokenAddress}` : `&nftAddress=${tokenAddress}`}`
 
   if (wallet) {
     url = `${url}&w=${wallet}`

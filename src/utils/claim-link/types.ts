@@ -1,4 +1,4 @@
-import { TokenType } from '../../types/token-type'
+import { TTokenType } from '../../types/token-type'
 
 type TClaimLinkArgs = {
   apiHost: string
@@ -15,7 +15,7 @@ type TClaimLinkArgs = {
   receiverAddress: string
   factoryAddress: string
   campaignId: string
-  type: TokenType
+  type: TTokenType
 }
 
 type TClaimLinkResult = {

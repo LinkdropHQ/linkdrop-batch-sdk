@@ -17,4 +17,6 @@ const contracts: TContracts = {
   } // pol
 }
 
+export const apiUrl = 'https://dev.dashboard-api.linkdrop.io/api/v1/dashboard'
+
 export default contracts

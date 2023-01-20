@@ -88,14 +88,14 @@ export const claimLink: TClaimLink = async ({
     campaignId
   }
 
-  if (type === 'erc20') {
+  if (type === 'ERC20') {
     if (!tokenAmount || tokenAmount === '') {
       throw new Error('Please provide amount of tokens to claim')
     }
     linkData.tokenAmount = tokenAmount
     linkData.tokenAddress = tokenAddress
     
-  } else if (type === 'erc721') {
+  } else if (type === 'ERC721') {
     if (!tokenId || tokenId === '') {
       throw new Error('Please provide token id to claim')
     }
