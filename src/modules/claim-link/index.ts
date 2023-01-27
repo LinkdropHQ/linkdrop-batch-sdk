@@ -1,7 +1,7 @@
 import { IClaimLink } from '../../types'
 import { parseLinkParams } from '../../helpers'
 import { TTokenType } from '../../types/token-type'
-import { TClaimLinkOptions } from '../../types/claim-link/claim-link-options'
+import { TClaimLinkOptions } from '../../types/modules/claim-link/claim-link-options'
 import contracts from '../../configs'
 import { claimLink, cancelLink } from '../../utils'
 import { ethers } from 'ethers'
@@ -80,23 +80,23 @@ class ClaimLink implements IClaimLink {
   }
 
   async claim (receiverAddress: string) {
-    return await claimLink({
-      apiHost: this.apiHost,
-      weiAmount: this.weiAmount,
-      tokenAddress: this.tokenAddress,
-      tokenAmount: this.tokenAmount,
-      tokenId: this.tokenId,
-      expirationTime: this.expirationTime,
-      version: this.version,
-      chainId: this.version,
-      linkKey: this.linkKey,
-      masterAddress: this.masterAddress,
-      receiverAddress,
-      linkdropSignerSignature: this.linkdropSignerSignature,
-      factoryAddress: this.factoryAddress,
-      campaignId: this.campaignId,
-      type: this.type
-    })
+    // return await claimLink({
+    //   apiHost: this.apiHost,
+    //   weiAmount: this.weiAmount,
+    //   tokenAddress: this.tokenAddress,
+    //   tokenAmount: this.tokenAmount,
+    //   tokenId: this.tokenId,
+    //   expirationTime: this.expirationTime,
+    //   version: this.version,
+    //   chainId: this.version,
+    //   linkKey: this.linkKey,
+    //   masterAddress: this.masterAddress,
+    //   receiverAddress,
+    //   linkdropSignerSignature: this.linkdropSignerSignature,
+    //   factoryAddress: this.factoryAddress,
+    //   campaignId: this.campaignId,
+    //   type: this.type
+    // })
   }
 
   cancel () {

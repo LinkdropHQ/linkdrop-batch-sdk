@@ -1,6 +1,6 @@
-import { TNetworkName } from '../network-name'
+import { TNetworkName } from '../../network-name'
 import { TClaim } from './claim'
-import { TTokenType } from '../token-type'
+import { TTokenType } from '../../token-type'
 import { TDefineTokenType } from './define-token-type'
 
 interface IClaimLink {

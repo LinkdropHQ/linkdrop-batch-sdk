@@ -1,4 +1,4 @@
-import { TGenerateLinkArgs } from '../../types/linkdrop-sdk/generate-link'
+import { TGenerateLinkArgs } from '../../types/modules/linkdrop-sdk/generate-link'
 
 export type TGenerateLinkUtil = ({
   factoryAddress,

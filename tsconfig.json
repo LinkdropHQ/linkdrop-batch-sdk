@@ -10,7 +10,9 @@
     "rootDir": "src",
     "inlineSourceMap": true,
     "inlineSources": true,
-    "resolveJsonModule": true
+    "resolveJsonModule": true,
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true
   },
   "include": ["src"],
   "exclude": ["node_modules", "dist"]

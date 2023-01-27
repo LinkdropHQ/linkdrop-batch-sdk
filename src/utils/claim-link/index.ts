@@ -5,36 +5,36 @@ import { getClaimEndpoint } from '../../helpers'
 import axios from 'axios'
 
 export const claimLink: TClaimLink = async ({
-  apiHost,
-  weiAmount,
-  tokenAddress,
-  tokenAmount,
-  tokenId,
-  expirationTime,
+  wei_amount,
+  token_address,
+  token_amount,
+  token_id,
+  expiration_time,
+  chain_id,
+  link_key,
+  api_host,
   version,
-  chainId,
-  linkKey,
-  masterAddress,
-  linkdropSignerSignature,
-  receiverAddress,
-  factoryAddress,
-  campaignId,
+  master_address,
+  linkdrop_signer_signature,
+  receiver_address,
+  factory_address,
+  campaign_id,
   type
 }) => {
 
-  if (apiHost === null || apiHost === '') {
+  if (api_host === null || api_host === '') {
     throw new Error('Please provide api host')
   }
 
-  if (weiAmount === null || weiAmount === '') {
+  if (wei_amount === null || wei_amount === '') {
     throw new Error('Please provide amount of eth to claim')
   }
 
-  if (tokenAddress === null || tokenAddress === '') {
+  if (token_address === null || token_address === '') {
     throw new Error('Please provide ERC20 token address')
   }
 
-  if (expirationTime === null || expirationTime === '') {
+  if (expiration_time === null || expiration_time === '') {
     throw new Error('Please provide expiration time')
   }
 
@@ -42,82 +42,82 @@ export const claimLink: TClaimLink = async ({
     throw new Error('Please provide mastercopy version ')
   }
 
-  if (chainId === null || chainId === '') {
+  if (chain_id === null || chain_id === '') {
     throw new Error('Please provide chain id')
   }
 
-  if (linkKey === null || linkKey === '') {
+  if (link_key === null || link_key === '' || !link_key) {
     throw new Error('Please provide link key')
   }
 
-  if (masterAddress === null || masterAddress === '') {
+  if (master_address === null || master_address === '') {
     throw new Error('Please provide linkdropMaster address')
   }
 
-  if (linkdropSignerSignature === null || linkdropSignerSignature === '') {
+  if (linkdrop_signer_signature === null || linkdrop_signer_signature === '') {
     throw new Error('Please provide linkdropMaster signature')
   }
 
-  if (receiverAddress === null || receiverAddress === '') {
+  if (receiver_address === null || receiver_address === '') {
     throw new Error('Please provide receiver address')
   }
 
-  if (campaignId === null || campaignId === '') {
+  if (campaign_id === null || campaign_id === '') {
     throw new Error('Please provide campaign id')
   }
 
-  if (factoryAddress === null || factoryAddress === '') {
+  if (factory_address === null || factory_address === '') {
     throw new Error('Please provide factory address')
   }
 
-  const linkId = new ethers.Wallet(linkKey).address
+  const linkId = new ethers.Wallet(link_key).address
 
-  const receiverSignature = await signReceiverAddress(linkKey, receiverAddress)
+  const receiverSignature = await signReceiverAddress(link_key, receiver_address)
 
   let linkData: TLinkData = {
-    weiAmount,
-    expirationTime,
+    weiAmount: wei_amount,
+    expirationTime: expiration_time,
     version,
-    chainId,
+    chainId: chain_id,
     linkId,
-    linkdropMasterAddress: masterAddress,
-    linkdropSignerSignature,
-    receiverAddress,
+    linkdropMasterAddress: master_address,
+    linkdropSignerSignature: linkdrop_signer_signature,
+    receiverAddress: receiver_address,
     receiverSignature,
-    factoryAddress,
-    campaignId
+    factoryAddress: factory_address,
+    campaignId: campaign_id
   }
 
   if (type === 'ERC20') {
-    if (!tokenAmount || tokenAmount === '') {
+    if (!token_amount || token_amount === '') {
       throw new Error('Please provide amount of tokens to claim')
     }
-    linkData.tokenAmount = tokenAmount
-    linkData.tokenAddress = tokenAddress
+    linkData.tokenAmount = token_amount
+    linkData.tokenAddress = token_address
     
   } else if (type === 'ERC721') {
-    if (!tokenId || tokenId === '') {
+    if (!token_id || token_id === '') {
       throw new Error('Please provide token id to claim')
     }
 
-    linkData.tokenId = tokenId
-    linkData.nftAddress = tokenAddress
+    linkData.tokenId = token_id
+    linkData.nftAddress = token_address
     
   } else {
-    if (!tokenAmount || tokenAmount === '') {
+    if (!token_amount || token_amount === '') {
       throw new Error('Please provide amount of tokens to claim')
     }
-    if (!tokenId || tokenId === '') {
+    if (!token_id || token_id === '') {
       throw new Error('Please provide token id to claim')
     }
 
-    linkData.tokenAmount = tokenAmount
-    linkData.tokenId = tokenId
-    linkData.nftAddress = tokenAddress
+    linkData.tokenAmount = token_amount
+    linkData.tokenId = token_id
+    linkData.nftAddress = token_address
   }
 
   const response = await axios.post(
-    `${apiHost}/api/v1/linkdrops/${getClaimEndpoint(type)}`,
+    `${api_host}/api/v1/linkdrops/${getClaimEndpoint(type)}`,
     linkData
   )
 

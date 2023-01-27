@@ -1,4 +1,4 @@
-import { TTokenType } from '../../token-type'
+import { TTokenType } from '../../../token-type'
 
 export type TGenerateLinkArgs = {
   signer: string,

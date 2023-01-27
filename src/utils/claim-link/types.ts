@@ -1,20 +1,14 @@
 import { TTokenType } from '../../types/token-type'
+import TLinkParams from '../../types/link-params'
 
 type TClaimLinkArgs = {
-  apiHost: string
-  weiAmount: string
-  tokenAddress: string
-  tokenAmount?: string
-  tokenId?: string
-  expirationTime: string
+  api_host: string
   version: string
-  chainId: string
-  linkKey: string
-  masterAddress: string
-  linkdropSignerSignature: string
-  receiverAddress: string
-  factoryAddress: string
-  campaignId: string
+  master_address: string
+  linkdrop_signer_signature: string
+  receiver_address: string
+  factory_address: string
+  campaign_id: string
   type: TTokenType
 }
 
@@ -25,22 +19,22 @@ type TClaimLinkResult = {
 }
 
 export type TClaimLink = ({
-  apiHost,
-  weiAmount,
-  tokenAddress,
-  tokenAmount,
-  tokenId,
-  expirationTime,
+  wei_amount,
+  token_address,
+  token_amount,
+  token_id,
+  expiration_time,
+  chain_id,
+  link_key,
+  api_host,
   version,
-  chainId,
-  linkKey,
-  masterAddress,
-  linkdropSignerSignature,
-  receiverAddress,
-  factoryAddress,
-  campaignId,
+  master_address,
+  linkdrop_signer_signature,
+  receiver_address,
+  factory_address,
+  campaign_id,
   type
-}: TClaimLinkArgs) => Promise<TClaimLinkResult>
+}: (TLinkParams & TClaimLinkArgs)) => Promise<TClaimLinkResult>
 
 export type TLinkData = {
   weiAmount: string

@@ -1,35 +1,62 @@
 import { ILinkdropSDK, TNetworkName } from '../../types'
-import { getLinkParams } from '../../helpers'
+import { getLinkParams, getLinkStatus } from '../../helpers'
+import Campaign from '../campaign'
+import TApiKey from '../../types/api-key'
+import { campaignsApi } from '../../api'
+import {
+  testnetsApiUrl,
+  apiUrl
+} from '../../configs'
 
 class LinkdropSDK implements ILinkdropSDK {
-  apiKey: string
+  apiKey: TApiKey
   chain: TNetworkName
   encryptionKey?: string
   apiHost: string
 
-  async initialization () {
-    // const provider = new ethers.providers.JsonRpcProvider(this.jsonRPCUrl)
-    // const { chainId }: { chainId: number} = await provider.getNetwork()
-
-    // this.chain = getChainName(chainId)
-    // const contract = contracts[String(chainId)]
-    // const {
-    //   factoryAddress = contract.factory,
-    //   apiHost = contract.apiHost,
-    //   claimHost = contract.claimHost
-    // } = this.options
-  }
-
   constructor ({
     apiKey,
-    chain,
-    encryptionKey,
     apiHost
+  }: {
+    apiKey: TApiKey,
+    apiHost?: string
   }) {
     this.apiKey = apiKey
-    this.chain = chain
-    this.encryptionKey = encryptionKey
-    this.apiHost = apiHost
+    if (apiHost) {
+      this.apiHost = apiHost
+    } else {
+      this.apiHost = apiKey.key.includes('TEST') ? testnetsApiUrl : apiUrl
+    }
+  }
+
+  async getCampaign (
+    campaignId: string,
+    signerKey: string,
+    encryptionKey: string
+  ) {
+    try {
+      const campaignData = await campaignsApi.getCampaign(
+        this.apiHost,
+        campaignId,
+        this.apiKey
+      )
+      const { data } = campaignData
+      if (data) {
+        const { campaign } = data
+        return new Campaign(
+          campaignId,
+          signerKey,
+          encryptionKey,
+          campaign,
+          this.apiKey,
+          this.apiHost
+        )
+      }
+    } catch (err) {
+      console.error({
+        err
+      })
+    }
   }
 
   async redeem (
@@ -55,7 +82,14 @@ class LinkdropSDK implements ILinkdropSDK {
   async getLinkParams (
     linkId
   ) {
-    return await getLinkParams(linkId)
+    const linkParams = await getLinkParams(linkId)
+    return linkParams
+  }
+
+  async getLinkStatus (
+    linkId
+  ) {
+    return await getLinkStatus(linkId)
   }
 
   async getVersion (

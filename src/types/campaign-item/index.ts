@@ -1,9 +1,10 @@
-import { TTokenType } from '../../types'
+import { TTokenType } from '..'
 
-type TCampaign = {
+type TCampaignItem = {
   title: string,
   chain_id: number,
   campaign_number: string,
+  campaign_id: string,
   token_address: string,
   token_standard: TTokenType,
   symbol: string,
@@ -14,10 +15,7 @@ type TCampaign = {
   sponsored?: boolean,
   batch_description: string,
   creator_address: string,
-  created_at?: string,
-  // claim_pattern: TClaimPattern,
-  sdk: boolean,
-  proxy_contract_version: string | number
+  created_at?: string
 }
 
-export default TCampaign
+export default TCampaignItem
