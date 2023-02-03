@@ -17,8 +17,8 @@ const contracts: TContracts = {
   } // pol
 }
 
-export const apiUrl = 'https://dev.dashboard-api.linkdrop.io/api/v1/dashboard'
-export const testnetsApiUrl = 'https://dev.dashboard-api.linkdrop.io/api/v1/dashboard'
+export const apiUrl = 'https://dev.dashboard-api.linkdrop.io/api/v1'
+export const testnetsApiUrl = 'https://dev.dashboard-api.linkdrop.io/api/v1'
 
 export const polygonJSONRPCUrl = 'https://rpc-mainnet.maticvigil.com/v1/ad4cd2ea018ddb1ccd0418ffa43c27b3d99fbd55'
 export const mainnetJSONRPCUrl = 'https://mainnet.infura.io/v3/620c738fbe1843a18f47ada0e60e738a'

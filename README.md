@@ -3,14 +3,58 @@
 ## Initialize SDK
 ```ts
 const sdk = new LinkdropSDK({
- // required params
- apiKey: "XXXXXXX",  // starts with "TEST-" for dev environments
- chain: "polygon" | "mainnet",  // required
+ // required param
+ // key starts with "TEST-CLIENT-XXXXXX" for dev environments
+ apiKey: { key: XXXXXX, mode: "client"}, // apiKey: { key: XXXXXX, mode: "server"}, 	 
 
- // optional params
- encryptionKey: "" // optional parameter
- apiHost: "https://dev.dashboard-api.linkdrop.io" // overrides api host 
+ // optional param
+ apiHost: "https://dev.dashboard-api.linkdrop.io", // overrides api host
+ claimApiUrl: 'https://staging.claim.ledger.com' // api that will be used as prefix for claim links
 })
+```
+
+### Campaign Methods
+
+#### Get Campaign
+```js
+const campaign = await sdk.getCampaign(campaignId, signerKey, encryptionKey) 
+```
+
+#### Create Batch 
+```js
+const batch = await campaign.createBatch([{ 
+		id: "1", 
+		amount: "3", 
+		links: "100", 
+		weiAmount: "1000",
+	}], { sponsored = true }) 
+```
+
+#### Get Batches 
+```js
+const batches = await campaign.getBatches()
+```
+
+#### Get Batch 
+```js
+const batch = await campaign.getBatch(batchId) 
+```
+
+
+### Batch methods
+#### Add Links
+```js
+const links = await batch.addLinks([{ 
+		id: "1", 
+		amount: "3", 
+		links: "100", 
+		weiAmount: "1000",
+	}]) 
+```
+
+#### Get Links
+```js
+const links = await batch.getLinks() 
 ```
 
 ## Claim methods
@@ -18,8 +62,6 @@ const sdk = new LinkdropSDK({
 ```js
 const { txHash, recipient } = await sdk.redeem(code, destination)
 ```
-API endpoints: 
- - https://github.com/LinkdropHQ/dashboard-api-docs/blob/main/api-linkdrop-campaigns.md#get-userclaim-paramslink_id
 
 #### Deactivate Link
 ```js
@@ -33,7 +75,6 @@ const success = await sdk.reactivate(linkId)
 ```js
 const linkParams = await sdk.getLinkParams(linkId)
 ```
-API end-point https://github.com/LinkdropHQ/dashboard-api-docs/blob/main/api-linkdrop-campaigns.md#get-dashboardlinkdropcampaignscampaign_idbatchesbatch_id-jwt
 
 #### Get Link Status
 ```js

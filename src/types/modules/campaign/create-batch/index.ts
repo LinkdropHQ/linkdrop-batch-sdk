@@ -1,5 +1,6 @@
+import TLinkItem from "../../../link-item"
+import TBatchItem from "../../../batch-item"
 import TAsset from "../../../asset"
-import TBatchItem from "../../batch"
 
 type TCreateBatch = (
   links: TAsset[],
@@ -8,7 +9,7 @@ type TCreateBatch = (
   campaign_id: string,
   creator_address: string,
   batch: TBatchItem,
-  claim_links: TAsset[]
+  claim_links: TLinkItem[]
 } | void>
 
 export default TCreateBatch

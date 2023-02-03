@@ -7,7 +7,6 @@ import { signLinkERC20 } from './sign-link-erc20'
 import { signLinkERC721 } from './sign-link-erc721'
 import { signLinkERC1155 } from './sign-link-erc1155'
 import { signReceiverAddress } from './sign-receiver-address'
-import { claimLink } from './claim-link'
 import { cancelLink } from './cancel-link'
 import { createLinkERC1155 } from './create-link-erc1155'
 import { createLinkERC721 } from './create-link-erc721'
@@ -22,7 +21,6 @@ export {
   signLinkERC721,
   signLinkERC1155,
   signReceiverAddress,
-  claimLink,
   cancelLink,
   createLinkERC1155,
   createLinkERC721,

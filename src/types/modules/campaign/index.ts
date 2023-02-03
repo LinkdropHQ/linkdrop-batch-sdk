@@ -8,6 +8,7 @@ type ICampaign = {
   campaignId: string
   signerKey: string
   encryptionKey: string
+  claimAppUrl: string,
   apiKey: TApiKey
   apiHost: string
   getBatches: TGetBatches,

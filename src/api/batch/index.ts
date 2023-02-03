@@ -1,6 +1,6 @@
-import axios, { AxiosResponse } from 'axios'
-import { apiUrl } from '../../configs'
+import axios from 'axios'
 import { TRequests } from './types'
+import { defineRequestKeyHeader } from '../../helpers'
 
 const requests: TRequests = {
   getBatches: (
@@ -8,11 +8,8 @@ const requests: TRequests = {
     apiKey,
     campaignId
   ) => {
-    const headers = {}
-    headers[
-      apiKey.mode === 'client' ? 'x-api-key' : 'x-secret-key'
-    ] = apiKey.key
-    return axios.get(`${apiHost}/linkdrop/campaigns/${campaignId}/batches`, {
+    const headers = defineRequestKeyHeader(apiKey)
+    return axios.get(`${apiHost}/dashboard/linkdrop/campaigns/${campaignId}/batches`, {
       headers,
     })
   },
@@ -22,11 +19,8 @@ const requests: TRequests = {
     campaignId,
     batchId
   ) => {
-    const headers = {}
-    headers[
-      apiKey.mode === 'client' ? 'x-api-key' : 'x-secret-key'
-    ] = apiKey.key
-    return axios.get(`${apiHost}/linkdrop/campaigns/${campaignId}/batches/${batchId}`, {
+    const headers = defineRequestKeyHeader(apiKey)
+    return axios.get(`${apiHost}/dashboard/linkdrop/campaigns/${campaignId}/batches/${batchId}`, {
       headers,
     })
   },
@@ -38,14 +32,25 @@ const requests: TRequests = {
     sponsored,
     batchDescription
   ) => {
-    const headers = {}
-    headers[
-      apiKey.mode === 'client' ? 'x-api-key' : 'x-secret-key'
-    ] = apiKey.key
-    return axios.post(`${apiHost}/linkdrop/campaigns/${campaignId}/save-batch`, {
+    const headers = defineRequestKeyHeader(apiKey)
+    return axios.post(`${apiHost}/dashboard/linkdrop/campaigns/${campaignId}/save-batch`, {
       claim_links: claimLinks,
       sponsored,
       batch_description: batchDescription
+    }, {
+      headers
+    })
+  },
+  addLinks: (
+    apiHost,
+    apiKey,
+    campaignId,
+    batchId,
+    claimLinks,
+  ) => {
+    const headers = defineRequestKeyHeader(apiKey)
+    return axios.post(`${apiHost}/dashboard/linkdrop/campaigns/${campaignId}/batches/${batchId}/add-links `, {
+      claim_links: claimLinks
     }, {
       headers
     })

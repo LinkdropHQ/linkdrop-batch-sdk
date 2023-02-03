@@ -9,8 +9,8 @@ import { TGetCampaign } from './get-campaign'
 import TApiKey from '../../api-key'
 
 interface ILinkdropSDK {
-  apiKey: TApiKey
   chain: TNetworkName
+  apiKey: TApiKey
   apiHost: string
   redeem: TRedeem,
   deactivate: TDeactivate,

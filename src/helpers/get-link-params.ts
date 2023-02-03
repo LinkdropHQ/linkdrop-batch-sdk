@@ -1,14 +1,20 @@
 import { ethers } from 'ethers'
 import { linkApi } from '../api'
 import { AxiosError } from 'axios'
-import { TLinkParams } from '../types'
+import { TLinkParams, TApiKey } from '../types'
 
 const getLinkParams = async (
+  apiHost: string,
+  apiKey: TApiKey,
   linkId: string
 ) => {
   try {
     // 
-    const linkParams = await linkApi.getParams(linkId)
+    const linkParams = await linkApi.getParams(
+      apiHost,
+      apiKey,
+      linkId
+    )
     const { success, data } = linkParams.data
     if (success) {
       const {

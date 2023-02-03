@@ -8,8 +8,8 @@ type TGetCampaignResponse = {
 
 export type TGetCampaign = (
   apiHost: string,
+  apiKey: TApiKey,
   campaignId: string,
-  apiKey: TApiKey
 ) => Promise<
   AxiosResponse<
     TGetCampaignResponse

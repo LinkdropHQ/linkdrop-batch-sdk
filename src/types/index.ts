@@ -1,4 +1,4 @@
-import { ILinkdropSDK, ICampaign, IClaimLink, IBatch } from './modules'
+import { ILinkdropSDK, ICampaign, IBatch } from './modules'
 import  { TNetworkName } from './network-name'
 import { TTokenType } from './token-type'
 import { TLinkdropSigner } from './linkdrop-signer'
@@ -23,7 +23,6 @@ export {
   TNetworkName,
   TTokenType,
   TLinkdropSigner,
-  IClaimLink,
   ICampaign,
   TClaimPattern,
   TLinkParams,

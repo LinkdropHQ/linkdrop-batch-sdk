@@ -1,8 +1,7 @@
 import { ethers } from 'ethers'
 import { TSignReceiverAddress } from './types'
 
-export const signReceiverAddress: TSignReceiverAddress = async (linkKey, receiverAddress) => {
-  const wallet = new ethers.Wallet(linkKey)
+export const signReceiverAddress: TSignReceiverAddress = async (wallet, receiverAddress) => {
   const messageHash = ethers.utils.solidityKeccak256(
     ['address'],
     [receiverAddress]

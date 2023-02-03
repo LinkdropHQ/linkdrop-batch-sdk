@@ -19,7 +19,12 @@ type TCreateBatchResponse = {
   campaign_id: string,
   creator_address: string,
   batch: TBatchItem,
-  claimLinks: TLinkItem[]
+  claim_links: TLinkItem[]
+}
+
+type TAddLinksResponse = {
+  success: boolean
+  saved_claim_links: TLinkItem[]
 }
 
 export type TGetBatches = (
@@ -56,8 +61,21 @@ export type TCreateBatch = (
   >
 >
 
+export type TAddLinks = (
+  apiHost: string,
+  apiKey: TApiKey,
+  campaignId: string,
+  batchId: string,
+  claimLinks: TLinkItem[]
+) => Promise<
+  AxiosResponse<
+    TAddLinksResponse
+  >
+>
+
 export type TRequests = {
   getBatches: TGetBatches,
   getBatch: TGetBatch,
-  createBatch: TCreateBatch
+  createBatch: TCreateBatch,
+  addLinks: TAddLinks
 }

@@ -2,7 +2,9 @@ import {
   ICampaign,
   TCampaignItem,
   TAsset,
-  TApiKey
+  TApiKey,
+  TBatchItem,
+  TLinkItem
 } from '../../types'
 import TGetBatches from '../../types/modules/campaign/get-batches'
 import TGetBatch from '../../types/modules/campaign/get-batch'
@@ -18,21 +20,25 @@ class Campaign implements ICampaign {
   encryptionKey: string
   apiKey: TApiKey
   apiHost: string
+  claimAppUrl: string
 
   constructor (
-    campaign_id: string,
-    signer_key: string,
-    encryption_key: string,
+    campaignId: string,
+    signerKey: string,
+    encryptionKey: string,
     data: TCampaignItem,
+    claimAppUrl: string,
     apiKey: TApiKey,
     apiHost: string
   ) {
-    this.campaignId = campaign_id
-    this.signerKey = signer_key
-    this.encryptionKey = encryption_key
+    this.campaignId = campaignId
+    this.signerKey = signerKey
+    this.encryptionKey = encryptionKey
     this.data = data
+    this.claimAppUrl = claimAppUrl
     this.apiKey = apiKey
     this.apiHost = apiHost
+    
   }
 
   getBatches: TGetBatches = async () => {
@@ -65,9 +71,7 @@ class Campaign implements ICampaign {
         this.apiHost,
         this.apiKey,
         this.campaignId,
-        
-        batchId,
-        
+        batchId
       )
       const { data } = campaignData
       if (data) {
@@ -76,7 +80,12 @@ class Campaign implements ICampaign {
           batchId,
           batch,
           claim_links,
-          this.apiKey
+          this.encryptionKey,
+          this.claimAppUrl,
+          this.data,
+          this.signerKey,
+          this.apiKey,
+          this.apiHost
         )
       }
     } catch (err) {
@@ -107,7 +116,7 @@ class Campaign implements ICampaign {
         this.data.chain_id
       )
       if (!transformedAssets) { return alert('Error with assets') }
-      batchesApi.createBatch(
+      const response = await batchesApi.createBatch(
         this.apiHost,
         this.apiKey,
         this.data.campaign_id,
@@ -115,6 +124,20 @@ class Campaign implements ICampaign {
         options.sponsored,
         options.batchDescription
       )
+      if (response.data) {
+        const {
+          campaign_id,
+          creator_address,
+          claim_links,
+          batch
+        } = response.data
+        return {
+          batch,
+          campaign_id,
+          creator_address,
+          claim_links
+        } 
+      }
     } catch (err) {
       console.error({
         err

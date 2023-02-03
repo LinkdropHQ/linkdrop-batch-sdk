@@ -1,4 +1,6 @@
+import { ethers } from 'ethers'
+
 export type TSignReceiverAddress = (
-  linkKey: string,
+  wallet: ethers.Wallet,
   receiverAddress: string
 ) => Promise<string>

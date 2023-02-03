@@ -1,18 +1,15 @@
 import axios from 'axios'
 import { TRequests } from './types'
+import { defineRequestKeyHeader } from '../../helpers'
 
 const requests: TRequests = {
   getCampaign: (
     apiHost,
-    campaignId,
-    apiKey
+    apiKey,
+    campaignId
   ) => {
-    const headers = {}
-    headers[
-      apiKey.mode === 'client' ? 'x-api-key' : 'x-secret-key'
-    ] = apiKey.key
-    
-    return axios.get(`${apiHost}/linkdrop/campaigns/${campaignId}`, {
+    const headers = defineRequestKeyHeader(apiKey)
+    return axios.get(`${apiHost}/dashboard/linkdrop/campaigns/${campaignId}`, {
       headers
     })
   }

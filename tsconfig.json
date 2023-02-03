@@ -2,18 +2,17 @@
   "compilerOptions": {
     "declaration": true,
     "strictNullChecks": true,
-    "target": "es5", 
+    "target": "es2015", 
     "outDir": "dist",
     "module": "commonjs",
     "moduleResolution": "node",
-    "lib": ["es2015", "dom"],
+    "lib": ["es2017", "dom"],
     "rootDir": "src",
-    "inlineSourceMap": true,
     "inlineSources": true,
     "resolveJsonModule": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true
-  },
-  "include": ["src"],
-  "exclude": ["node_modules", "dist"]
+    "allowSyntheticDefaultImports": true,
+    "declarationMap": true,
+    "sourceMap": true
+  }
 }

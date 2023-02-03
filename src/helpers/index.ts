@@ -8,9 +8,13 @@ import getContractVersion from './get-contract-version'
 import defineNetworkName from './define-network-name'
 import defineJSONRpcUrl from './define-json-rpc-url'
 import prepareAssets from './prepare-assets'
+import defineRequestKeyHeader from './define-request-key-header'
+import constructLink from './construct-link'
+import redeemLink from './redeem-link'
 
 export {
   getChainId,
+  constructLink,
   parseLinkParams,
   getClaimEndpoint,
   getChainName,
@@ -19,5 +23,7 @@ export {
   getContractVersion,
   defineJSONRpcUrl,
   defineNetworkName,
-  prepareAssets
+  prepareAssets,
+  defineRequestKeyHeader,
+  redeemLink
 }

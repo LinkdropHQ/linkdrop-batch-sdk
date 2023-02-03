@@ -1,8 +1,8 @@
 import { ILinkdropSDK, TNetworkName } from '../../types'
-import { getLinkParams, getLinkStatus } from '../../helpers'
+import { getLinkParams, getLinkStatus, redeemLink } from '../../helpers'
 import Campaign from '../campaign'
 import TApiKey from '../../types/api-key'
-import { campaignsApi } from '../../api'
+import { campaignsApi, linkApi } from '../../api'
 import {
   testnetsApiUrl,
   apiUrl
@@ -13,15 +13,19 @@ class LinkdropSDK implements ILinkdropSDK {
   chain: TNetworkName
   encryptionKey?: string
   apiHost: string
+  claimApiUrl: string
 
   constructor ({
     apiKey,
-    apiHost
+    apiHost,
+    claimApiUrl
   }: {
     apiKey: TApiKey,
-    apiHost?: string
+    apiHost?: string,
+    claimApiUrl?: string
   }) {
     this.apiKey = apiKey
+    this.claimApiUrl = claimApiUrl || ''
     if (apiHost) {
       this.apiHost = apiHost
     } else {
@@ -37,8 +41,8 @@ class LinkdropSDK implements ILinkdropSDK {
     try {
       const campaignData = await campaignsApi.getCampaign(
         this.apiHost,
-        campaignId,
-        this.apiKey
+        this.apiKey,
+        campaignId
       )
       const { data } = campaignData
       if (data) {
@@ -48,6 +52,7 @@ class LinkdropSDK implements ILinkdropSDK {
           signerKey,
           encryptionKey,
           campaign,
+          this.claimApiUrl,
           this.apiKey,
           this.apiHost
         )
@@ -62,60 +67,76 @@ class LinkdropSDK implements ILinkdropSDK {
   async redeem (
     code, destination
   ) {
-    return {
-      txHash: '', recipient: ''
-    }
+    return await redeemLink(
+      code,
+      destination,
+      this.apiHost,
+      this.apiKey
+    )
   }
 
   async reactivate (
     linkId
   ) {
-    return true
+    try {
+      const linkData = await linkApi.reactivateLink(
+        this.apiHost,
+        this.apiKey,
+        linkId
+      )
+      const { data } = linkData
+      if (data) {
+        const { success } = data
+        return success
+      }
+    } catch (err) {
+      console.error({
+        err
+      })
+    }
+    
   }
 
   async deactivate (
     linkId
   ) {
-    return true
+    try {
+      const linkData = await linkApi.deactivateLink(
+        this.apiHost,
+        this.apiKey,
+        linkId
+      )
+      const { data } = linkData
+      if (data) {
+        const { success } = data
+        return success
+      }
+    } catch (err) {
+      console.error({
+        err
+      })
+    }
   }
 
   async getLinkParams (
     linkId
   ) {
-    const linkParams = await getLinkParams(linkId)
-    return linkParams
+    return await getLinkParams(
+      this.apiHost,
+      this.apiKey,
+      linkId
+    )
   }
 
   async getLinkStatus (
     linkId
   ) {
-    return await getLinkStatus(linkId)
+    return await getLinkStatus(
+      linkId,
+      this.apiHost,
+      this.apiKey
+    )
   }
-
-  async getVersion (
-    // masterAddress: string, campaignId: string
-  ) {
-    // const version = this.versions[campaignId]
-    // if (version) return version
-    // const factoryContract = await new ethers.Contract(this.factoryAddress, LinkdropFactory.abi, this.provider)
-    // this.versions[campaignId] = await factoryContract.getProxyMasterCopyVersion(masterAddress, campaignId)
-    // return this.versions[campaignId]
-  }
-
-  getProxyAddress = (
-    // {
-    //   campaignId,
-    //   masterAddress // wallet of user where tokens are located
-    // }
-  ) => {
-    // return computeProxyAddress(
-    //   this.factoryAddress,
-    //   masterAddress,
-    //   campaignId
-    // )
-  }
-
-
 }
 
 export default LinkdropSDK

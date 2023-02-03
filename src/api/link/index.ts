@@ -1,22 +1,63 @@
-import axios, { AxiosResponse } from 'axios'
-import { apiUrl } from '../../configs'
+import axios from 'axios'
 import { TRequests } from './types'
-
-const linkApi = axios.create({
-  baseURL: apiUrl
-})
+import { defineRequestKeyHeader } from '../../helpers'
 
 const requests: TRequests = {
   getParams: (
-    linkId: string,
+    apiHost,
+    apiKey,
+    linkId,
   ) => {
-    return linkApi.get(`/user/claim-params/${linkId}`, {
-      withCredentials: true
+    const headers = defineRequestKeyHeader(apiKey)
+    return axios.get(`${apiHost}/user/claim-params/${linkId}`, {
+      headers
     })
   },
-  getStatus: (linkId: string) => linkApi.get(`/user/claim-status/${linkId}`, {
-    withCredentials: true
-  })
+  getStatus: (
+    apiHost,
+    apiKey,
+    linkId
+  ) => {
+    const headers = defineRequestKeyHeader(apiKey)
+    return axios.get(`${apiHost}/user/claim-links/${linkId}/status`, {
+      headers
+    })
+  },
+  deactivateLink: (
+    apiHost,
+    apiKey,
+    linkId
+  ) => {
+    const headers = defineRequestKeyHeader(apiKey)
+    return axios.post(`${apiHost}/dashboard/linkdrop/claim-links/${linkId}/deactivate`, {}, {
+      headers
+    })
+  },
+  reactivateLink: (
+    apiHost,
+    apiKey,
+    linkId
+  ) => {
+    const headers = defineRequestKeyHeader(apiKey)
+    return axios.post(`${apiHost}/dashboard/linkdrop/claim-links/${linkId}/reactivate`, {}, {
+      headers
+    })
+  },
+  redeemLink: (
+    apiHost,
+    apiKey,
+    linkId,
+    receiverAddress,
+    receiverSignature
+  ) => {
+    const headers = defineRequestKeyHeader(apiKey)
+    return axios.post(`${apiHost}/user/claim-links/${linkId}/claim`, {
+      receiver_address: receiverAddress,
+      receiver_signature: receiverSignature
+    }, {
+      headers
+    })
+  }
 }
 
 export default requests

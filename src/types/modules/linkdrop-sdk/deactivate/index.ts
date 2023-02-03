@@ -1,1 +1,1 @@
-export type TDeactivate = (linkId: string) => Promise<boolean>
+export type TDeactivate = (linkId: string) => Promise<boolean | void>
