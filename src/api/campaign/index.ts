@@ -9,7 +9,7 @@ const requests: TRequests = {
     campaignId
   ) => {
     const headers = defineRequestKeyHeader(apiKey)
-    return axios.get(`${apiHost}/dashboard/linkdrop/campaigns/${campaignId}`, {
+    return axios.get(`${apiHost}/api/v1/dashboard/linkdrop/campaigns/${campaignId}`, {
       headers
     })
   }
