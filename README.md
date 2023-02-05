@@ -68,11 +68,11 @@ const batch = await campaign.getBatch(
 #### Add Links
 ```ts
 const links = await batch.addLinks([{ 
-    id: string, 
-    amount: string, 
-    links: string, 
-    weiAmount: string,
-  }]) 
+  id: string, 
+  amount: string, 
+  links: string, 
+  weiAmount: string,
+}]) 
 ```
 
 #### Get Links
