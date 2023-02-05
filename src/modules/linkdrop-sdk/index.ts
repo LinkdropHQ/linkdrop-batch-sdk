@@ -7,6 +7,7 @@ import {
   testnetsApiUrl,
   apiUrl
 } from '../../configs'
+import { AxiosError } from 'axios'
 
 class LinkdropSDK implements ILinkdropSDK {
   apiKey: TApiKey
@@ -57,7 +58,7 @@ class LinkdropSDK implements ILinkdropSDK {
           this.apiHost
         )
       }
-    } catch (err) {
+    } catch (err: any | AxiosError) {
       console.error({
         err
       })
@@ -67,12 +68,24 @@ class LinkdropSDK implements ILinkdropSDK {
   async redeem (
     code, destination
   ) {
-    return await redeemLink(
-      code,
-      destination,
-      this.apiHost,
-      this.apiKey
-    )
+    try {
+      const result = await redeemLink(
+        code,
+        destination,
+        this.apiHost,
+        this.apiKey
+      )
+      if (!result) {
+        throw new Error('Link claim failed')
+      }
+      return {
+        txHash: result.tx_hash,
+        recipient: destination
+      }
+    } catch (err: any | AxiosError) {
+      console.error(err)
+    }
+    
   }
 
   async reactivate (
@@ -89,7 +102,7 @@ class LinkdropSDK implements ILinkdropSDK {
         const { success } = data
         return success
       }
-    } catch (err) {
+    } catch (err: any | AxiosError) {
       console.error({
         err
       })
@@ -111,7 +124,7 @@ class LinkdropSDK implements ILinkdropSDK {
         const { success } = data
         return success
       }
-    } catch (err) {
+    } catch (err: any | AxiosError) {
       console.error({
         err
       })
@@ -131,11 +144,28 @@ class LinkdropSDK implements ILinkdropSDK {
   async getLinkStatus (
     linkId
   ) {
-    return await getLinkStatus(
-      linkId,
-      this.apiHost,
-      this.apiKey
-    )
+    try {
+      const result = await getLinkStatus(
+        linkId,
+        this.apiHost,
+        this.apiKey
+      )
+      if (!result) {
+        throw new Error('Get link status failed')
+      }
+      return {
+        txHash: result.tx_hash,
+        recipient: result.recipient,
+        status: result.status,
+        claimedAtBlock: result.claimed_at_block,
+        createdAt: result.created_at,
+        linkId: result.link_id
+      }
+    } catch (err: any | AxiosError) {
+      console.error({
+        err
+      })
+    }
   }
 }
 

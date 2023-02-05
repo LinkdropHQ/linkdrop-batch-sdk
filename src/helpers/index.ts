@@ -9,10 +9,12 @@ import defineJSONRpcUrl from './define-json-rpc-url'
 import prepareAssets from './prepare-assets'
 import defineRequestKeyHeader from './define-request-key-header'
 import redeemLink from './redeem-link'
+import getBignumberInterval from './get-bignumber-interval'
 
 export {
   getChainId,
   parseLinkParams,
+  getBignumberInterval,
   getChainName,
   getLinkParams,
   getLinkStatus,

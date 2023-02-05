@@ -101,7 +101,7 @@ class Campaign implements ICampaign {
       sponsored: boolean,
       batchDescription: string
     } = {
-      sponsored: false,
+      sponsored: true,
       batchDescription: 'Created by SDK'
     }
   ) => {

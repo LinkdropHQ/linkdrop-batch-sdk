@@ -1,7 +1,6 @@
 import { ethers } from 'ethers'
 import { linkApi } from '../api'
-import { AxiosError } from 'axios'
-import { TApiKey, TLinkParams, TLinkStatus } from '../types'
+import { TApiKey } from '../types'
 import { signReceiverAddress } from '../utils'
 
 const redeemLink = async (
@@ -10,23 +9,18 @@ const redeemLink = async (
   apiHost: string,
   apiKey: TApiKey,
 ) => {
-  try {
-    const wallet = new ethers.Wallet(linkKey)
-    const receiverSignature = await signReceiverAddress(wallet, receiverAddress)
-    const claimLink = await linkApi.redeemLink(
-      apiHost,
-      apiKey,
-      wallet.address,
-      receiverAddress,
-      receiverSignature
-    )
-    if (claimLink.data) {
-      const { data } = claimLink.data
-      return data
-    }
-
-  } catch (err: any | AxiosError) {
-    console.error(err)
+  const wallet = new ethers.Wallet(linkKey)
+  const receiverSignature = await signReceiverAddress(wallet, receiverAddress)
+  const claimLink = await linkApi.redeemLink(
+    apiHost,
+    apiKey,
+    wallet.address,
+    receiverAddress,
+    receiverSignature
+  )
+  if (claimLink.data) {
+    const { data } = claimLink.data
+    return data
   }
 }
 

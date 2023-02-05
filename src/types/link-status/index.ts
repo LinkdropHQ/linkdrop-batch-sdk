@@ -1,1 +1,1 @@
-export type TLinkStatus = "claimed" | "cancelled" | "created"
+export type TLinkStatus = "CREATED" | "CLAIMED" | "FAILED" | "DEACTIVATED" | "CAMPAIGN_PAUSED" | "CAMPAIGN_STOPPED" | "EXPIRED"

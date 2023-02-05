@@ -1,1 +1,4 @@
-export type TRedeem = (code: string, destination: string) => Promise<{ tx_hash: string } | void>
+export type TRedeem = (code: string, destination: string) => Promise<{
+  txHash: string,
+  recipient: string
+} | void>
