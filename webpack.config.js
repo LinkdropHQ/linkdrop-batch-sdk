@@ -1,15 +1,15 @@
 const path = require('path')
-const TypescriptDeclarationPlugin = require('typescript-declaration-webpack-plugin')
 
 module.exports = {
-  mode: "development",
-  devtool: "inline-source-map",
+  mode: "production",
   entry: "./src/index.ts",
+  target: "node",
   output: {
     filename: "index.js",
     path: path.resolve(__dirname, 'dist'),
     library: "LinkdropSDK",
-    libraryTarget: "umd"
+    libraryTarget: "umd",
+    globalObject: "this"
   },
   resolve: {
     // Add `.ts` and `.tsx` as a resolvable extension.
@@ -26,13 +26,8 @@ module.exports = {
       // all files with a `.ts`, `.cts`, `.mts` or `.tsx` extension will be handled by `ts-loader`
       {
         test: /\.([cm]?ts|tsx)$/,
-        use: ["babel-loader", "ts-loader"]
+        use: "babel-loader"
       }
     ]
-  },
-  plugins: [
-    new TypescriptDeclarationPlugin({
-      out: 'index.d.ts'
-    })
-  ]
+  }
 }
