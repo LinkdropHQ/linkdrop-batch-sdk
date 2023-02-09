@@ -1,14 +1,13 @@
 import { linkApi } from '../api'
-import { TApiKey } from '../types'
 
 const getLinkStatus = async (
   linkId: string,
   apiHost: string,
-  apiKey: TApiKey
+  campaignSig: string
 ) => {
   const linkStatus = await linkApi.getStatus(
     apiHost,
-    apiKey,
+    campaignSig,
     linkId
   )
   if (linkStatus.data) {

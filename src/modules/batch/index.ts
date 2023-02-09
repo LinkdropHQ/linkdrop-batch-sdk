@@ -1,4 +1,4 @@
-import { IBatch, TApiKey, TBatchItem, TLinkItem, TCampaignItem } from '../../types'
+import { IBatch, TBatchItem, TLinkItem, TCampaignItem } from '../../types'
 import TAddLinks from '../../types/modules/batch/add-links'
 import TGetLinks from '../../types/modules/batch/get-links'
 import { crypto } from '../../utils'
@@ -9,7 +9,7 @@ class Batch implements IBatch {
   data: TBatchItem
   batchId: string
   claimLinks?: TLinkItem[]
-  apiKey: TApiKey
+  campaignSig: string
   encryptionKey: string
   apiHost: string
   claimAppUrl: string
@@ -24,13 +24,13 @@ class Batch implements IBatch {
     claimAppUrl: string,
     campaignData: TCampaignItem,
     signerKey: string,
-    apiKey: TApiKey,
+    campaignSig: string,
     apiHost: string
   ) {
     this.batchId = batchId
     this.data = data
     this.claimLinks = claimLinks
-    this.apiKey = apiKey
+    this.campaignSig = campaignSig
     this.encryptionKey = encryptionKey
     this.apiHost = apiHost
     this.claimAppUrl = claimAppUrl
@@ -52,7 +52,7 @@ class Batch implements IBatch {
       if (!transformedAssets) { return alert('Error with assets') }
       return await batchesApi.addLinks(
         this.apiHost,
-        this.apiKey,
+        this.campaignSig,
         this.campaignData.campaign_id,
         this.batchId,
         transformedAssets

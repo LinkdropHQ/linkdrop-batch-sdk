@@ -5,34 +5,34 @@ import { defineRequestKeyHeader } from '../../helpers'
 const requests: TRequests = {
   getBatches: (
     apiHost,
-    apiKey,
+    campaignSig,
     campaignId
   ) => {
-    const headers = defineRequestKeyHeader(apiKey)
+    const headers = defineRequestKeyHeader(campaignSig)
     return axios.get(`${apiHost}/api/v1/dashboard/linkdrop/campaigns/${campaignId}/batches`, {
       headers,
     })
   },
   getBatch: (
     apiHost,
-    apiKey,
+    campaignSig,
     campaignId,
     batchId
   ) => {
-    const headers = defineRequestKeyHeader(apiKey)
+    const headers = defineRequestKeyHeader(campaignSig)
     return axios.get(`${apiHost}/api/v1/dashboard/linkdrop/campaigns/${campaignId}/batches/${batchId}`, {
       headers,
     })
   },
   createBatch: (
     apiHost,
-    apiKey,
+    campaignSig,
     campaignId,
     claimLinks,
     sponsored,
     batchDescription
   ) => {
-    const headers = defineRequestKeyHeader(apiKey)
+    const headers = defineRequestKeyHeader(campaignSig)
     return axios.post(`${apiHost}/api/v1/dashboard/linkdrop/campaigns/${campaignId}/save-batch`, {
       claim_links: claimLinks,
       sponsored,
@@ -43,12 +43,12 @@ const requests: TRequests = {
   },
   addLinks: (
     apiHost,
-    apiKey,
+    campaignSig,
     campaignId,
     batchId,
     claimLinks,
   ) => {
-    const headers = defineRequestKeyHeader(apiKey)
+    const headers = defineRequestKeyHeader(campaignSig)
     return axios.post(`${apiHost}/api/v1/dashboard/linkdrop/campaigns/${campaignId}/batches/${batchId}/add-links `, {
       claim_links: claimLinks
     }, {

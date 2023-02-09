@@ -10,10 +10,12 @@ import prepareAssets from './prepare-assets'
 import defineRequestKeyHeader from './define-request-key-header'
 import redeemLink from './redeem-link'
 import getBignumberInterval from './get-bignumber-interval'
+import defineCampaignSig from './define-campaign-sig'
 
 export {
   getChainId,
   parseLinkParams,
+  defineCampaignSig,
   getBignumberInterval,
   getChainName,
   getLinkParams,

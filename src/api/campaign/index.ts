@@ -5,10 +5,10 @@ import { defineRequestKeyHeader } from '../../helpers'
 const requests: TRequests = {
   getCampaign: (
     apiHost,
-    apiKey,
+    campaignSig,
     campaignId
   ) => {
-    const headers = defineRequestKeyHeader(apiKey)
+    const headers = defineRequestKeyHeader(campaignSig)
     return axios.get(`${apiHost}/api/v1/dashboard/linkdrop/campaigns/${campaignId}`, {
       headers
     })

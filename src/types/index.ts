@@ -11,7 +11,6 @@ import TBatchItem from './batch-item'
 import TLinkItem from './link-item'
 import TAsset from './asset'
 import TCreateLinkResult from './create-link-result'
-import TApiKey from './api-key'
 import TLinkParsed from './parsed-link'
 import { TLinkStatusResult } from './link-status-result'
 
@@ -20,7 +19,6 @@ export {
   TLinkStatusResult,
   TLinkParsed,
   TLinkItem,
-  TApiKey,
   TCampaignItem,
   TBatchItem,
   TLinkStatus,

@@ -5,52 +5,52 @@ import { defineRequestKeyHeader } from '../../helpers'
 const requests: TRequests = {
   getParams: (
     apiHost,
-    apiKey,
+    campaignSig,
     linkId,
   ) => {
-    const headers = defineRequestKeyHeader(apiKey)
+    const headers = defineRequestKeyHeader(campaignSig)
     return axios.get(`${apiHost}/api/v1/user/claim-params/${linkId}`, {
       headers
     })
   },
   getStatus: (
     apiHost,
-    apiKey,
+    campaignSig,
     linkId
   ) => {
-    const headers = defineRequestKeyHeader(apiKey)
+    const headers = defineRequestKeyHeader(campaignSig)
     return axios.get(`${apiHost}/api/v1/user/claim-links/${linkId}/status`, {
       headers
     })
   },
   deactivateLink: (
     apiHost,
-    apiKey,
+    campaignSig,
     linkId
   ) => {
-    const headers = defineRequestKeyHeader(apiKey)
+    const headers = defineRequestKeyHeader(campaignSig)
     return axios.post(`${apiHost}/api/v1/dashboard/linkdrop/claim-links/${linkId}/deactivate`, {}, {
       headers
     })
   },
   reactivateLink: (
     apiHost,
-    apiKey,
+    campaignSig,
     linkId
   ) => {
-    const headers = defineRequestKeyHeader(apiKey)
+    const headers = defineRequestKeyHeader(campaignSig)
     return axios.post(`${apiHost}/api/v1/dashboard/linkdrop/claim-links/${linkId}/reactivate`, {}, {
       headers
     })
   },
   redeemLink: (
     apiHost,
-    apiKey,
+    campaignSig,
     linkId,
     receiverAddress,
     receiverSignature
   ) => {
-    const headers = defineRequestKeyHeader(apiKey)
+    const headers = defineRequestKeyHeader(campaignSig)
     return axios.post(`${apiHost}/api/v1/user/claim-links/${linkId}/claim`, {
       receiver_address: receiverAddress,
       receiver_signature: receiverSignature

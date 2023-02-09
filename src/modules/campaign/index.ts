@@ -2,25 +2,23 @@ import {
   ICampaign,
   TCampaignItem,
   TAsset,
-  TApiKey,
-  TBatchItem,
-  TLinkItem
 } from '../../types'
 import TGetBatches from '../../types/modules/campaign/get-batches'
 import TGetBatch from '../../types/modules/campaign/get-batch'
-import { batchesApi } from '../../api'
+import { linkApi, batchesApi } from '../../api'
 import Batch from '../batch'
 import TCreateBatch from '../../types/modules/campaign/create-batch'
-import { prepareAssets } from '../../helpers'
+import { prepareAssets, getLinkParams, getLinkStatus, redeemLink } from '../../helpers'
+import { AxiosError } from 'axios'
 
 class Campaign implements ICampaign {
   data: TCampaignItem
   campaignId: string
   signerKey: string
   encryptionKey: string
-  apiKey: TApiKey
   apiHost: string
   claimAppUrl: string
+  campaignSig: string
 
   constructor (
     campaignId: string,
@@ -28,7 +26,7 @@ class Campaign implements ICampaign {
     encryptionKey: string,
     data: TCampaignItem,
     claimAppUrl: string,
-    apiKey: TApiKey,
+    campaignSig: string,
     apiHost: string
   ) {
     this.campaignId = campaignId
@@ -36,16 +34,15 @@ class Campaign implements ICampaign {
     this.encryptionKey = encryptionKey
     this.data = data
     this.claimAppUrl = claimAppUrl
-    this.apiKey = apiKey
     this.apiHost = apiHost
-    
+    this.campaignSig = campaignSig
   }
 
   getBatches: TGetBatches = async () => {
     try {
       const campaignData = await batchesApi.getBatches(
         this.apiHost,
-        this.apiKey,
+        this.campaignSig,
         this.campaignId
       )
       const { data } = campaignData
@@ -69,7 +66,7 @@ class Campaign implements ICampaign {
     try {
       const campaignData = await batchesApi.getBatch(
         this.apiHost,
-        this.apiKey,
+        this.campaignSig,
         this.campaignId,
         batchId
       )
@@ -84,7 +81,7 @@ class Campaign implements ICampaign {
           this.claimAppUrl,
           this.data,
           this.signerKey,
-          this.apiKey,
+          this.campaignSig,
           this.apiHost
         )
       }
@@ -118,7 +115,7 @@ class Campaign implements ICampaign {
       if (!transformedAssets) { return alert('Error with assets') }
       const response = await batchesApi.createBatch(
         this.apiHost,
-        this.apiKey,
+        this.campaignSig,
         this.data.campaign_id,
         transformedAssets,
         options.sponsored,
@@ -139,6 +136,109 @@ class Campaign implements ICampaign {
         } 
       }
     } catch (err) {
+      console.error({
+        err
+      })
+    }
+  }
+
+  async redeem (
+    code, destination
+  ) {
+    try {
+      const result = await redeemLink(
+        code,
+        destination,
+        this.apiHost,
+        this.campaignSig
+      )
+      if (!result) {
+        throw new Error('Link claim failed')
+      }
+      return {
+        txHash: result.tx_hash,
+        recipient: destination
+      }
+    } catch (err: any | AxiosError) {
+      console.error(err)
+    }
+    
+  }
+
+  async reactivate (
+    linkId
+  ) {
+    try {
+      const linkData = await linkApi.reactivateLink(
+        this.apiHost,
+        this.campaignSig,
+        linkId
+      )
+      const { data } = linkData
+      if (data) {
+        const { success } = data
+        return success
+      }
+    } catch (err: any | AxiosError) {
+      console.error({
+        err
+      })
+    }
+    
+  }
+
+  async deactivate (
+    linkId
+  ) {
+    try {
+      const linkData = await linkApi.deactivateLink(
+        this.apiHost,
+        this.campaignSig,
+        linkId
+      )
+      const { data } = linkData
+      if (data) {
+        const { success } = data
+        return success
+      }
+    } catch (err: any | AxiosError) {
+      console.error({
+        err
+      })
+    }
+  }
+
+  async getLinkParams (
+    linkId
+  ) {
+    return await getLinkParams(
+      this.apiHost,
+      this.campaignSig,
+      linkId
+    )
+  }
+
+  async getLinkStatus (
+    linkId
+  ) {
+    try {
+      const result = await getLinkStatus(
+        linkId,
+        this.apiHost,
+        this.campaignSig
+      )
+      if (!result) {
+        throw new Error('Get link status failed')
+      }
+      return {
+        txHash: result.tx_hash,
+        recipient: result.recipient,
+        status: result.status,
+        claimedAtBlock: result.claimed_at_block,
+        createdAt: result.created_at,
+        linkId: result.link_id
+      }
+    } catch (err: any | AxiosError) {
       console.error({
         err
       })

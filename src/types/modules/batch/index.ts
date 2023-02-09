@@ -1,7 +1,7 @@
 import TAddLinks from './add-links'
 import TGetLinks from './get-links'
 
-import { TApiKey, TLinkItem, TBatchItem } from '../..'
+import { TLinkItem, TBatchItem } from '../..'
 
 interface IBatch {
   data: TBatchItem
@@ -9,7 +9,7 @@ interface IBatch {
   batchId: string
   encryptionKey: string
   claimAppUrl: string
-  apiKey: TApiKey
+  campaignSig: string
   apiHost: string
   addLinks: TAddLinks
   getLinks: TGetLinks

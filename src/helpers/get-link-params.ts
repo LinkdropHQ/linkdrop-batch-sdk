@@ -1,16 +1,14 @@
-import { ethers } from 'ethers'
 import { linkApi } from '../api'
-import { AxiosError } from 'axios'
-import { TLinkParams, TApiKey } from '../types'
+import { TLinkParams } from '../types'
 
 const getLinkParams = async (
   apiHost: string,
-  apiKey: TApiKey,
+  campaignSig: string,
   linkId: string
 ) => {
   const linkParams = await linkApi.getParams(
     apiHost,
-    apiKey,
+    campaignSig,
     linkId
   )
   const { success, data } = linkParams.data

@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios'
-import { TBatchItem, TLinkItem, TApiKey } from '../../types'
+import { TBatchItem, TLinkItem } from '../../types'
 
 type TGetBatchesResponse = {
   success: boolean
@@ -29,7 +29,7 @@ type TAddLinksResponse = {
 
 export type TGetBatches = (
   apiHost: string,
-  apiKey: TApiKey,
+  campaignSig: string,
   campaignId: string
 ) => Promise<
   AxiosResponse<
@@ -39,7 +39,7 @@ export type TGetBatches = (
 
 export type TGetBatch = (
   apiHost: string,
-  apiKey: TApiKey,
+  campaignSig: string,
   campaignId: string,
   batchId: string
 ) => Promise<
@@ -50,7 +50,7 @@ export type TGetBatch = (
 
 export type TCreateBatch = (
   apiHost: string,
-  apiKey: TApiKey,
+  campaignSig: string,
   campaignId: string,
   claimLinks: TLinkItem[],
   sponsored: boolean,
@@ -63,7 +63,7 @@ export type TCreateBatch = (
 
 export type TAddLinks = (
   apiHost: string,
-  apiKey: TApiKey,
+  campaignSig: string,
   campaignId: string,
   batchId: string,
   claimLinks: TLinkItem[]

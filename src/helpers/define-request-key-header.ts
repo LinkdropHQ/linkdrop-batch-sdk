@@ -1,11 +1,9 @@
-import { TApiKey } from "../types"
-
-type TDefineRequestKeyHeader = (apiKey: TApiKey) => Record<string, string>
-const defineRequestKeyHeader: TDefineRequestKeyHeader = (apiKey) => {
+type TDefineRequestKeyHeader = (campaignSig: string) => Record<string, string>
+const defineRequestKeyHeader: TDefineRequestKeyHeader = (campaignSig) => {
   const headers = {}
   headers[
-    apiKey.mode === 'client' ? 'x-api-key' : 'x-secret-key'
-  ] = apiKey.key
+    'X-CAMPAIGN-KEY'
+  ] = campaignSig
   return headers
 }
 

@@ -3,14 +3,10 @@
 ## Initialize SDK
 ```ts
 const sdk = new LinkdropSDK({
- // required params
-  apiKey: {
-    key: string, // key starts with "TEST-CLIENT-XXXXXX" for dev environments
-    mode: "client" | "server"
-  },
- // optional params
- apiHost: string, // overrides api host
- claimApiUrl: string // api url that will be used as prefix for claim links
+  // optional params
+  mode: 'testnets', // for goerli and mumbai networks
+  apiHost: string, // overrides defulat api host
+  claimApiUrl: string // api url that will be used as prefix for claim links
 })
 ```
 
@@ -83,7 +79,7 @@ const links = await batch.getLinks() // array of links with linkId for each link
 ## Claim methods
 #### Redeem Link
 ```ts
-const { txHash, recipient } = await sdk.redeem(
+const { txHash, recipient } = await campaign.redeem(
   code: string, // linkKey parameter from claim link url
   destination: string // recipient of tokens
 )
@@ -91,26 +87,26 @@ const { txHash, recipient } = await sdk.redeem(
 
 #### Deactivate Link
 ```ts
-const success = await sdk.deactivate(
+const success = await campaign.deactivate(
   linkId: string // id of link
 )
 ```
 #### Reactivate Link
 ```ts
-const success = await sdk.reactivate(
+const success = await campaign.reactivate(
   linkId: string // id of link
 ) 
 ```
 #### Get Link Params
 ```js
-const linkParams = await sdk.getLinkParams(
+const linkParams = await campaign.getLinkParams(
   linkId: string // id of link
 )
 ```
 
 #### Get Link Status
 ```js
-const linkParams = await sdk.getLinkStatus(linkId)
+const linkParams = await campaign.getLinkStatus(linkId)
 const	{ 
   status, // "CREATED", "PENDING", "CLAIMED", "FAILED", "DEACTIVATED", "EXPIRED"
   recipient, // Ethereum address 

@@ -1,5 +1,5 @@
 import { AxiosResponse } from 'axios'
-import { TCampaignItem, TApiKey } from '../../types'
+import { TCampaignItem } from '../../types'
 
 type TGetCampaignResponse = {
   success: boolean
@@ -8,7 +8,7 @@ type TGetCampaignResponse = {
 
 export type TGetCampaign = (
   apiHost: string,
-  apiKey: TApiKey,
+  campaignSig: string,
   campaignId: string,
 ) => Promise<
   AxiosResponse<
