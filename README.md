@@ -45,7 +45,7 @@ const batch = await campaign.createBatch(
     sponsored: boolean, // if set to true claim will be paid by campaign creator. Default: true
     batchDescription: string // description of batch. Default: 'Created by SDK'
   }
-) 
+)
 ```
 
 #### Get Batches 
