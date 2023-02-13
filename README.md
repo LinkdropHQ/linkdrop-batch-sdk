@@ -3,6 +3,8 @@
 ## Initialize SDK
 ```ts
 import LinkdropSDK from 'linkdrop-sdk'
+// or
+// const LinkdropSDK = require('linkdrop-sdk').default
 
 const sdk = new LinkdropSDK({
   // optional params
