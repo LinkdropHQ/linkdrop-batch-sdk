@@ -2,6 +2,8 @@
 
 ## Initialize SDK
 ```ts
+import LinkdropSDK from 'linkdrop-sdk'
+
 const sdk = new LinkdropSDK({
   // optional params
   mode: 'testnets', // for goerli and mumbai networks
