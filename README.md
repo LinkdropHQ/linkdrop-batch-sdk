@@ -83,7 +83,7 @@ const links = await batch.getLinks() // array of links with linkId for each link
 ## Claim methods
 #### Redeem Link
 ```ts
-const { txHash, recipient } = await campaign.redeem(
+const { txHash, recipient } = await sdk.redeem(
   code: string, // linkKey parameter from claim link url
   destination: string // recipient of tokens
 )
@@ -103,14 +103,14 @@ const success = await campaign.reactivate(
 ```
 #### Get Link Params
 ```js
-const linkParams = await campaign.getLinkParams(
+const linkParams = await sdk.getLinkParams(
   linkId: string // id of link
 )
 ```
 
 #### Get Link Status
 ```js
-const linkParams = await campaign.getLinkStatus(linkId)
+const linkParams = await sdk.getLinkStatus(linkId)
 const	{ 
   status, // "CREATED", "PENDING", "CLAIMED", "FAILED", "DEACTIVATED", "EXPIRED"
   recipient, // Ethereum address 
