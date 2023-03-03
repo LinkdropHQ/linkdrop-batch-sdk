@@ -3,10 +3,11 @@ import { linkApi } from '../api'
 import { signReceiverAddress } from '../utils'
 
 const redeemLink = async (
-  linkKey: string,
+  code: string,
   receiverAddress: string,
   apiHost: string
 ) => {
+  const linkKey = ethers.utils.id(code)
   const wallet = new ethers.Wallet(linkKey)
   const receiverSignature = await signReceiverAddress(wallet, receiverAddress)
   const claimLink = await linkApi.redeemLink(

@@ -1,12 +1,16 @@
 import { linkApi } from '../api'
+import { ethers } from 'ethers'
 
 const getLinkStatus = async (
-  linkId: string,
+  claimCode: string,
   apiHost: string
 ) => {
+  const linkKey = ethers.utils.id(claimCode)
+  const wallet = new ethers.Wallet(linkKey)
+
   const linkStatus = await linkApi.getStatus(
     apiHost,
-    linkId
+    wallet.address
   )
   if (linkStatus.data) {
     const { data } = linkStatus.data

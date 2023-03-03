@@ -1,3 +1,3 @@
 import { TLinkParams } from "../../.."
 
-export type TGetLinkParams = (linkId: string) => Promise<TLinkParams | void>
+export type TGetLinkParams = (claimCode: string) => Promise<TLinkParams | void>

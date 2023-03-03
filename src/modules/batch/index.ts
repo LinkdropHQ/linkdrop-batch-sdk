@@ -82,9 +82,11 @@ class Batch implements IBatch {
     }
     return this.claimLinks.map(link => {
       const encryptedClaimCode = link.encrypted_claim_code
+      const claimCode = crypto.decrypt(encryptedClaimCode, this.encryptionKey)
       return {
         linkId: link.link_id,
-        claimLink: `${this.claimAppUrl}/#/claim/${crypto.decrypt(encryptedClaimCode, this.encryptionKey)}`
+        claimCode,
+        claimLink: `${this.claimAppUrl}/#/claim/${claimCode}`
       }
     })
   }

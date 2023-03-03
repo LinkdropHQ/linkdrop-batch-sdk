@@ -1,3 +1,3 @@
 import { TLinkStatusResult } from '../../../index'
 
-export type TGetLinkStatus = (linkId: string) => Promise<TLinkStatusResult | undefined>
+export type TGetLinkStatus = (claimCode: string) => Promise<TLinkStatusResult | undefined>

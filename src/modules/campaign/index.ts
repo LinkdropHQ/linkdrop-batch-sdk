@@ -10,6 +10,7 @@ import Batch from '../batch'
 import TCreateBatch from '../../types/modules/campaign/create-batch'
 import { prepareAssets } from '../../helpers'
 import { AxiosError } from 'axios'
+import { ethers } from 'ethers'
 
 class Campaign implements ICampaign {
   data: TCampaignItem
@@ -149,18 +150,17 @@ class Campaign implements ICampaign {
     }
   }
 
-  createLink () {
-
-  }
-
   async reactivate (
-    linkId
+    claimCode
   ) {
     try {
+      const linkKey = ethers.utils.id(claimCode)
+      const wallet = new ethers.Wallet(linkKey)
+
       const linkData = await linkApi.reactivateLink(
         this.apiHost,
         this.campaignSig,
-        linkId
+        wallet.address
       )
       const { data } = linkData
       if (data) {
@@ -176,13 +176,16 @@ class Campaign implements ICampaign {
   }
 
   async deactivate (
-    linkId
+    claimCode
   ) {
     try {
+      const linkKey = ethers.utils.id(claimCode)
+      const wallet = new ethers.Wallet(linkKey)
+  
       const linkData = await linkApi.deactivateLink(
         this.apiHost,
         this.campaignSig,
-        linkId
+        wallet.address
       )
       const { data } = linkData
       if (data) {

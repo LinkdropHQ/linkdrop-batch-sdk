@@ -1,13 +1,17 @@
 import { linkApi } from '../api'
 import { TLinkParams } from '../types'
+import { ethers } from 'ethers'
 
 const getLinkParams = async (
   apiHost: string,
-  linkId: string
+  claimCode: string
 ) => {
+  const linkKey = ethers.utils.id(claimCode)
+  const wallet = new ethers.Wallet(linkKey)
+
   const linkParams = await linkApi.getParams(
     apiHost,
-    linkId
+    wallet.address
   )
   const { success, data } = linkParams.data
   if (success) {

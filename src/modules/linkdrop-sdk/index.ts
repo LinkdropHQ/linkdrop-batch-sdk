@@ -8,6 +8,7 @@ import {
 } from '../../configs'
 import { AxiosError } from 'axios'
 import { createLink, computeProxyAddress } from './utils'
+import { TRedeem } from '../../types/modules/linkdrop-sdk/redeem'
 
 class LinkdropSDK implements ILinkdropSDK {
   chain: TNetworkName
@@ -82,12 +83,12 @@ class LinkdropSDK implements ILinkdropSDK {
     }
   }
 
-  async redeem (
-    code, destination
-  ) {
+  redeem: TRedeem = async (
+    claimCode, destination
+  ) => {
     try {
       const result = await redeemLink(
-        code,
+        claimCode,
         destination,
         this.apiHost
       )
@@ -104,20 +105,20 @@ class LinkdropSDK implements ILinkdropSDK {
   }
 
   async getLinkParams (
-    linkId
+    claimCode
   ) {
     return await getLinkParams(
-      linkId,
+      claimCode,
       this.apiHost
     )
   }
 
   async getLinkStatus (
-    linkId
+    claimCode
   ) {
     try {
       const result = await getLinkStatus(
-        linkId,
+        claimCode,
         this.apiHost
       )
       if (!result) {
