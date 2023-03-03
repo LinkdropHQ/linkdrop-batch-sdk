@@ -3,12 +3,10 @@ import { TLinkParams } from '../types'
 
 const getLinkParams = async (
   apiHost: string,
-  campaignSig: string,
   linkId: string
 ) => {
   const linkParams = await linkApi.getParams(
     apiHost,
-    campaignSig,
     linkId
   )
   const { success, data } = linkParams.data

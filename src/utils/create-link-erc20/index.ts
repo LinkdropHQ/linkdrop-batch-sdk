@@ -9,10 +9,14 @@ export const createLinkERC20: TCreateLinkERC20 = async ({
   expirationTime,
   version,
   chainId,
-  proxyAddress
+  proxyAddress,
+  shortCodeLength,
+  shortCodeMixRegister
 }) => {
-  const { address: linkId, privateKey: linkKey } = generateAccount()
-
+  const { address: linkId, privateKey: linkKey, shortCode } = generateAccount(
+    shortCodeLength,
+    shortCodeMixRegister
+  )
   const linkdropSignerSignature = await signLinkERC20({
     linkdropSigner,
     weiAmount,
@@ -28,6 +32,7 @@ export const createLinkERC20: TCreateLinkERC20 = async ({
   return {
     linkKey,
     linkId,
-    linkdropSignerSignature
+    linkdropSignerSignature,
+    shortCode
   }
 }

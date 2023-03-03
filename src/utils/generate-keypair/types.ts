@@ -1,5 +1,5 @@
 type TGenerateKeyPair = () => {
-  privateKey: string
+  privateKey: Uint8Array
   publicKey: string
 }
 

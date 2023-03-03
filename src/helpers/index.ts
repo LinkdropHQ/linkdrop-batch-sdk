@@ -11,6 +11,7 @@ import defineRequestKeyHeader from './define-request-key-header'
 import redeemLink from './redeem-link'
 import getBignumberInterval from './get-bignumber-interval'
 import defineCampaignSig from './define-campaign-sig'
+import prepareAsset from './prepare-asset'
 
 export {
   getChainId,
@@ -25,5 +26,6 @@ export {
   defineNetworkName,
   prepareAssets,
   defineRequestKeyHeader,
-  redeemLink
+  redeemLink,
+  prepareAsset
 }

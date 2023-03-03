@@ -8,7 +8,7 @@ import TGetBatch from '../../types/modules/campaign/get-batch'
 import { linkApi, batchesApi } from '../../api'
 import Batch from '../batch'
 import TCreateBatch from '../../types/modules/campaign/create-batch'
-import { prepareAssets, getLinkParams, getLinkStatus, redeemLink } from '../../helpers'
+import { prepareAssets } from '../../helpers'
 import { AxiosError } from 'axios'
 
 class Campaign implements ICampaign {
@@ -96,10 +96,14 @@ class Campaign implements ICampaign {
     assets: TAsset[],
     options: {
       sponsored: boolean,
-      batchDescription: string
+      batchDescription: string,
+      shortCodeLength: number,
+      shortCodeMixRegister: boolean
     } = {
       sponsored: true,
-      batchDescription: 'Created by SDK'
+      batchDescription: 'Created by SDK',
+      shortCodeLength: 12,
+      shortCodeMixRegister: true
     }
   ) => {
     try {
@@ -110,7 +114,10 @@ class Campaign implements ICampaign {
         this.data.token_standard,
         this.data.token_address,
         this.data.proxy_contract_address,
-        this.data.chain_id
+        this.data.chain_id,
+        this.data.proxy_contract_version,
+        options.shortCodeLength,
+        options.shortCodeMixRegister
       )
       if (!transformedAssets) { return alert('Error with assets') }
       const response = await batchesApi.createBatch(
@@ -133,7 +140,7 @@ class Campaign implements ICampaign {
           campaign_id,
           creator_address,
           claim_links
-        } 
+        }
       }
     } catch (err) {
       console.error({
@@ -142,27 +149,8 @@ class Campaign implements ICampaign {
     }
   }
 
-  async redeem (
-    code, destination
-  ) {
-    try {
-      const result = await redeemLink(
-        code,
-        destination,
-        this.apiHost,
-        this.campaignSig
-      )
-      if (!result) {
-        throw new Error('Link claim failed')
-      }
-      return {
-        txHash: result.tx_hash,
-        recipient: destination
-      }
-    } catch (err: any | AxiosError) {
-      console.error(err)
-    }
-    
+  createLink () {
+
   }
 
   async reactivate (
@@ -207,44 +195,6 @@ class Campaign implements ICampaign {
       })
     }
   }
-
-  async getLinkParams (
-    linkId
-  ) {
-    return await getLinkParams(
-      this.apiHost,
-      this.campaignSig,
-      linkId
-    )
-  }
-
-  async getLinkStatus (
-    linkId
-  ) {
-    try {
-      const result = await getLinkStatus(
-        linkId,
-        this.apiHost,
-        this.campaignSig
-      )
-      if (!result) {
-        throw new Error('Get link status failed')
-      }
-      return {
-        txHash: result.tx_hash,
-        recipient: result.recipient,
-        status: result.status,
-        claimedAtBlock: result.claimed_at_block,
-        createdAt: result.created_at,
-        linkId: result.link_id
-      }
-    } catch (err: any | AxiosError) {
-      console.error({
-        err
-      })
-    }
-  }
-
 }
 
 export default Campaign

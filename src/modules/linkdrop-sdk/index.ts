@@ -1,19 +1,22 @@
-import { ILinkdropSDK, TNetworkName } from '../../types'
-import { defineCampaignSig } from '../../helpers'
+import { ILinkdropSDK, TAsset, TNetworkName, TTokenType } from '../../types'
 import Campaign from '../campaign'
-
+import { defineCampaignSig, getLinkParams, getLinkStatus, redeemLink } from '../../helpers'
 import { campaignsApi, linkApi } from '../../api'
 import {
   testnetsApiUrl,
   apiUrl
 } from '../../configs'
 import { AxiosError } from 'axios'
+import { createLink, computeProxyAddress } from './utils'
 
 class LinkdropSDK implements ILinkdropSDK {
   chain: TNetworkName
-  encryptionKey?: string
   apiHost: string
   claimApiUrl: string
+  utils = {
+    createLink,
+    computeProxyAddress
+  }
 
   constructor ({
     apiHost,
@@ -31,6 +34,8 @@ class LinkdropSDK implements ILinkdropSDK {
       this.apiHost = mode === 'testnets' ? testnetsApiUrl : apiUrl
     }
   }
+
+
 
   createCampaignSig = async (
     campaignId: string,
@@ -69,6 +74,62 @@ class LinkdropSDK implements ILinkdropSDK {
           campaignSig,
           this.apiHost
         )
+      }
+    } catch (err: any | AxiosError) {
+      console.error({
+        err
+      })
+    }
+  }
+
+  async redeem (
+    code, destination
+  ) {
+    try {
+      const result = await redeemLink(
+        code,
+        destination,
+        this.apiHost
+      )
+      if (!result) {
+        throw new Error('Link claim failed')
+      }
+      return {
+        txHash: result.tx_hash,
+        recipient: destination
+      }
+    } catch (err: any | AxiosError) {
+      console.error(err)
+    }
+  }
+
+  async getLinkParams (
+    linkId
+  ) {
+    return await getLinkParams(
+      linkId,
+      this.apiHost
+    )
+  }
+
+  async getLinkStatus (
+    linkId
+  ) {
+    try {
+      const result = await getLinkStatus(
+        linkId,
+        this.apiHost
+      )
+      if (!result) {
+        throw new Error('Get link status failed')
+      }
+      return {
+        txHash: result.tx_hash,
+        recipient: result.recipient,
+        status: result.status,
+        claimedAtBlock: result.claimed_at_block,
+        createdAt: result.created_at,
+        linkId: result.link_id
       }
     } catch (err: any | AxiosError) {
       console.error({

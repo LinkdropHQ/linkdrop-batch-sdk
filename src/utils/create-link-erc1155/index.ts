@@ -10,9 +10,14 @@ export const createLinkERC1155: TCreateLinkERC1155 = async ({
   expirationTime,
   version,
   chainId,
-  proxyAddress
+  proxyAddress,
+  shortCodeLength,
+  shortCodeMixRegister
 }) => {
-  const { address: linkId, privateKey: linkKey } = generateAccount()
+  const { address: linkId, privateKey: linkKey, shortCode } = generateAccount(
+    shortCodeLength,
+    shortCodeMixRegister
+  )
   const linkdropSignerSignature = await signLinkERC1155({
     linkdropSigner,
     weiAmount,
@@ -28,6 +33,7 @@ export const createLinkERC1155: TCreateLinkERC1155 = async ({
   return {
     linkKey, // link's ephemeral private key
     linkId, // address corresponding to link key
-    linkdropSignerSignature // signed by linkdrop verifier
+    linkdropSignerSignature, // signed by linkdrop verifier
+    shortCode
   }
 }

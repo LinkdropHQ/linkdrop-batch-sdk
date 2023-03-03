@@ -17,7 +17,8 @@ const getContractVersion: TGetContractVersion = async (
   }
   const provider = await new ethers.providers.JsonRpcProvider(actualJsonRpcUrl)
   const proxyContract = await new ethers.Contract(proxyContractAddress, LinkdropMastercopy.abi, provider)
-  return String(await proxyContract.version())
+  const version = await proxyContract.version()
+  return String(version)
 
 }
 export default getContractVersion

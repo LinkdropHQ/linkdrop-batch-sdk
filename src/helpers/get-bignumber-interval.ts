@@ -30,9 +30,4 @@ const getBignumberInterval: TGetBigNumberInterval = (initial: string, final: str
   }
 }
 
-console.log({
-  getBignumberInterval
-})
-
-
 export default getBignumberInterval

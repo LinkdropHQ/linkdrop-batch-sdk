@@ -4,7 +4,12 @@ import TAsset from "../../../asset"
 
 type TCreateBatch = (
   links: TAsset[],
-  options?: { sponsored: boolean, batchDescription: string }
+  options?: {
+    sponsored: boolean,
+    batchDescription: string,
+    shortCodeLength: number,
+    shortCodeMixRegister: boolean
+  }
 ) => Promise<{
   campaign_id: string,
   creator_address: string,

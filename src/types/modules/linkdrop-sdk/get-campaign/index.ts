@@ -1,4 +1,3 @@
-import { TTokenType } from '../../../token-type'
 import TCampaign from '../../campaign' 
 
 export type TGetCampaign = (

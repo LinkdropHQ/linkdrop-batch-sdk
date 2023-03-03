@@ -1,7 +1,7 @@
 type TLinkItem = {
   link_id: string
   encrypted_claim_link?: string
-  encrypted_link_key: string
+  encrypted_claim_code: string
   token_id: string
   token_amount: string
   sender_signature : string

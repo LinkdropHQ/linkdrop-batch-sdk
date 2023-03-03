@@ -2,12 +2,10 @@ import { linkApi } from '../api'
 
 const getLinkStatus = async (
   linkId: string,
-  apiHost: string,
-  campaignSig: string
+  apiHost: string
 ) => {
   const linkStatus = await linkApi.getStatus(
     apiHost,
-    campaignSig,
     linkId
   )
   if (linkStatus.data) {

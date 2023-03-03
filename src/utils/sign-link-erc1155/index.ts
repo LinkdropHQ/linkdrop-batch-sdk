@@ -13,18 +13,6 @@ export const signLinkERC1155: TSignLinkERC1155 = async ({
   linkId,
   proxyAddress
 }) => { 
-  console.log({
-    'method': 'signLinkERC1155',
-    weiAmount,
-    tokenAddress,
-    tokenId,
-    tokenAmount: Number(tokenAmount),
-    expirationTime,
-    version,
-    chainId,
-    linkId,
-    proxyAddress
-  })
   const messageHash = ethers.utils.solidityKeccak256(
     ['uint', 'address', 'uint', 'uint', 'uint', 'uint', 'uint', 'address', 'address'],
     [

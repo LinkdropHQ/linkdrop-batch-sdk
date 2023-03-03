@@ -1,5 +1,5 @@
 const defineNetworkName = (chainId: number | null) : string => {
-  switch (chainId) {
+  switch (Number(chainId)) {
     case 1: return 'mainnet'
     case 5: return 'goerli'
     case 137: return 'matic'

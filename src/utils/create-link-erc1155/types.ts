@@ -10,6 +10,8 @@ type TCreateLinkERC1155Args = {
   version: string,
   chainId: number,
   proxyAddress: string
+  shortCodeLength: number
+  shortCodeMixRegister: boolean
 }
 
 export type TCreateLinkERC1155 = ({

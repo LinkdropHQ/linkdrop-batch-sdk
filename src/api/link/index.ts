@@ -5,23 +5,15 @@ import { defineRequestKeyHeader } from '../../helpers'
 const requests: TRequests = {
   getParams: (
     apiHost,
-    campaignSig,
     linkId,
   ) => {
-    const headers = defineRequestKeyHeader(campaignSig)
-    return axios.get(`${apiHost}/api/v1/user/claim-params/${linkId}`, {
-      headers
-    })
+    return axios.get(`${apiHost}/api/v1/user/claim-params/${linkId}`)
   },
   getStatus: (
     apiHost,
-    campaignSig,
     linkId
   ) => {
-    const headers = defineRequestKeyHeader(campaignSig)
-    return axios.get(`${apiHost}/api/v1/user/claim-links/${linkId}/status`, {
-      headers
-    })
+    return axios.get(`${apiHost}/api/v1/user/claim-links/${linkId}/status`)
   },
   deactivateLink: (
     apiHost,
@@ -45,17 +37,13 @@ const requests: TRequests = {
   },
   redeemLink: (
     apiHost,
-    campaignSig,
     linkId,
     receiverAddress,
     receiverSignature
   ) => {
-    const headers = defineRequestKeyHeader(campaignSig)
     return axios.post(`${apiHost}/api/v1/user/claim-links/${linkId}/claim`, {
       receiver_address: receiverAddress,
       receiver_signature: receiverSignature
-    }, {
-      headers
     })
   }
 }

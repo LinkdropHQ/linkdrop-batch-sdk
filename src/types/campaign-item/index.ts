@@ -15,7 +15,8 @@ type TCampaignItem = {
   sponsored?: boolean,
   batch_description: string,
   creator_address: string,
-  created_at?: string
+  created_at?: string,
+  proxy_contract_version: string
 }
 
 export default TCampaignItem

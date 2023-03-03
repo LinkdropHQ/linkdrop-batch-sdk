@@ -38,7 +38,16 @@ class Batch implements IBatch {
     this.signerKey = signerKey
   }
 
-  addLinks: TAddLinks = async (assets) => {
+  addLinks: TAddLinks = async (
+    assets,
+    {
+      shortCodeLength,
+      shortCodeMixRegister
+    } = {
+      shortCodeLength: 12,
+      shortCodeMixRegister: true
+    }
+  ) => {
     try {
       const transformedAssets = await prepareAssets(
         assets,
@@ -47,7 +56,10 @@ class Batch implements IBatch {
         this.campaignData.token_standard,
         this.campaignData.token_address,
         this.campaignData.proxy_contract_address,
-        this.campaignData.chain_id
+        this.campaignData.chain_id,
+        this.campaignData.proxy_contract_version,
+        shortCodeLength,
+        shortCodeMixRegister
       )
       if (!transformedAssets) { return alert('Error with assets') }
       return await batchesApi.addLinks(
@@ -69,10 +81,10 @@ class Batch implements IBatch {
       return []
     }
     return this.claimLinks.map(link => {
-      const encryptedLinkKey = link.encrypted_link_key
+      const encryptedClaimCode = link.encrypted_claim_code
       return {
         linkId: link.link_id,
-        claimLink: `${this.claimAppUrl}/#/claim/${crypto.decrypt(encryptedLinkKey, this.encryptionKey)}`
+        claimLink: `${this.claimAppUrl}/#/claim/${crypto.decrypt(encryptedClaimCode, this.encryptionKey)}`
       }
     })
   }
