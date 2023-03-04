@@ -12,11 +12,14 @@ import LinkdropSDK from 'linkdrop-sdk'
 // or
 // const LinkdropSDK = require('linkdrop-sdk').default
 
-const sdk = new LinkdropSDK({
-  mode: 'testnets',
-  apiHost: string,
-  claimApiUrl: string
-});
+const sdk = new LinkdropSDK(
+  // optional parameters
+  {
+    mode: 'testnets',
+    apiHost: string,
+    claimApiUrl: string
+  }
+);
 ```
 
 The `LinkdropSDK` constructor creates a new instance of the SDK with three optional parameters:
@@ -37,8 +40,8 @@ The `LinkdropSDK` constructor creates a new instance of the SDK with three optio
 ```ts
 const campaign = await sdk.getCampaign(
   campaignId: string,
-  signerKey: string, // signer key decrypted with dashboard key
-  encryptionKey: string // key for link encryption
+  signerKey: string,
+  encryptionKey: string
 )
 // Get all params from the campaign page of the Linkdrop-Dashboard
 ```
@@ -103,7 +106,7 @@ The `getBatches` method takes no parameters.
 #### Get Batch 
 ```ts
 const batch = await campaign.getBatch(
-  batchId: string //id of batch
+  batchId: string
 ) 
 ```
 
@@ -136,7 +139,7 @@ The `addLinks()` method adds a batch of links to the current batch instance. It 
 
 #### Get Links
 ```ts
-const links = await batch.getLinks() // array of links with linkId for each link
+const links = await batch.getLinks()
 ```
 The `getLinks()` method of a Batch instance retrieves an array of all links created for that batch. It returns a Promise that resolves with an array of objects
 
@@ -146,8 +149,8 @@ The `getLinks()` method of a Batch instance retrieves an array of all links crea
 #### Redeem Link
 ```ts
 const { txHash, recipient } = await sdk.redeem(
-  claimCode: string, // claimCode parameter from claim link url
-  destination: string // recipient of tokens
+  claimCode: string,
+  destination: string
 )
 ```
 The `redeem` method is used to redeem a claim link, transferring the specified token or native currency to the recipient address.
@@ -159,7 +162,7 @@ Parameters:
 #### Deactivate Link
 ```ts
 const success = await campaign.deactivate(
-  claimCode: string // claimCode of link
+  claimCode: string
 )
 ```
 This method deactivates a claim link with the provided claim code.
@@ -170,7 +173,7 @@ Parameters:
 #### Reactivate Link
 ```ts
 const success = await campaign.reactivate(
-  claimCode: string // claimCode of link
+  claimCode: string
 ) 
 ```
 This method reactivates a claim link with the provided claim code.
@@ -181,7 +184,7 @@ Parameters:
 #### Get Link Params
 ```ts
 const linkParams = await sdk.getLinkParams(
-  claimCode: string // claimCode of link
+  claimCode: string
 )
 ```
 This method retrieves the link parameters for the claim link with the provided claim code.
@@ -192,7 +195,7 @@ Parameters:
 #### Get Link Status
 ```ts
 const linkStatus= await sdk.getLinkStatus(
-  claimCode: string // claimCode of link
+  claimCode: string
 )
 ```
 This method retrieves the status and other details of a claim link.
@@ -203,12 +206,12 @@ Parameters:
 
 ```ts
 const	{ 
-  status, // "CREATED", "PENDING", "CLAIMED", "FAILED", "DEACTIVATED", "EXPIRED"
-  recipient, // Ethereum address 
-  linkId, // id of link
+  status,
+  recipient,
+  linkId,
   txHash,
-  claimedAt, // UNIX timestamp
-  createdAtBlock, // number of block
+  claimedAt,
+  createdAtBlock,
 } = linkParams
 
 ```
