@@ -1,12 +1,17 @@
 # SDK APIs
 
-# How to Use the Linkdrop SDK
+## How to Use the Linkdrop SDK
 The Linkdrop SDK is a TypeScript library that provides a set of tools for creating and managing linkdrop campaigns on the Ethereum blockchain.
 
 ## Initializing a New Instance
 To initialize a new instance of the Linkdrop SDK, use the following code:
 
-```javascript
+```ts
+
+import LinkdropSDK from 'linkdrop-sdk'
+// or
+// const LinkdropSDK = require('linkdrop-sdk').default
+
 const sdk = new LinkdropSDK({
   mode: 'testnets',
   apiHost: string,
@@ -22,6 +27,8 @@ The `LinkdropSDK` constructor creates a new instance of the SDK with three optio
 
 3. `claimApiUrl`: This parameter specifies the API URL that will be used as a prefix for the claim links. If this parameter is not provided, no prefix will be used.
 
+
+## Methods
 
 ### Campaign Methods
 
@@ -107,7 +114,9 @@ The `getBatch` method takes one parameter:
 
 The `getBatch` method returns a promise that resolves to an instance of the `Batch` class that contains information and methods related to the specified batch. 
 
+
 ### Batch methods
+
 #### Add Links
 ```ts
 const links = await batch.addLinks([{ 
@@ -131,7 +140,9 @@ const links = await batch.getLinks() // array of links with linkId for each link
 ```
 The `getLinks()` method of a Batch instance retrieves an array of all links created for that batch. It returns a Promise that resolves with an array of objects
 
-## Claim methods
+
+### Link methods
+
 #### Redeem Link
 ```ts
 const { txHash, recipient } = await sdk.redeem(
