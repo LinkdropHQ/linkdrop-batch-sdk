@@ -1,26 +1,26 @@
 # SDK APIs
 
 # How to Use the Linkdrop SDK
-The Linkdrop SDK is a JavaScript library that provides a set of tools for creating and managing linkdrop campaigns on the Ethereum blockchain.
+The Linkdrop SDK is a TypeScript library that provides a set of tools for creating and managing linkdrop campaigns on the Ethereum blockchain.
 
 ## Initializing a New Instance
 To initialize a new instance of the Linkdrop SDK, use the following code:
 
 ```javascript
 const sdk = new LinkdropSDK({
-  mode: 'testnets', // for goerli and mumbai networks
-  apiHost: string, // overrides default API host
-  claimApiUrl: string // API URL that will be used as prefix for claim links
+  mode: 'testnets',
+  apiHost: string,
+  claimApiUrl: string
 });
 ```
 
 The `LinkdropSDK` constructor creates a new instance of the SDK with three optional parameters:
 
-1. `mode`: This parameter specifies the mode of operation for the SDK. It can be set to either `mainnet` or `testnets`. If set to `testnets`, it will operate on the Goerli and Mumbai networks.
+1. `mode`: This parameter specifies the mode of operation for the SDK. It can be set to `testnets`. If set to `testnets`, it will operate on the Goerli and Mumbai networks.
 
 2. `apiHost`: This parameter specifies the URL of the API host to use for the SDK. If this parameter is not provided, the default API host will be used.
 
-3. `claimApiUrl`: This parameter specifies the API URL that will be used as a prefix for the claim links. If this parameter is not provided, the default claim API URL will be used.
+3. `claimApiUrl`: This parameter specifies the API URL that will be used as a prefix for the claim links. If this parameter is not provided, no prefix will be used.
 
 
 ### Campaign Methods
@@ -33,7 +33,6 @@ const campaign = await sdk.getCampaign(
   signerKey: string, // signer key decrypted with dashboard key
   encryptionKey: string // key for link encryption
 )
-
 // Get all params from the campaign page of the Linkdrop-Dashboard
 ```
 
@@ -51,23 +50,21 @@ The `getCampaign` method returns a promise that resolves to an object that conta
 
 ```ts
 console.log(campaign.data)
-// campaign id, campaign number, chain id, claim pattern, proxy contract address, title, etc.
-
 ```
 
 #### Create Batch 
 ```ts
 const batch = await campaign.createBatch(
   [{ 
-    id: string, // Token id (needed for ERC721/ERC1155 campaign)
-    amount: string, // Amount of tokens per link (needed for ERC20/ERC1155 campaign)
-    links: string, // Amount of links
-    weiAmount: string, // Amount of native tokens. Should be sent to proxy contract address manually
+    id: string,
+    amount: string,
+    links: string,
+    weiAmount: string
   }],
   // optional parameters
   {
-    sponsored: boolean, // if set to true claim will be paid by campaign creator. Default: true
-    batchDescription: string // description of batch. Default: 'Created by SDK'
+    sponsored: boolean,
+    batchDescription: string
   }
 )
 ```
@@ -105,8 +102,8 @@ const batch = await campaign.getBatch(
 
 The `getBatch` method is a function that is called on a campaign instance to retrieve an instance of the `Batch` class that represents a specific batch associated with the campaign. 
 
-1. The `getBatch` method takes one parameter:
-  * `batchId`: This is a string property that represents the unique identifier for the batch that you want to retrieve information for.
+The `getBatch` method takes one parameter:
+1. `batchId`: This is a string property that represents the unique identifier for the batch that you want to retrieve information for.
 
 The `getBatch` method returns a promise that resolves to an instance of the `Batch` class that contains information and methods related to the specified batch. 
 
