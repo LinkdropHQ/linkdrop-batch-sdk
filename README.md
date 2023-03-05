@@ -27,13 +27,8 @@ import LinkdropSDK from 'linkdrop-sdk'
 ```
 To use SDK on a tesnet:
 ```ts
-// initializing Linkdrop SDK on a testnet 
-const sdk = new LinkdropSDK(
-  // optional parameters
-  {
-    mode: 'testnets' // for Goerli or Mumbai
-  }
-);
+// initializing Linkdrop SDK on a testnet (Goerli or Mumbai)
+const sdk = new LinkdropSDK({ mode: 'testnets' });
 ```
 To use SDK on a production network (Ethereum Mainnet or Polygon): 
 ```ts
