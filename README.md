@@ -41,7 +41,7 @@ const sdk = new LinkdropSDK();
 
 Linkdrop SDK methods divided in two groups:
 - Public methods can be used to create a custom front-end claim application.
-- Private methods can be used to create new claim links, deactivate existing links. To use these powerful methods you need to provide sensitive campaign keys. Never use private methods on the front-end.
+- Private methods can be used to manage campaigns, create new claim links, deactivate existing links and other powerful methods. To use these methods you need to provide sensitive campaign keys. Never use private methods on the front-end.
 
 ### Public methods (For front-end & back-end usage)
 
