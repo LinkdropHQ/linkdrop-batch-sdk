@@ -14,7 +14,6 @@ Testnets:
 We can add support of any EVM-based chain by request. Please contact us If you need to use Linkdrop on other networks. 
 
 ## Getting Started
-To start using SDK, first you need to create a campaign using Linkdrop Dashboard. Refer to documentation for more info.  
 
 
 ## Initializing SDK
@@ -36,7 +35,85 @@ To use SDK on a production network (Ethereum Mainnet or Polygon):
 const sdk = new LinkdropSDK();
 ```
 
-## Managing Campaigns
+### Link methods (Can be used on Front-end & Back-end)
+
+The following methods of SDK can be used both in a back-end and a front-end applications, as they don't require providing sensitive campaign keys to invoke them. 
+
+#### Redeeming Link
+```ts
+const txHash = await sdk.redeem(
+  claimCode: string,
+  destination: string
+)
+```
+The `redeem` method is used to redeem a claim link, transferring the specified tokens to the recipient address.
+
+Parameters:
+1. `claimCode`: The `claimCode` parameter from the claim link URL.
+2. `destination`: The recipient address of the tokens.
+
+The redeem method returns tx hash for the claim transaction. 
+
+#### Getting Link Params
+To get claim link params via claim code:
+```ts
+const linkParams = await sdk.getLinkParams(
+  claimCode: string
+)
+```
+
+To get claim link params via link ID:
+```ts
+const linkParams = await sdk.getLinkParams(
+  linkId: string
+)
+```
+
+**TODO: provide details for linkParams object**
+
+#### Getting Link Status
+To retrieve link status and some other info via claim code:
+```ts
+const	{ 
+  status,
+  recipient,
+  linkId,
+  txHash,
+  claimedAt,
+  createdAtBlock,
+} = await sdk.getLinkStatus(
+  claimCode: string
+)
+```
+You can also retrieve status by link ID as well:
+```ts
+const	{ 
+  status,
+  recipient,
+  linkId,
+  txHash,
+  claimedAt,
+  createdAtBlock,
+} = await sdk.getLinkStatus(
+  linkId: string
+)
+```
+
+Returns an object with the following properties:
+- status: string - The status of the link. Possible values are:
+  - `"CREATED"` - The link has been created but has not yet been claimed.
+  - `"PENDING"` - The link is waiting for the transaction to be confirmed on the blockchain.
+  - `"CLAIMED"` - The link has been successfully claimed.
+  - `"FAILED"` - The claim transaction has failed.
+  - `"DEACTIVATED"` - The link has been deactivated by the campaign creator.
+  - `"EXPIRED"` - The link has expired and can no longer be claimed.
+- recipient: string - The Ethereum address to which the tokens have been sent.
+- linkId: string - The ID of the link.
+- txHash: string - The transaction hash of the claim transaction.
+- claimedAt: number - The UNIX timestamp at which the link was claimed.
+- createdAtBlock: number - The number of the block in which the link was created.
+
+## Managing Campaigns (FOR BACK-END USE ONLY)
 
 **⚠️ IMPORTANT! Managing campaigns requires secret keys that should never be exposed to public. Use campaign methods on a back-end and never within a front-end app.**
 
@@ -175,83 +252,6 @@ const success = await campaign.reactivate(
 Parameters:
 1. `claimCode`: The `claimCode` parameter from the claim link URL.
 
-### Link methods
-
-The following methods of SDK can be used both in a back-end and a front-end applications, as they don't require providing sensitive campaign keys to invoke them. 
-
-#### Redeeming Link
-```ts
-const txHash = await sdk.redeem(
-  claimCode: string,
-  destination: string
-)
-```
-The `redeem` method is used to redeem a claim link, transferring the specified tokens to the recipient address.
-
-Parameters:
-1. `claimCode`: The `claimCode` parameter from the claim link URL.
-2. `destination`: The recipient address of the tokens.
-
-The redeem method returns tx hash for the claim transaction. 
-
-#### Getting Link Params
-To get claim link params via claim code:
-```ts
-const linkParams = await sdk.getLinkParams(
-  claimCode: string
-)
-```
-
-To get claim link params via link ID:
-```ts
-const linkParams = await sdk.getLinkParams(
-  linkId: string
-)
-```
-
-**TODO: provide details for linkParams object**
-
-#### Getting Link Status
-To retrieve link status and some other info via claim code:
-```ts
-const	{ 
-  status,
-  recipient,
-  linkId,
-  txHash,
-  claimedAt,
-  createdAtBlock,
-} = await sdk.getLinkStatus(
-  claimCode: string
-)
-```
-You can also retrieve status by link ID as well:
-```ts
-const	{ 
-  status,
-  recipient,
-  linkId,
-  txHash,
-  claimedAt,
-  createdAtBlock,
-} = await sdk.getLinkStatus(
-  linkId: string
-)
-```
-
-Returns an object with the following properties:
-- status: string - The status of the link. Possible values are:
-  - `"CREATED"` - The link has been created but has not yet been claimed.
-  - `"PENDING"` - The link is waiting for the transaction to be confirmed on the blockchain.
-  - `"CLAIMED"` - The link has been successfully claimed.
-  - `"FAILED"` - The claim transaction has failed.
-  - `"DEACTIVATED"` - The link has been deactivated by the campaign creator.
-  - `"EXPIRED"` - The link has expired and can no longer be claimed.
-- recipient: string - The Ethereum address to which the tokens have been sent.
-- linkId: string - The ID of the link.
-- txHash: string - The transaction hash of the claim transaction.
-- claimedAt: number - The UNIX timestamp at which the link was claimed.
-- createdAtBlock: number - The number of the block in which the link was created.
 
 ## Troubleshooting and getting in touch
 - Join [Linkdrop Community](https://t.me/linkdrophq) in Telegram to chat with the team
