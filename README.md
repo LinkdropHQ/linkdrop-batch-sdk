@@ -35,7 +35,7 @@ To use SDK on a production network (Ethereum Mainnet or Polygon):
 const sdk = new LinkdropSDK();
 ```
 
-### Link methods (Can be used on Front-end & Back-end)
+## Claim methods (Can be used on Front-end & Back-end)
 
 The following methods of SDK can be used both in a back-end and a front-end applications, as they don't require providing sensitive campaign keys to invoke them. 
 
