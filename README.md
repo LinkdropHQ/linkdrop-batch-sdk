@@ -14,7 +14,9 @@ Testnets:
 We can add support of any EVM-based chain by request. Please contact us If you need to use Linkdrop on other networks. 
 
 ## Getting Started
-
+Create a campaign using Linkdrop Dashboard. When creating a campaign you will need to choose how you want to generate links:
+  - Generate claim links via Dashboard interface. 
+  - Generate claim links via Linkdrop SDK (see ["Creating claim links"](README.md#creating-claim-links))
 
 ## Initializing SDK
 
@@ -35,9 +37,15 @@ To use SDK on a production network (Ethereum Mainnet or Polygon):
 const sdk = new LinkdropSDK();
 ```
 
-## Claim methods (Can be used on Front-end & Back-end)
+## Public and private SDK methods
 
-The following methods of SDK can be used both in a back-end and a front-end applications, as they don't require providing sensitive campaign keys to invoke them. 
+Linkdrop SDK methods divided in two groups:
+- Public methods can be used to create a custom front-end claim application.
+- Private methods can be used to create new claim links, deactivate existing links. To use these powerful methods you need to provide sensitive campaign keys. Never use private methods on the front-end.
+
+### Public methods (For front-end & back-end usage)
+
+Public SDK methods can be used both in a back-end and a front-end applications as these methods don't require providing sensitive campaign keys to invoke them. Please note that you still should be careful with `claimCode` as it can be used to claim tokens attached to the link to any address.
 
 #### Redeeming Link
 ```ts
@@ -49,8 +57,8 @@ const txHash = await sdk.redeem(
 The `redeem` method is used to redeem a claim link, transferring the specified tokens to the recipient address.
 
 Parameters:
-1. `claimCode`: The `claimCode` parameter from the claim link URL.
-2. `destination`: The recipient address of the tokens.
+- `claimCode`: The `claimCode` parameter from the claim link URL.
+- `destination`: The recipient address of the tokens.
 
 The redeem method returns tx hash for the claim transaction. 
 
@@ -113,9 +121,13 @@ Returns an object with the following properties:
 - claimedAt: number - The UNIX timestamp at which the link was claimed.
 - createdAtBlock: number - The number of the block in which the link was created.
 
-## Managing Campaigns (FOR BACK-END USE ONLY)
+## Private methods (FOR BACK-END USE ONLY)
 
-**⚠️ IMPORTANT! Managing campaigns requires secret keys that should never be exposed to public. Use campaign methods on a back-end and never within a front-end app.**
+To use private SDK methods, you need to create a campaign via Linkdrop Dashboard first. Refer here for more info. 
+
+### Managing campaigns
+
+**⚠️ IMPORTANT! Private methods to manage campaigns and links require secret keys that should never be exposed to public. Use private methods on a back-end and never within a front-end app.**
 
 After you have created a campaign using Linkdrop Dashboard, you can use SDK to manage the campaign. 
 Using SDK you can: 
@@ -128,7 +140,7 @@ Using SDK you can:
 #### Getting Campaign
 To be able to do all that, first you need to fetch initialize campaign object
 ```ts
-const campaign = await sdk.getCampaign(
+const campaign = await sdk.private.getCampaign(
   campaignId: string,
   signerKey: string,
   encryptionKey: string
@@ -139,8 +151,7 @@ Get all params from the campaign page on Dashboard:
 -  `signerKey`: private key used to create claim links. **(NEVER EXPOSE SIGNER KEY PUBLICLY)**
 -  `encryptionKey`: private key used to encode and decode sensitive data stored on server **(NEVER EXPOSE ENCRYPTION KEY PUBLICLY)**
 
-**⚠️ IMPORTANT! Managing campaigns requires secret keys that should never be exposed to public. Use campaign methods on a back-end and never within a front-end app.**
-
+**⚠️ IMPORTANT! Private methods to manage campaigns and links require secret keys that should never be exposed to public. Use private methods on a back-end and never within a front-end app.**
 
 The returned `campaign` object has campaign data and addtional methods to manage the campaign.   
   
@@ -250,7 +261,7 @@ const success = await campaign.reactivate(
 ```
 
 Parameters:
-1. `claimCode`: The `claimCode` parameter from the claim link URL.
+- `claimCode`: The `claimCode` parameter from the claim link URL.
 
 
 ## Troubleshooting and getting in touch
