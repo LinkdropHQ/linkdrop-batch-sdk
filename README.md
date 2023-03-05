@@ -43,7 +43,7 @@ const sdk = new LinkdropSDK();
 
 ## Managing Campaigns
 
-**IMPORTANT! Managing campaigns requires secret keys that should never be exposed to public. Use campaign methods on a back-end and never within a front-end app.**
+**⚠️ IMPORTANT! Managing campaigns requires secret keys that should never be exposed to public. Use campaign methods on a back-end and never within a front-end app.**
 
 After you have created a campaign using Linkdrop Dashboard, you can use SDK to manage the campaign. 
 Using SDK you can: 
@@ -53,7 +53,7 @@ Using SDK you can:
 - fetch created claim links
 - activate or deactivate links
 
-#### Get Campaign
+#### Getting Campaign
 To be able to do all that, first you need to fetch initialize campaign object
 ```ts
 const campaign = await sdk.getCampaign(
@@ -64,19 +64,23 @@ const campaign = await sdk.getCampaign(
 ```
 Get all params from the campaign page on Dashboard:
 -  `campaignId`: ID of the campaign that you want to retrieve information about.
--  `signerKey`: private key used to create claim links. **NEVER EXPOSE SIGNER KEY PUBLICLY**
--  `encryptionKey`: private key used to encode and decode sensitive data stored on server **NEVER EXPOSE ENCRYPTION KEY PUBLICLY**
+-  `signerKey`: private key used to create claim links. **(NEVER EXPOSE SIGNER KEY PUBLICLY)**
+-  `encryptionKey`: private key used to encode and decode sensitive data stored on server **(NEVER EXPOSE ENCRYPTION KEY PUBLICLY)**
 
-**IMPORTANT! Managing campaigns requires secret keys that should never be exposed to public. Use campaign methods on a back-end and never within a front-end app.**
+**⚠️ IMPORTANT! Managing campaigns requires secret keys that should never be exposed to public. Use campaign methods on a back-end and never within a front-end app.**
 
 
-The `getCampaign` method returns a promise that resolves to an object that contains information about the campaign.  
+The returned `campaign` object has campaign data and addtional methods to manage the campaign.   
+  
 **TODO: provide campaign data details**
 ```ts
 console.log(campaign.data)
 ```
 
-#### Create Batch 
+### Creating claim links
+#### Creating new batch 
+
+To create a batch of claim links for the campaign, use the `campaign.createBatch` method
 ```ts
 const batch = await campaign.createBatch(
   [{ 
@@ -92,49 +96,43 @@ const batch = await campaign.createBatch(
   }
 )
 ```
+It takes two parameters:
+- `linkData`: This is a required array of objects that contain information about the links to be created. Each object in the array must have the following properties:
+  * `id`: token ID for ERC721/ERC1155 campaigns. For ERC20 campaigns, id is not provided.
+  * `amount`: amount of tokens per link for ERC20/ERC1155 campaigns. For ERC721 campaigns, amount is not provided.
+  * `links`: number of links to create.
+  * `weiAmount`: amount of network tokens (ETH/MATIC) to be sent to receiver on claim. Campaign contract should have enough network tokens before claim. Top up the campaign contract in advance manually. 
 
-The `createBatch` method is a function that is called on a campaign instance to create a batch of claim links for the campaign. It takes two parameters:
-
-1. `linkData`: This is a required array of objects that contain information about the links to be created. Each object in the array must have the following properties:
-
-  * `id`: This is a required string property that represents the token ID for ERC721/ERC1155 campaigns. For ERC20 campaigns, this property is not required.
-  * `amount`: This is a required string property that represents the amount of tokens per link for ERC20/ERC1155 campaigns. For ERC721 campaigns, this property is not required.
-  * `links`: This is a required string property that represents the number of links to be created.
-  * `weiAmount`: This is a required string property that represents the amount of native tokens to be sent to the proxy contract address manually.
-
-2. `options`: This is an optional object that can contain the following properties:
+- `options`: This is an optional object that can contain the following properties:
   * `sponsored`: This is an optional boolean property that, if set to `true`, specifies that the claim will be paid by the campaign creator. The default value is `true`.
-  * `batchDescription`: This is an optional string property that specifies the description of the batch. The default value is `"Created by SDK"`.
+  * `batchDescription`: This is an optional string property that specifies the description of the batch. The default value is "Created by SDK".
 
-The `createBatch` method returns a promise that resolves to an object that contains information about the batch.
+The returned `batch` object contains information related to the specified batch and methods to manage it.  
 
+#### Getting Batches 
 
-#### Get Batches 
+To retrieve all batches associated with the campaign, call the `campaign.getBatches` method: 
 ```ts
 const batches = await campaign.getBatches()
 ```
-The `getBatches` method is a function that is called on a campaign instance to retrieve all batches associated with the campaign. 
 
-The `getBatches` method takes no parameters.
+#### Getting Batch 
 
-#### Get Batch 
+To manage a batch, first you need to retrieve it by ID: 
 ```ts
 const batch = await campaign.getBatch(
   batchId: string
 ) 
 ```
-
-The `getBatch` method is a function that is called on a campaign instance to retrieve an instance of the `Batch` class that represents a specific batch associated with the campaign. 
-
-The `getBatch` method takes one parameter:
-1. `batchId`: This is a string property that represents the unique identifier for the batch that you want to retrieve information for.
-
-The `getBatch` method returns a promise that resolves to an instance of the `Batch` class that contains information and methods related to the specified batch. 
+The returned `batch` object contains information related to the specified batch and methods to manage it.  
+**#TODO: provide batch data details**
 
 
 ### Batch methods
 
-#### Add Links
+#### Adding Links to an existing batch
+
+To add claim links to an existing batch, call the `batch.addLinks` method:
 ```ts
 const links = await batch.addLinks([{ 
   id: string, 
@@ -143,7 +141,8 @@ const links = await batch.addLinks([{
   weiAmount: string,
 }]) 
 ```
-The `addLinks()` method adds a batch of links to the current batch instance. It takes an array of link objects as an argument and returns an array of link IDs.
+
+It takes an array of link objects as an argument and returns an array of link IDs. **TODO: link codes?**
 
 1. `links`: An array of link objects that contain the following properties:
   * `id`: The token ID (required for ERC721/ERC1155 campaigns).
@@ -151,73 +150,74 @@ The `addLinks()` method adds a batch of links to the current batch instance. It 
   * `links`: The number of links to be created.
   * `weiAmount`: The amount of native tokens that should be sent to the proxy contract address manually.
 
-#### Get Links
+#### Getting Links
+To fetch all links created for that batch, use the `batch.getLinks` method:
 ```ts
 const links = await batch.getLinks()
 ```
-The `getLinks()` method of a Batch instance retrieves an array of all links created for that batch. It returns a Promise that resolves with an array of objects
 
-
-### Link methods
-
-#### Redeem Link
-```ts
-const { txHash, recipient } = await sdk.redeem(
-  claimCode: string,
-  destination: string
-)
-```
-The `redeem` method is used to redeem a claim link, transferring the specified token or native currency to the recipient address.
-
-Parameters:
-1. `claimCode`: The `claimCode` parameter from the claim link URL.
-2. `destination`: The recipient address of the tokens.
+### Deactivating / reactivating links
 
 #### Deactivate Link
+To deactivate link:
 ```ts
 const success = await campaign.deactivate(
   claimCode: string
 )
 ```
-This method deactivates a claim link with the provided claim code.
 
 Parameters:
-1. `claimCode`: The `claimCode` parameter from the claim link URL.
+ - `claimCode`: The `claimCode` parameter from the claim link URL.
 
 #### Reactivate Link
+To reactivatate previosly deactivated link:
 ```ts
 const success = await campaign.reactivate(
   claimCode: string
 ) 
 ```
-This method reactivates a claim link with the provided claim code.
 
 Parameters:
 1. `claimCode`: The `claimCode` parameter from the claim link URL.
 
-#### Get Link Params
+### Link methods
+
+The following methods of SDK can be used both in a back-end and a front-end applications, as they don't require providing sensitive campaign keys to invoke them. 
+
+#### Redeeming Link
+```ts
+const txHash = await sdk.redeem(
+  claimCode: string,
+  destination: string
+)
+```
+The `redeem` method is used to redeem a claim link, transferring the specified tokens to the recipient address.
+
+Parameters:
+1. `claimCode`: The `claimCode` parameter from the claim link URL.
+2. `destination`: The recipient address of the tokens.
+
+The redeem method returns tx hash for the claim transaction. 
+
+#### Getting Link Params
+To get claim link params via claim code:
 ```ts
 const linkParams = await sdk.getLinkParams(
   claimCode: string
 )
 ```
-This method retrieves the link parameters for the claim link with the provided claim code.
 
-Parameters:
-1. `claimCode`: The `claimCode` parameter from the claim link URL.
-
-#### Get Link Status
+To get claim link params via link ID:
 ```ts
-const linkStatus= await sdk.getLinkStatus(
-  claimCode: string
+const linkParams = await sdk.getLinkParams(
+  linkId: string
 )
 ```
-This method retrieves the status and other details of a claim link.
 
-Parameters:
-1. `claimCode`: The `claimCode` parameter from the claim link URL.
+**TODO: provide details for linkParams object**
 
-
+#### Getting Link Status
+To retrieve link status and some other info via claim code:
 ```ts
 const	{ 
   status,
@@ -226,20 +226,38 @@ const	{
   txHash,
   claimedAt,
   createdAtBlock,
-} = linkParams
-
+} = await sdk.getLinkStatus(
+  claimCode: string
+)
+```
+You can also retrieve status by link ID as well:
+```ts
+const	{ 
+  status,
+  recipient,
+  linkId,
+  txHash,
+  claimedAt,
+  createdAtBlock,
+} = await sdk.getLinkStatus(
+  linkId: string
+)
 ```
 
 Returns an object with the following properties:
-1. status: string - The status of the link. Possible values are:
+- status: string - The status of the link. Possible values are:
   - `"CREATED"` - The link has been created but has not yet been claimed.
   - `"PENDING"` - The link is waiting for the transaction to be confirmed on the blockchain.
   - `"CLAIMED"` - The link has been successfully claimed.
   - `"FAILED"` - The claim transaction has failed.
   - `"DEACTIVATED"` - The link has been deactivated by the campaign creator.
   - `"EXPIRED"` - The link has expired and can no longer be claimed.
-2. recipient: string - The Ethereum address to which the tokens have been sent.
-2. linkId: string - The ID of the link.
-2. txHash: string - The transaction hash of the claim transaction.
-2. claimedAt: number - The UNIX timestamp at which the link was claimed.
-2. createdAtBlock: number - The number of the block in which the link was created.
+- recipient: string - The Ethereum address to which the tokens have been sent.
+- linkId: string - The ID of the link.
+- txHash: string - The transaction hash of the claim transaction.
+- claimedAt: number - The UNIX timestamp at which the link was claimed.
+- createdAtBlock: number - The number of the block in which the link was created.
+
+## Troubleshooting and getting in touch
+- Join [Linkdrop Community](https://t.me/linkdrophq) in Telegram to chat with the team
+- Reach us at hi@linkdop.io
