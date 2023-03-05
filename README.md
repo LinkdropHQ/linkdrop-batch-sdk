@@ -1,63 +1,77 @@
-# SDK APIs
+# Linkdrop SDK
 
-## How to Use the Linkdrop SDK
-The Linkdrop SDK is a TypeScript library that provides a set of tools for creating and managing linkdrop campaigns on the Ethereum blockchain.
+Linkdrop provides tools to distribute NFTs with links, QR codes or redeem codes. The Linkdrop SDK is a Typescript library that can be used to automate creating and managing claim links.   
 
-## Initializing a New Instance
-To initialize a new instance of the Linkdrop SDK, use the following code:
+## Supported networks
+Currently, Linkdrop supports the following networks:
+- Ethereum Mainnet
+- Polygon Mainnet
 
+Testnets:
+- Goerli (Ethereum testnet)
+- Mumbai (Polygon testnet)  
+  
+We can add support of any EVM-based chain by request. Please contact us If you need to use Linkdrop on other networks. 
+
+## Getting Started
+To start using SDK, first you need to create a campaign using Linkdrop Dashboard. Refer to documentation for more info.  
+
+
+## Initializing SDK
+
+First, import SDK into your code:
 ```ts
-
 import LinkdropSDK from 'linkdrop-sdk'
 // or
 // const LinkdropSDK = require('linkdrop-sdk').default
-
+```
+To use SDK on a tesnet:
+```ts
+// initializing Linkdrop SDK on a testnet 
 const sdk = new LinkdropSDK(
   // optional parameters
   {
-    mode: 'testnets',
-    apiHost: string,
-    claimApiUrl: string
+    mode: 'testnets' // for Goerli or Mumbai
   }
 );
 ```
+To use SDK on a production network (Ethereum Mainnet or Polygon): 
+```ts
+// initializing Linkdrop SDK on a production network 
+const sdk = new LinkdropSDK();
+```
 
-The `LinkdropSDK` constructor creates a new instance of the SDK with three optional parameters:
+## Managing Campaigns
 
-1. `mode`: This parameter specifies the mode of operation for the SDK. It can be set to `testnets`. If set to `testnets`, it will operate on the Goerli and Mumbai networks.
+**IMPORTANT! Managing campaigns requires secret keys that should never be exposed to public. Use campaign methods on a back-end and never within a front-end app.**
 
-2. `apiHost`: This parameter specifies the URL of the API host to use for the SDK. If this parameter is not provided, the default API host will be used.
-
-3. `claimApiUrl`: This parameter specifies the API URL that will be used as a prefix for the claim links. If this parameter is not provided, no prefix will be used.
-
-
-## Methods
-
-### Campaign Methods
+After you have created a campaign using Linkdrop Dashboard, you can use SDK to manage the campaign. 
+Using SDK you can: 
+- fetch campaign data
+- create a new batch of claim links
+- add claim links to an existing batch
+- fetch created claim links
+- activate or deactivate links
 
 #### Get Campaign
-
+To be able to do all that, first you need to fetch initialize campaign object
 ```ts
 const campaign = await sdk.getCampaign(
   campaignId: string,
   signerKey: string,
   encryptionKey: string
 )
-// Get all params from the campaign page of the Linkdrop-Dashboard
 ```
+Get all params from the campaign page on Dashboard:
+-  `campaignId`: ID of the campaign that you want to retrieve information about.
+-  `signerKey`: private key used to create claim links. **NEVER EXPOSE SIGNER KEY PUBLICLY**
+-  `encryptionKey`: private key used to encode and decode sensitive data stored on server **NEVER EXPOSE ENCRYPTION KEY PUBLICLY**
 
-The `getCampaign` method retrieves information about a campaign from the API. It takes three parameters:
+**IMPORTANT! Managing campaigns requires secret keys that should never be exposed to public. Use campaign methods on a back-end and never within a front-end app.**
 
-1. `campaignId`: This is a required string parameter that represents the ID of the campaign that you want to retrieve information about.
 
-2. `signerKey`: This is a required string parameter that is the signer key decrypted with the dashboard key. It is used to sign and verify transactions.
-
-3. `encryptionKey`: This is a required string parameter that is the key for link encryption. It is used to encrypt and decrypt links.
-
-The `getCampaign` method returns a promise that resolves to an object that contains information about the campaign.
-
-#### Campaign Data
-
+The `getCampaign` method returns a promise that resolves to an object that contains information about the campaign.  
+**TODO: provide campaign data details**
 ```ts
 console.log(campaign.data)
 ```
