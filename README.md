@@ -1,6 +1,6 @@
 # Linkdrop SDK
 
-Linkdrop provides tools to distribute NFTs with links, QR codes or redeem codes. The Linkdrop SDK is a Typescript library that can be used to automate creating and managing claim links.   
+Linkdrop provides tools to distribute NFTs with links, QR codes or claim codes. The Linkdrop SDK is a Typescript library that can be used to automate creating and managing claim links.   
 
 ## Supported networks
 Currently, Linkdrop supports the following networks:
