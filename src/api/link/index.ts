@@ -41,7 +41,7 @@ const requests: TRequests = {
     receiverAddress,
     receiverSignature
   ) => {
-    return axios.post(`${apiHost}/api/v1/user/claim-links/${linkId}/claim`, {
+    return axios.post(`${apiHost}/api/v1/claim-links/${linkId}/claim`, {
       receiver_address: receiverAddress,
       receiver_signature: receiverSignature
     })
