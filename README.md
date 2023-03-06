@@ -14,7 +14,9 @@ Testnets:
 We can add support of any EVM-based chain by request. Please contact us If you need to use Linkdrop on other networks. 
 
 ## Getting Started
-
+Create a campaign using Linkdrop Dashboard. When creating a campaign you will need to choose how you want to generate links:
+  - Generate claim links via Dashboard interface. 
+  - Generate claim links via Linkdrop SDK (see ["Creating claim links"](README.md#creating-claim-links))
 
 ## Initializing SDK
 
