@@ -11,6 +11,7 @@ type TCreateLink = (
   proxyContractAddress: string,
   chainId: number,
   proxyContractVersion: string,
+  expirationTime: string,
   shortCodeLength?: number,
   shortCodeMixRegister?: boolean
 ) => Promise<TLinkItem | void>

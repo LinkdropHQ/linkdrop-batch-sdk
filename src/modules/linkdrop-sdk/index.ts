@@ -13,7 +13,7 @@ import { TRedeem } from '../../types/modules/linkdrop-sdk/redeem'
 class LinkdropSDK implements ILinkdropSDK {
   chain: TNetworkName
   apiHost: string
-  claimApiUrl: string
+  claimHostUrl: string
   utils = {
     createLink,
     computeProxyAddress
@@ -22,13 +22,13 @@ class LinkdropSDK implements ILinkdropSDK {
   constructor ({
     apiHost,
     mode,
-    claimApiUrl
+    claimHostUrl
   }: {
     apiHost?: string,
     mode?: 'testnets',
-    claimApiUrl?: string
+    claimHostUrl?: string
   } = {}) {
-    this.claimApiUrl = claimApiUrl || ''
+    this.claimHostUrl = claimHostUrl || ''
     if (apiHost) {
       this.apiHost = apiHost
     } else {
@@ -71,7 +71,7 @@ class LinkdropSDK implements ILinkdropSDK {
           signerKey,
           encryptionKey,
           campaign,
-          this.claimApiUrl,
+          this.claimHostUrl,
           campaignSig,
           this.apiHost
         )

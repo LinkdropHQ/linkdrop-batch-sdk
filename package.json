@@ -15,7 +15,7 @@
     "url": "git+https://github.com/LinkdropHQ/linkdrop-sdk.git"
   },
   "author": "spacehaz <spacehaz@gmail.com>",
-  "license": "ISC",
+  "license": "MIT",
   "description": "",
   "bugs": {
     "url": "https://github.com/LinkdropHQ/linkdrop-sdk/issues"

@@ -4,7 +4,8 @@ type TAddLinks = (
   assets: TAsset[],
   options?: {
     shortCodeLength: number,
-    shortCodeMixRegister: boolean
+    shortCodeMixRegister: boolean,
+    expirationTime: string
   }
 ) => void
 

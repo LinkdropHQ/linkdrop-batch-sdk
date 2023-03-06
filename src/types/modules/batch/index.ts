@@ -8,7 +8,7 @@ interface IBatch {
   claimLinks?: TLinkItem[]
   batchId: string
   encryptionKey: string
-  claimAppUrl: string
+  claimHostUrl: string
   campaignSig: string
   apiHost: string
   addLinks: TAddLinks

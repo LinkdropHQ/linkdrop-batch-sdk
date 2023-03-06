@@ -18,7 +18,7 @@ class Campaign implements ICampaign {
   signerKey: string
   encryptionKey: string
   apiHost: string
-  claimAppUrl: string
+  claimHostUrl: string
   campaignSig: string
 
   constructor (
@@ -26,7 +26,7 @@ class Campaign implements ICampaign {
     signerKey: string,
     encryptionKey: string,
     data: TCampaignItem,
-    claimAppUrl: string,
+    claimHostUrl: string,
     campaignSig: string,
     apiHost: string
   ) {
@@ -34,7 +34,7 @@ class Campaign implements ICampaign {
     this.signerKey = signerKey
     this.encryptionKey = encryptionKey
     this.data = data
-    this.claimAppUrl = claimAppUrl
+    this.claimHostUrl = claimHostUrl
     this.apiHost = apiHost
     this.campaignSig = campaignSig
   }
@@ -79,7 +79,7 @@ class Campaign implements ICampaign {
           batch,
           claim_links,
           this.encryptionKey,
-          this.claimAppUrl,
+          this.claimHostUrl,
           this.data,
           this.signerKey,
           this.campaignSig,
@@ -99,12 +99,14 @@ class Campaign implements ICampaign {
       sponsored: boolean,
       batchDescription: string,
       shortCodeLength: number,
-      shortCodeMixRegister: boolean
+      shortCodeMixRegister: boolean,
+      expirationTime: string
     } = {
       sponsored: true,
       batchDescription: 'Created by SDK',
       shortCodeLength: 12,
-      shortCodeMixRegister: true
+      shortCodeMixRegister: true,
+      expirationTime: '1900000000000'
     }
   ) => {
     try {
@@ -117,6 +119,7 @@ class Campaign implements ICampaign {
         this.data.proxy_contract_address,
         this.data.chain_id,
         this.data.proxy_contract_version,
+        options.expirationTime,
         options.shortCodeLength,
         options.shortCodeMixRegister
       )

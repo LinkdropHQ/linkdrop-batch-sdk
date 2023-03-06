@@ -2,7 +2,6 @@ import { ethers } from 'ethers'
 import { TAsset, TTokenType, TCreateLinkResult } from '../types'
 import { getBignumberInterval } from '../helpers'
 import { crypto, createLinkERC1155, createLinkERC20, createLinkERC721 } from '../utils'
-const expirationTime = '1900000000000'
 
 const prepareAsset = async (
   asset: TAsset,
@@ -13,6 +12,7 @@ const prepareAsset = async (
   proxyContractAddress: string,
   chainId: string | number,
   contractVersion: string,
+  expirationTime: string = '1900000000000',
   shortCodeLength: number = 12,
   shortCodeMixRegister: boolean = true
 ) => {

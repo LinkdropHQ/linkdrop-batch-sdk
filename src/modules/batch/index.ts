@@ -12,7 +12,7 @@ class Batch implements IBatch {
   campaignSig: string
   encryptionKey: string
   apiHost: string
-  claimAppUrl: string
+  claimHostUrl: string
   campaignData: TCampaignItem
   signerKey: string
 
@@ -21,7 +21,7 @@ class Batch implements IBatch {
     data: TBatchItem,
     claimLinks: TLinkItem[],
     encryptionKey: string,
-    claimAppUrl: string,
+    claimHostUrl: string,
     campaignData: TCampaignItem,
     signerKey: string,
     campaignSig: string,
@@ -33,7 +33,7 @@ class Batch implements IBatch {
     this.campaignSig = campaignSig
     this.encryptionKey = encryptionKey
     this.apiHost = apiHost
-    this.claimAppUrl = claimAppUrl
+    this.claimHostUrl = claimHostUrl
     this.campaignData = campaignData
     this.signerKey = signerKey
   }
@@ -42,10 +42,12 @@ class Batch implements IBatch {
     assets,
     {
       shortCodeLength,
-      shortCodeMixRegister
+      shortCodeMixRegister,
+      expirationTime
     } = {
       shortCodeLength: 12,
-      shortCodeMixRegister: true
+      shortCodeMixRegister: true,
+      expirationTime: '1900000000000'
     }
   ) => {
     try {
@@ -58,6 +60,7 @@ class Batch implements IBatch {
         this.campaignData.proxy_contract_address,
         this.campaignData.chain_id,
         this.campaignData.proxy_contract_version,
+        expirationTime,
         shortCodeLength,
         shortCodeMixRegister
       )
@@ -86,7 +89,7 @@ class Batch implements IBatch {
       return {
         linkId: link.link_id,
         claimCode,
-        claimLink: `${this.claimAppUrl}/#/claim/${claimCode}`
+        claimLink: `${this.claimHostUrl}/#/claim/${claimCode}`
       }
     })
   }

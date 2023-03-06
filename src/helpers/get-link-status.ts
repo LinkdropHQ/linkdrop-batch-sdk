@@ -5,12 +5,16 @@ const getLinkStatus = async (
   claimCode: string,
   apiHost: string
 ) => {
-  const linkKey = ethers.utils.id(claimCode)
-  const wallet = new ethers.Wallet(linkKey)
-
+  let linkId
+  if (claimCode.startsWith('0x')) {
+    linkId = claimCode
+  } else {
+    const linkKey = ethers.utils.id(claimCode)
+    linkId = new ethers.Wallet(linkKey).address
+  }
   const linkStatus = await linkApi.getStatus(
     apiHost,
-    wallet.address
+    linkId
   )
   if (linkStatus.data) {
     const { data } = linkStatus.data

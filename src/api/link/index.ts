@@ -7,13 +7,13 @@ const requests: TRequests = {
     apiHost,
     linkId,
   ) => {
-    return axios.get(`${apiHost}/api/v1/user/claim-params/${linkId}`)
+    return axios.get(`${apiHost}/api/v1/claim-links/${linkId}`)
   },
   getStatus: (
     apiHost,
     linkId
   ) => {
-    return axios.get(`${apiHost}/api/v1/user/claim-links/${linkId}/status`)
+    return axios.get(`${apiHost}/api/v1/claim-links/${linkId}/status`)
   },
   deactivateLink: (
     apiHost,

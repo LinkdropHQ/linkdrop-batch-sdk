@@ -10,6 +10,7 @@ const prepareAssets = async (
   proxyContractAddress: string,
   chainId: string | number,
   contractVersion: string,
+  expirationTime: string = '1900000000000',
   shortCodeLength: number = 12,
   shortCodeMixRegister: boolean = true
 ) => {
@@ -25,6 +26,7 @@ const prepareAssets = async (
       proxyContractAddress,
       chainId,
       contractVersion,
+      expirationTime,
       shortCodeLength,
       shortCodeMixRegister
     )

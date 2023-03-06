@@ -10,6 +10,7 @@ const createLink: TCreateLink = async (
   proxyContractAddress,
   chainId,
   proxyContractVersion,
+  expirationTime = '1900000000000',
   shortCodeLength = 12,
   shortCodeMixRegister = true
 ) => {
@@ -30,6 +31,7 @@ const createLink: TCreateLink = async (
       proxyContractAddress,
       chainId,
       proxyContractVersion,
+      expirationTime,
       shortCodeLength,
       shortCodeMixRegister
     )
