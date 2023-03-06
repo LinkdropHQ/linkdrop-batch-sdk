@@ -36,8 +36,6 @@ class LinkdropSDK implements ILinkdropSDK {
     }
   }
 
-
-
   createCampaignSig = async (
     campaignId: string,
     signerKey: string
@@ -108,8 +106,9 @@ class LinkdropSDK implements ILinkdropSDK {
     claimCode
   ) {
     return await getLinkParams(
-      claimCode,
-      this.apiHost
+      this.apiHost,
+      claimCode
+      
     )
   }
 
@@ -118,8 +117,8 @@ class LinkdropSDK implements ILinkdropSDK {
   ) {
     try {
       const result = await getLinkStatus(
-        claimCode,
-        this.apiHost
+        this.apiHost,
+        claimCode
       )
       if (!result) {
         throw new Error('Get link status failed')

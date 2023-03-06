@@ -2,8 +2,8 @@ import { linkApi } from '../api'
 import { ethers } from 'ethers'
 
 const getLinkStatus = async (
-  claimCode: string,
-  apiHost: string
+  apiHost: string,
+  claimCode: string
 ) => {
   let linkId
   if (claimCode.startsWith('0x')) {
