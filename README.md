@@ -166,7 +166,10 @@ const batch = await campaign.createBatch(
   // optional parameters
   {
     sponsored: boolean,
-    batchDescription: string
+    batchDescription: string,
+    shortCodeLength: number,
+    shortCodeMixRegister: boolean,
+    expirationTime: string
   }
 )
 ```
@@ -180,6 +183,9 @@ It takes two parameters:
 - `options`: This is an optional object that can contain the following properties:
   * `sponsored`: This is an optional boolean property that, if set to `true`, specifies that the claim will be paid by the campaign creator. The default value is `true`.
   * `batchDescription`: This is an optional string property that specifies the description of the batch. The default value is "Created by SDK".
+  * `shortCodeLength`: The length of claimCode. The default value is `12`.
+  * `shortCodeMixRegister`: Should the claim code contain uppercase and lowercase symbols. The default value is `true`.
+  * `expirationTime`: Timestamp for the link expiration date. The default value is `1900000000000`.
 
 The returned `batch` object contains information related to the specified batch and methods to manage it.  
 
@@ -208,21 +214,33 @@ The returned `batch` object contains information related to the specified batch 
 
 To add claim links to an existing batch, call the `batch.addLinks` method:
 ```ts
-const links = await batch.addLinks([{ 
-  id: string, 
-  amount: string, 
-  links: string, 
-  weiAmount: string,
-}]) 
+const links = await batch.addLinks(
+  [{ 
+    id: string, 
+    amount: string, 
+    links: string, 
+    weiAmount: string,
+  }], {
+    // optional parameters
+    shortCodeLength: number,
+    shortCodeMixRegister: boolean,
+    expirationTime: string
+  }
+) 
 ```
 
-It takes an array of link objects as an argument and returns an array of link IDs. **TODO: link codes?**
-
+**TODO: link codes?**
+It takes two parameters and returns an array of link IDs:
 1. `links`: An array of link objects that contain the following properties:
   * `id`: The token ID (required for ERC721/ERC1155 campaigns).
   * `amount`: The amount of tokens per link (required for ERC20/ERC1155 campaigns).
   * `links`: The number of links to be created.
   * `weiAmount`: The amount of native tokens that should be sent to the proxy contract address manually.
+
+2. `options`: This is an optional object that can contain the following properties:
+  * `shortCodeLength`: The length of claimCode. The default value is `12`.
+  * `shortCodeMixRegister`: Should the claim code contain uppercase and lowercase symbols. The default value is `true`.
+  * `expirationTime`: Timestamp for the link expiration date. The default value is `1900000000000`.
 
 #### Getting Links
 To fetch all links created for that batch, use the `batch.getLinks` method:
