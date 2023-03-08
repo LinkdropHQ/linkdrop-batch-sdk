@@ -1,5 +1,6 @@
 import { TAsset, TTokenType, TLinkItem } from '../types'
 import prepareAsset from './prepare-asset'
+import { getBignumberInterval } from '../helpers'
 
 const prepareAssets = async (
   assets: TAsset[],
@@ -17,24 +18,27 @@ const prepareAssets = async (
   const result: TLinkItem[] = []
   for (let x = 0; x < assets.length; x++) {
     const asset = assets[x]
-    const linkItem = await prepareAsset(
-      asset,
-      signerKey,
-      dashboardKey,
-      tokenType,
-      tokenAddress,
-      proxyContractAddress,
-      chainId,
-      contractVersion,
-      expirationTime,
-      shortCodeLength,
-      shortCodeMixRegister
-    )
+    const linksAmount = getBignumberInterval('0', asset.links)
+    for (let y = 0; y < Number(linksAmount.diff); y++) {
+      const linkItem = await prepareAsset(
+        asset,
+        signerKey,
+        dashboardKey,
+        tokenType,
+        tokenAddress,
+        proxyContractAddress,
+        chainId,
+        contractVersion,
+        expirationTime,
+        shortCodeLength,
+        shortCodeMixRegister
+      )
 
-    if (!linkItem) { continue }
-    result.push(
-      linkItem
-    )
+      if (!linkItem) { continue }
+      result.push(
+        linkItem
+      )
+    }
   }
   return result
 }
