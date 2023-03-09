@@ -20,7 +20,7 @@ const prepareAsset = async (
     if (tokenType === 'ERC1155') {
       data = await createLinkERC1155({
         linkdropSigner: new ethers.Wallet(signerKey),
-        weiAmount: asset.weiAmount,
+        weiAmount: asset.weiAmount || '0',
         tokenAddress,
         tokenId: asset.id,
         tokenAmount: asset.amount,
@@ -34,7 +34,7 @@ const prepareAsset = async (
     } else if (tokenType === 'ERC721') {
       data = await createLinkERC721({
         linkdropSigner: new ethers.Wallet(signerKey),
-        weiAmount: asset.weiAmount,
+        weiAmount: asset.weiAmount || '0',
         tokenAddress,
         tokenId: asset.id,
         expirationTime,
@@ -47,7 +47,7 @@ const prepareAsset = async (
     } else {
       data = await createLinkERC20({
         linkdropSigner: new ethers.Wallet(signerKey),
-        weiAmount: asset.weiAmount,
+        weiAmount: asset.weiAmount || '0',
         tokenAddress,
         tokenAmount: asset.amount,
         expirationTime,
@@ -67,7 +67,7 @@ const prepareAsset = async (
       link_id: linkId,
       sender_signature: linkdropSignerSignature,
       expiration_time: expirationTime,
-      wei_amount: asset.weiAmount
+      wei_amount: asset.weiAmount || '0'
     }
   } catch (err) {
     console.log({ err })

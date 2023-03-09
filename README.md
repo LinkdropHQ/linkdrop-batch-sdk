@@ -161,7 +161,7 @@ const batch = await campaign.createBatch(
     id: string,
     amount: string,
     links: string,
-    weiAmount: string
+    weiAmount?: string // optional parameter, The default value is `0`.
   }],
   // optional parameters
   {
@@ -178,7 +178,7 @@ It takes two parameters:
   * `id`: token ID for ERC721/ERC1155 campaigns. For ERC20 campaigns, id is not provided.
   * `amount`: amount of tokens per link for ERC20/ERC1155 campaigns. For ERC721 campaigns, amount is not provided.
   * `links`: number of links to create.
-  * `weiAmount`: amount of network tokens (ETH/MATIC) to be sent to receiver on claim. Campaign contract should have enough network tokens before claim. Top up the campaign contract in advance manually. 
+  * `weiAmount`: amount of network tokens (ETH/MATIC) to be sent to receiver on claim. Campaign contract should have enough network tokens before claim. Top up the campaign contract in advance manually. The default value is `0`.
 
 - `options`: This is an optional object that can contain the following properties:
   * `sponsored`: This is an optional boolean property that, if set to `true`, specifies that the claim will be paid by the campaign creator. The default value is `true`.
@@ -219,7 +219,7 @@ const links = await batch.addLinks(
     id: string, 
     amount: string, 
     links: string, 
-    weiAmount: string,
+    weiAmount: string // optional parameter, The default value is `0`.
   }], {
     // optional parameters
     shortCodeLength: number,
@@ -235,7 +235,7 @@ It takes two parameters and returns an array of link IDs:
   * `id`: The token ID (required for ERC721/ERC1155 campaigns).
   * `amount`: The amount of tokens per link (required for ERC20/ERC1155 campaigns).
   * `links`: The number of links to be created.
-  * `weiAmount`: The amount of native tokens that should be sent to the proxy contract address manually.
+  * `weiAmount`: The amount of native tokens that should be sent to the proxy contract address manually. The default value is `0`.
 
 2. `options`: This is an optional object that can contain the following properties:
   * `shortCodeLength`: The length of claimCode. The default value is `12`.
