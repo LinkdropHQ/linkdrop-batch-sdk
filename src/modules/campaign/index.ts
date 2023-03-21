@@ -40,56 +40,44 @@ class Campaign implements ICampaign {
   }
 
   getBatches: TGetBatches = async () => {
-    try {
-      const campaignData = await batchesApi.getBatches(
-        this.apiHost,
-        this.campaignSig,
-        this.campaignId
-      )
-      const { data } = campaignData
-      if (data) {
-        const { batches, creator_address } = data
-        return {
-          batches,
-          creator_address
-        }
+    const campaignData = await batchesApi.getBatches(
+      this.apiHost,
+      this.campaignSig,
+      this.campaignId
+    )
+    const { data } = campaignData
+    if (data) {
+      const { batches, creator_address } = data
+      return {
+        batches,
+        creator_address
       }
-    } catch (err) {
-      console.error({
-        err
-      })
     }
   }
 
   getBatch: TGetBatch = async (
     batchId
   ) => {
-    try {
-      const campaignData = await batchesApi.getBatch(
-        this.apiHost,
+    const campaignData = await batchesApi.getBatch(
+      this.apiHost,
+      this.campaignSig,
+      this.campaignId,
+      batchId
+    )
+    const { data } = campaignData
+    if (data) {
+      const { batch, claim_links } = data
+      return new Batch(
+        batchId,
+        batch,
+        claim_links,
+        this.encryptionKey,
+        this.claimHostUrl,
+        this.data,
+        this.signerKey,
         this.campaignSig,
-        this.campaignId,
-        batchId
+        this.apiHost
       )
-      const { data } = campaignData
-      if (data) {
-        const { batch, claim_links } = data
-        return new Batch(
-          batchId,
-          batch,
-          claim_links,
-          this.encryptionKey,
-          this.claimHostUrl,
-          this.data,
-          this.signerKey,
-          this.campaignSig,
-          this.apiHost
-        )
-      }
-    } catch (err) {
-      console.error({
-        err
-      })
     }
   }
 
@@ -109,96 +97,77 @@ class Campaign implements ICampaign {
       expirationTime: '1900000000000'
     }
   ) => {
-    try {
-      const transformedAssets = await prepareAssets(
-        assets,
-        this.signerKey,
-        this.encryptionKey,
-        this.data.token_standard,
-        this.data.token_address,
-        this.data.proxy_contract_address,
-        this.data.chain_id,
-        this.data.proxy_contract_version,
-        options.expirationTime,
-        options.shortCodeLength,
-        options.shortCodeMixRegister
-      )
-      if (!transformedAssets) { return alert('Error with assets') }
-      const response = await batchesApi.createBatch(
-        this.apiHost,
-        this.campaignSig,
-        this.data.campaign_id,
-        transformedAssets,
-        options.sponsored,
-        options.batchDescription
-      )
-      if (response.data) {
-        const {
-          campaign_id,
-          creator_address,
-          claim_links,
-          batch
-        } = response.data
-        return {
-          batch,
-          campaign_id,
-          creator_address,
-          claim_links
-        }
+    const transformedAssets = await prepareAssets(
+      assets,
+      this.signerKey,
+      this.encryptionKey,
+      this.data.token_standard,
+      this.data.token_address,
+      this.data.proxy_contract_address,
+      this.data.chain_id,
+      this.data.proxy_contract_version,
+      options.expirationTime,
+      options.shortCodeLength,
+      options.shortCodeMixRegister
+    )
+    if (!transformedAssets) { return alert('Error with assets') }
+    const response = await batchesApi.createBatch(
+      this.apiHost,
+      this.campaignSig,
+      this.data.campaign_id,
+      transformedAssets,
+      options.sponsored,
+      options.batchDescription
+    )
+    if (response.data) {
+      const {
+        campaign_id,
+        creator_address,
+        claim_links,
+        batch
+      } = response.data
+      return {
+        batch,
+        campaign_id,
+        creator_address,
+        claim_links
       }
-    } catch (err) {
-      console.error({
-        err
-      })
     }
   }
 
   async reactivate (
     claimCode
   ) {
-    try {
-      const linkKey = ethers.utils.id(claimCode)
-      const wallet = new ethers.Wallet(linkKey)
+    const linkKey = ethers.utils.id(claimCode)
+    const wallet = new ethers.Wallet(linkKey)
 
-      const linkData = await linkApi.reactivateLink(
-        this.apiHost,
-        this.campaignSig,
-        wallet.address
-      )
-      const { data } = linkData
-      if (data) {
-        const { success } = data
-        return success
-      }
-    } catch (err: any | AxiosError) {
-      console.error({
-        err
-      })
+    const linkData = await linkApi.reactivateLink(
+      this.apiHost,
+      this.campaignSig,
+      wallet.address
+    )
+    const { data } = linkData
+    if (data) {
+      const { success } = data
+      return success
     }
-    
   }
 
   async deactivate (
     claimCode
   ) {
-    try {
-      const linkKey = ethers.utils.id(claimCode)
-      const wallet = new ethers.Wallet(linkKey)
-  
-      const linkData = await linkApi.deactivateLink(
-        this.apiHost,
-        this.campaignSig,
-        wallet.address
-      )
-      const { data } = linkData
-      if (data) {
-        const { success } = data
-        return success
-      }
-    } catch (err: any | AxiosError) {
-      console.error({
-        err
-      })
+    const linkKey = ethers.utils.id(claimCode)
+    const wallet = new ethers.Wallet(linkKey)
+
+    const linkData = await linkApi.deactivateLink(
+      this.apiHost,
+      this.campaignSig,
+      wallet.address
+    )
+    const { data } = linkData
+    if (data) {
+      const { success } = data
+      return success
     }
   }
 }

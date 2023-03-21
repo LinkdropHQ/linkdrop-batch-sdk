@@ -50,33 +50,27 @@ class Batch implements IBatch {
       expirationTime: '1900000000000'
     }
   ) => {
-    try {
-      const transformedAssets = await prepareAssets(
-        assets,
-        this.signerKey,
-        this.encryptionKey,
-        this.campaignData.token_standard,
-        this.campaignData.token_address,
-        this.campaignData.proxy_contract_address,
-        this.campaignData.chain_id,
-        this.campaignData.proxy_contract_version,
-        expirationTime,
-        shortCodeLength,
-        shortCodeMixRegister
-      )
-      if (!transformedAssets) { return alert('Error with assets') }
-      return await batchesApi.addLinks(
-        this.apiHost,
-        this.campaignSig,
-        this.campaignData.campaign_id,
-        this.batchId,
-        transformedAssets
-      )
-    } catch (err) {
-      console.error({
-        err
-      })
-    }
+    const transformedAssets = await prepareAssets(
+      assets,
+      this.signerKey,
+      this.encryptionKey,
+      this.campaignData.token_standard,
+      this.campaignData.token_address,
+      this.campaignData.proxy_contract_address,
+      this.campaignData.chain_id,
+      this.campaignData.proxy_contract_version,
+      expirationTime,
+      shortCodeLength,
+      shortCodeMixRegister
+    )
+    if (!transformedAssets) { return alert('Error with assets') }
+    return await batchesApi.addLinks(
+      this.apiHost,
+      this.campaignSig,
+      this.campaignData.campaign_id,
+      this.batchId,
+      transformedAssets
+    )
   }
 
   getLinks: TGetLinks = () => {
