@@ -219,7 +219,7 @@ const links = await batch.addLinks(
     id: string, 
     amount: string, 
     links: string, 
-    weiAmount: string // optional parameter, The default value is `0`.
+    weiAmount?: string // optional parameter, The default value is `0`.
   }], {
     // optional parameters
     shortCodeLength: number,
