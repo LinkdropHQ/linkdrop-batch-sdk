@@ -1,4 +1,4 @@
-export const apiUrl = 'https://dev.dashboard-api.linkdrop.io'
+export const apiUrl = 'https://dashboard-api.linkdrop.io'
 export const testnetsApiUrl = 'https://testnets.dashboard-api.linkdrop.io'
 
 export const polygonJSONRPCUrl = 'https://rpc-mainnet.maticvigil.com/v1/ad4cd2ea018ddb1ccd0418ffa43c27b3d99fbd55'
