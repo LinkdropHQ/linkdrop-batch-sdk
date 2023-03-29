@@ -83,7 +83,7 @@ class Batch implements IBatch {
       return {
         linkId: link.link_id,
         claimCode,
-        claimLink: `${this.claimHostUrl}/#/claim/${claimCode}`
+        claimLink: `${this.claimHostUrl}/#/redeem/${claimCode}`
       }
     })
   }

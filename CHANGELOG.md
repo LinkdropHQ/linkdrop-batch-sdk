@@ -1,4 +1,7 @@
 # Linkdrop SDK
 
-## 2.0.0-alpha.1
+## 2.0.1
+- Claim link ("/#/claim/..." => "/#/redeem/...")
+
+## 2.0.0
 - Updated default server url
