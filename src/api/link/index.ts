@@ -7,13 +7,13 @@ const requests: TRequests = {
     apiHost,
     linkId,
   ) => {
-    return axios.get(`${apiHost}/api/v1/claim-links/${linkId}`)
+    return axios.get(`${apiHost}/api/v2/claim-links/${linkId}`)
   },
   getStatus: (
     apiHost,
     linkId
   ) => {
-    return axios.get(`${apiHost}/api/v1/claim-links/${linkId}/status`)
+    return axios.get(`${apiHost}/api/v2/claim-links/${linkId}/status`)
   },
   deactivateLink: (
     apiHost,
@@ -21,7 +21,7 @@ const requests: TRequests = {
     linkId
   ) => {
     const headers = defineRequestKeyHeader(campaignSig)
-    return axios.post(`${apiHost}/api/v1/dashboard/linkdrop/claim-links/${linkId}/deactivate`, {}, {
+    return axios.post(`${apiHost}/api/v2/dashboard/linkdrop/claim-links/${linkId}/deactivate`, {}, {
       headers
     })
   },
@@ -31,7 +31,7 @@ const requests: TRequests = {
     linkId
   ) => {
     const headers = defineRequestKeyHeader(campaignSig)
-    return axios.post(`${apiHost}/api/v1/dashboard/linkdrop/claim-links/${linkId}/reactivate`, {}, {
+    return axios.post(`${apiHost}/api/v2/dashboard/linkdrop/claim-links/${linkId}/reactivate`, {}, {
       headers
     })
   },
@@ -41,7 +41,7 @@ const requests: TRequests = {
     receiverAddress,
     receiverSignature
   ) => {
-    return axios.post(`${apiHost}/api/v1/claim-links/${linkId}/claim`, {
+    return axios.post(`${apiHost}/api/v2/claim-links/${linkId}/claim`, {
       receiver_address: receiverAddress,
       receiver_signature: receiverSignature
     })

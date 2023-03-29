@@ -9,7 +9,7 @@ const requests: TRequests = {
     campaignId
   ) => {
     const headers = defineRequestKeyHeader(campaignSig)
-    return axios.get(`${apiHost}/api/v1/dashboard/linkdrop/campaigns/${campaignId}/batches`, {
+    return axios.get(`${apiHost}/api/v2/dashboard/linkdrop/campaigns/${campaignId}/batches`, {
       headers,
     })
   },
@@ -20,7 +20,7 @@ const requests: TRequests = {
     batchId
   ) => {
     const headers = defineRequestKeyHeader(campaignSig)
-    return axios.get(`${apiHost}/api/v1/dashboard/linkdrop/campaigns/${campaignId}/batches/${batchId}`, {
+    return axios.get(`${apiHost}/api/v2/dashboard/linkdrop/campaigns/${campaignId}/batches/${batchId}`, {
       headers,
     })
   },
@@ -33,7 +33,7 @@ const requests: TRequests = {
     batchDescription
   ) => {
     const headers = defineRequestKeyHeader(campaignSig)
-    return axios.post(`${apiHost}/api/v1/dashboard/linkdrop/campaigns/${campaignId}/save-batch`, {
+    return axios.post(`${apiHost}/api/v2/dashboard/linkdrop/campaigns/${campaignId}/save-batch`, {
       claim_links: claimLinks,
       sponsored,
       batch_description: batchDescription
@@ -49,7 +49,7 @@ const requests: TRequests = {
     claimLinks,
   ) => {
     const headers = defineRequestKeyHeader(campaignSig)
-    return axios.post(`${apiHost}/api/v1/dashboard/linkdrop/campaigns/${campaignId}/batches/${batchId}/add-links `, {
+    return axios.post(`${apiHost}/api/v2/dashboard/linkdrop/campaigns/${campaignId}/batches/${batchId}/add-links `, {
       claim_links: claimLinks
     }, {
       headers
