@@ -1,6 +1,6 @@
 # Linkdrop SDK
 
-## 2.0.2-rc.0
+## 2.0.2
 - Additional parameters of link
 
 ## 2.0.1
