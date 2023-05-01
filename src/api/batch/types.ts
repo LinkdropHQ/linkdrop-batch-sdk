@@ -4,7 +4,7 @@ import { TBatchItem, TLinkItem } from '../../types'
 type TGetBatchesResponse = {
   success: boolean
   creator_address: string
-  batches: TBatchItem[]
+  batches: []
 }
 
 type TGetBatchResponse = {
@@ -53,7 +53,6 @@ export type TCreateBatch = (
   campaignSig: string,
   campaignId: string,
   claimLinks: TLinkItem[],
-  sponsored: boolean,
   batchDescription: string
 ) => Promise<
   AxiosResponse<
