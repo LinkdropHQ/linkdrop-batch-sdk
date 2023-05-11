@@ -1,5 +1,8 @@
 # Linkdrop SDK
 
+## 2.0.3
+- Added generateAccount util function to LinkdropSDK
+
 ## 2.0.2
 - Additional parameters of link
 

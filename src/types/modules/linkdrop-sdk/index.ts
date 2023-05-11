@@ -5,6 +5,7 @@ import { TGetLinkStatus } from './get-link-status'
 import { TRedeem } from './redeem'
 import TCreateLink from './create-link'
 import TComputeProxyAddress from './compute-proxy-address'
+import TGenerateAccount from '../../../utils/generate-account/types'
 
 interface ILinkdropSDK {
   chain: TNetworkName
@@ -16,6 +17,7 @@ interface ILinkdropSDK {
   utils: {
     createLink: TCreateLink
     computeProxyAddress: TComputeProxyAddress
+    generateAccount: TGenerateAccount
   }
 }
 

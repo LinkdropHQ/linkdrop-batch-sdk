@@ -7,6 +7,7 @@ import {
   apiUrl
 } from '../../configs'
 import { createLink, computeProxyAddress } from './utils'
+import { generateAccount } from '../../utils'
 import { TRedeem } from '../../types/modules/linkdrop-sdk/redeem'
 
 class LinkdropSDK implements ILinkdropSDK {
@@ -15,7 +16,8 @@ class LinkdropSDK implements ILinkdropSDK {
   claimHostUrl: string
   utils = {
     createLink,
-    computeProxyAddress
+    computeProxyAddress,
+    generateAccount
   }
 
   constructor ({
