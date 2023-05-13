@@ -165,7 +165,6 @@ const batch = await campaign.createBatch(
   }],
   // optional parameters
   {
-    sponsored: boolean,
     batchDescription: string,
     shortCodeLength: number,
     shortCodeMixRegister: boolean,
@@ -181,7 +180,6 @@ It takes two parameters:
   * `weiAmount`: amount of network tokens (ETH/MATIC) to be sent to receiver on claim. Campaign contract should have enough network tokens before claim. Top up the campaign contract in advance manually. The default value is `0`.
 
 - `options`: This is an optional object that can contain the following properties:
-  * `sponsored`: This is an optional boolean property that, if set to `true`, specifies that the claim will be paid by the campaign creator. The default value is `true`.
   * `batchDescription`: This is an optional string property that specifies the description of the batch. The default value is "Created by SDK".
   * `shortCodeLength`: The length of claimCode. The default value is `12`.
   * `shortCodeMixRegister`: Should the claim code contain uppercase and lowercase symbols. The default value is `true`.
