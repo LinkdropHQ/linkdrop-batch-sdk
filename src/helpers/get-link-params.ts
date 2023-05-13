@@ -1,7 +1,6 @@
 import { linkApi } from '../api'
 import { TLinkParams } from '../types'
 import { ethers } from 'ethers'
-import { e } from 'mathjs'
 
 const getLinkParams = async (
   apiHost: string,
