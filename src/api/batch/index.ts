@@ -29,13 +29,11 @@ const requests: TRequests = {
     campaignSig,
     campaignId,
     claimLinks,
-    sponsored,
     batchDescription
   ) => {
     const headers = defineRequestKeyHeader(campaignSig)
     return axios.post(`${apiHost}/api/v2/dashboard/linkdrop/campaigns/${campaignId}/save-batch`, {
       claim_links: claimLinks,
-      sponsored,
       batch_description: batchDescription
     }, {
       headers

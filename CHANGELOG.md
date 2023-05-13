@@ -1,5 +1,8 @@
 # Linkdrop SDK
 
+## 2.0.4
+- 'sponsored' property removed from batch
+
 ## 2.0.3
 - Added generateAccount util function to LinkdropSDK
 

@@ -9,7 +9,6 @@ import { linkApi, batchesApi } from '../../api'
 import Batch from '../batch'
 import TCreateBatch from '../../types/modules/campaign/create-batch'
 import { prepareAssets } from '../../helpers'
-import { AxiosError } from 'axios'
 import { ethers } from 'ethers'
 
 class Campaign implements ICampaign {
@@ -84,13 +83,11 @@ class Campaign implements ICampaign {
   createBatch: TCreateBatch = async (
     assets: TAsset[],
     options: {
-      sponsored: boolean,
       batchDescription: string,
       shortCodeLength: number,
       shortCodeMixRegister: boolean,
       expirationTime: string
     } = {
-      sponsored: true,
       batchDescription: 'Created by SDK',
       shortCodeLength: 12,
       shortCodeMixRegister: true,
@@ -116,7 +113,6 @@ class Campaign implements ICampaign {
       this.campaignSig,
       this.data.campaign_id,
       transformedAssets,
-      options.sponsored,
       options.batchDescription
     )
     if (response.data) {
