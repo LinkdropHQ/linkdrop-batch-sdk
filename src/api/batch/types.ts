@@ -53,7 +53,6 @@ export type TCreateBatch = (
   campaignSig: string,
   campaignId: string,
   claimLinks: TLinkItem[],
-  sponsored: boolean,
   batchDescription: string
 ) => Promise<
   AxiosResponse<
