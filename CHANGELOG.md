@@ -1,5 +1,8 @@
 # Linkdrop SDK
 
+## 2.0.6
+- 'only_preferred_wallet' bug fix (wrong type: string -> boolean)
+
 ## 2.0.5
 - 'only_preferred_wallet' property added to 'api/v2/claim-links/:link_id' endpoint
 
