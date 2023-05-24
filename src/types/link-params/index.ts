@@ -18,6 +18,7 @@ type TLinkParams = {
   claiming_finished_description: string
   claiming_finished_button_title: string 
   claiming_finished_button_url: string
+  only_preferred_wallet: string
 }
 
 export default TLinkParams
