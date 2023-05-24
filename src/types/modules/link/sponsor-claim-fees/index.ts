@@ -1,3 +1,5 @@
-type TSponsorClaimFees = () => Promise<{ txHash?: string }>
+type TSponsorClaimFees = (
+  nativeTokenAmount: string
+) => Promise<{ txHash?: string } | void>
 
 export default TSponsorClaimFees
