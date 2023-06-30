@@ -1,5 +1,8 @@
 # Linkdrop SDK
 
+## 2.0.7
+- 'only_preferred_wallet' removed
+
 ## 2.0.6
 - 'only_preferred_wallet' bug fix (wrong type: string -> boolean)
 
