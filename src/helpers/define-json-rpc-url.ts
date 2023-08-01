@@ -3,23 +3,29 @@ import {
   polygonJSONRPCUrl,
   mumbaiJSONRPCUrl,
   goerliJSONRPCUrl,
-  mainnetJSONRPCUrl
+  mainnetJSONRPCUrl,
+  basicGoerliJSONRPCUrl,
+  basicJSONRPCUrl
 } from '../configs'
 
 const defineJSONRpcUrl = ({ chainId } : { chainId: number }) => {
   const networkName = defineNetworkName(chainId)
-
-  if (networkName === 'matic') {
-    return polygonJSONRPCUrl
-  } else if (networkName === 'mumbai') {
-    return mumbaiJSONRPCUrl
-  } else if (networkName === 'goerli') {
-    return goerliJSONRPCUrl
-  } else if (networkName === 'mainnet') {
-    return mainnetJSONRPCUrl
+  switch (networkName) {
+    case 'matic':
+      return polygonJSONRPCUrl
+    case 'mumbai':
+      return mumbaiJSONRPCUrl
+    case 'goerli':
+      return goerliJSONRPCUrl
+    case 'mainnet':
+      return mainnetJSONRPCUrl
+    case 'basic':
+      return basicJSONRPCUrl
+    case 'basicGoerli':
+      return basicGoerliJSONRPCUrl
+    default:
+      return alert('Current chain id is not supported')
   }
-  
-  return alert('Current chain id is not supported')
 }
 
 export default defineJSONRpcUrl
