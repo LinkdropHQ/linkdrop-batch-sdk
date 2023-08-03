@@ -6,10 +6,12 @@ Linkdrop provides tools to distribute NFTs with links, QR codes or claim codes. 
 Currently, Linkdrop supports the following networks:
 - Ethereum Mainnet
 - Polygon Mainnet
+- Basic Mainnet
 
 Testnets:
 - Goerli (Ethereum testnet)
 - Mumbai (Polygon testnet)  
+- Basic Goerli (Basic testnet)
   
 We can add support of any EVM-based chain by request. Please contact us If you need to use Linkdrop on other networks. 
 

@@ -1,5 +1,8 @@
 # Linkdrop SDK
 
+## 2.0.8
+- added 'base' and 'baseGoerli' network support
+
 ## 2.0.7
 - 'only_preferred_wallet' removed
 

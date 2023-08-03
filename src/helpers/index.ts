@@ -1,6 +1,4 @@
-import { getChainId } from './get-chain-id'
 import { parseLinkParams } from './parse-link-params'
-import { getChainName } from './get-chain-name'
 import getLinkParams from './get-link-params'
 import getLinkStatus from './get-link-status'
 import getContractVersion from './get-contract-version'
@@ -14,11 +12,9 @@ import defineCampaignSig from './define-campaign-sig'
 import prepareAsset from './prepare-asset'
 
 export {
-  getChainId,
   parseLinkParams,
   defineCampaignSig,
   getBignumberInterval,
-  getChainName,
   getLinkParams,
   getLinkStatus,
   getContractVersion,
