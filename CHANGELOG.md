@@ -1,5 +1,8 @@
 # Linkdrop SDK
 
+## 2.0.9
+- added src param to link (src=d)
+
 ## 2.0.8
 - added 'base' and 'baseGoerli' network support
 
