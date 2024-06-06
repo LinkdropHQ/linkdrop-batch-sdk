@@ -1,5 +1,8 @@
 # Linkdrop SDK
 
+## 2.1.0
+- added apiKey as param for LinkdropSDK 
+
 ## 2.0.9
 - added src param to link (src=d)
 
