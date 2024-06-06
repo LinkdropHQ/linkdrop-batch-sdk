@@ -19,6 +19,7 @@ class Campaign implements ICampaign {
   apiHost: string
   claimHostUrl: string
   campaignSig: string
+  apiKey: string
 
   constructor (
     campaignId: string,
@@ -27,7 +28,8 @@ class Campaign implements ICampaign {
     data: TCampaignItem,
     claimHostUrl: string,
     campaignSig: string,
-    apiHost: string
+    apiHost: string,
+    apiKey: string
   ) {
     this.campaignId = campaignId
     this.signerKey = signerKey
@@ -36,11 +38,13 @@ class Campaign implements ICampaign {
     this.claimHostUrl = claimHostUrl
     this.apiHost = apiHost
     this.campaignSig = campaignSig
+    this.apiKey = apiKey
   }
 
   getBatches: TGetBatches = async () => {
     const campaignData = await batchesApi.getBatches(
       this.apiHost,
+      this.apiKey,
       this.campaignSig,
       this.campaignId
     )
@@ -59,6 +63,7 @@ class Campaign implements ICampaign {
   ) => {
     const campaignData = await batchesApi.getBatch(
       this.apiHost,
+      this.apiKey,
       this.campaignSig,
       this.campaignId,
       batchId
@@ -75,7 +80,8 @@ class Campaign implements ICampaign {
         this.data,
         this.signerKey,
         this.campaignSig,
-        this.apiHost
+        this.apiHost,
+        this.apiKey
       )
     }
   }
@@ -110,6 +116,7 @@ class Campaign implements ICampaign {
     if (!transformedAssets) { return alert('Error with assets') }
     const response = await batchesApi.createBatch(
       this.apiHost,
+      this.apiKey,
       this.campaignSig,
       this.data.campaign_id,
       transformedAssets,
@@ -139,6 +146,7 @@ class Campaign implements ICampaign {
 
     const linkData = await linkApi.reactivateLink(
       this.apiHost,
+      this.apiKey,
       this.campaignSig,
       wallet.address
     )
@@ -157,6 +165,7 @@ class Campaign implements ICampaign {
 
     const linkData = await linkApi.deactivateLink(
       this.apiHost,
+      this.apiKey,
       this.campaignSig,
       wallet.address
     )

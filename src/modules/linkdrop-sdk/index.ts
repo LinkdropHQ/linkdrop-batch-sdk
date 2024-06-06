@@ -14,6 +14,7 @@ class LinkdropSDK implements ILinkdropSDK {
   chain: TNetworkName
   apiHost: string
   claimHostUrl: string
+  apiKey: string
   utils = {
     createLink,
     computeProxyAddress,
@@ -21,15 +22,22 @@ class LinkdropSDK implements ILinkdropSDK {
   }
 
   constructor ({
+    apiKey,
     apiHost,
     mode,
     claimHostUrl
   }: {
+    apiKey?: string,
     apiHost?: string,
     mode?: 'testnets',
     claimHostUrl?: string
   } = {}) {
     this.claimHostUrl = claimHostUrl || ''
+    if (!apiKey) {
+      throw new Error('ApiKey required')
+    } else {
+      this.apiKey = apiKey
+    }
     if (apiHost) {
       this.apiHost = apiHost
     } else {
@@ -58,6 +66,7 @@ class LinkdropSDK implements ILinkdropSDK {
     )
     const campaignData = await campaignsApi.getCampaign(
       this.apiHost,
+      this.apiKey,
       campaignSig,
       campaignId
     )
@@ -71,7 +80,8 @@ class LinkdropSDK implements ILinkdropSDK {
         campaign,
         this.claimHostUrl,
         campaignSig,
-        this.apiHost
+        this.apiHost,
+        this.apiKey
       )
     }
   }

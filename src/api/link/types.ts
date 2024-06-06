@@ -48,6 +48,7 @@ export type TGetLinkStatus = (
 
 export type TDeactivateLink = (
   apiHost: string,
+  apiKey: string,
   campaignSig: string,
   linkId: string
 ) => Promise<
@@ -69,6 +70,7 @@ export type TRedeemLink = (
 
 export type TReactivateLink = (
   apiHost: string,
+  apiKey: string,
   campaignSig: string,
   linkId: string
 ) => Promise<

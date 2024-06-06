@@ -29,6 +29,7 @@ type TAddLinksResponse = {
 
 export type TGetBatches = (
   apiHost: string,
+  apiKey: string,
   campaignSig: string,
   campaignId: string
 ) => Promise<
@@ -39,6 +40,7 @@ export type TGetBatches = (
 
 export type TGetBatch = (
   apiHost: string,
+  apiKey: string,
   campaignSig: string,
   campaignId: string,
   batchId: string
@@ -50,6 +52,7 @@ export type TGetBatch = (
 
 export type TCreateBatch = (
   apiHost: string,
+  apiKey: string,
   campaignSig: string,
   campaignId: string,
   claimLinks: TLinkItem[],
@@ -62,6 +65,7 @@ export type TCreateBatch = (
 
 export type TAddLinks = (
   apiHost: string,
+  apiKey: string,
   campaignSig: string,
   campaignId: string,
   batchId: string,

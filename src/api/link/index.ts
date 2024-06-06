@@ -17,20 +17,22 @@ const requests: TRequests = {
   },
   deactivateLink: (
     apiHost,
+    apiKey,
     campaignSig,
     linkId
   ) => {
-    const headers = defineRequestKeyHeader(campaignSig)
+    const headers = defineRequestKeyHeader(campaignSig, apiKey)
     return axios.post(`${apiHost}/api/v2/dashboard/linkdrop/claim-links/${linkId}/deactivate`, {}, {
       headers
     })
   },
   reactivateLink: (
     apiHost,
+    apiKey,
     campaignSig,
     linkId
   ) => {
-    const headers = defineRequestKeyHeader(campaignSig)
+    const headers = defineRequestKeyHeader(campaignSig, apiKey)
     return axios.post(`${apiHost}/api/v2/dashboard/linkdrop/claim-links/${linkId}/reactivate`, {}, {
       headers
     })
