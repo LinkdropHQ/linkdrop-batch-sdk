@@ -1,5 +1,9 @@
 # Linkdrop SDK
 
+
+## 2.1.1
+- added testnets apiUrl
+
 ## 2.1.0
 - added apiKey as param for LinkdropSDK 
 
