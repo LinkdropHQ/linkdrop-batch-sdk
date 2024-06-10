@@ -81,7 +81,8 @@ class Campaign implements ICampaign {
         this.signerKey,
         this.campaignSig,
         this.apiHost,
-        this.apiKey
+        this.apiKey,
+        this.data.chain_id
       )
     }
   }

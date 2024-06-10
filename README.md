@@ -31,12 +31,14 @@ import LinkdropSDK from 'linkdrop-sdk'
 To use SDK on a tesnet:
 ```ts
 // initializing Linkdrop SDK on a testnet (Goerli or Mumbai)
-const sdk = new LinkdropSDK({ mode: 'testnets' });
+const apiKey = /* to request an API key, please contact us at hi@linkdrop.io */
+const sdk = new LinkdropSDK({ mode: 'testnets', apiKey });
 ```
 To use SDK on a production network (Ethereum Mainnet or Polygon): 
 ```ts
 // initializing Linkdrop SDK on a production network 
-const sdk = new LinkdropSDK();
+const apiKey = /* to request an API key, please contact us at hi@linkdrop.io */
+const sdk = new LinkdropSDK({ apiKey });
 ```
 
 ## Claim methods (Can be used on Front-end & Back-end)
@@ -247,6 +249,16 @@ To fetch all links created for that batch, use the `batch.getLinks` method:
 ```ts
 const links = await batch.getLinks()
 ```
+
+Response data includes claim links in format `https://claim.linkdrop.io/#/...`
+If you need links in custom format please provide optional parameter to `getLinks` method
+```ts
+const links = await batch.getLinks('https://wallet.coinbase.com/claim?tk=code&k=<CODE>&c=<CHAIN_ID>&v=3')
+```
+
+As a result you will get claim links with actual claim code (`<CODE>`) and chain id (`<CHAIN_ID>`)
+
+
 
 ### Deactivating / reactivating links
 
