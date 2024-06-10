@@ -1,6 +1,12 @@
 import { ILinkdropSDK, TNetworkName } from '../../types'
 import Campaign from '../campaign'
-import { defineCampaignSig, getLinkParams, getLinkStatus, redeemLink } from '../../helpers'
+import {
+  defineCampaignSig,
+  getLinkParams,
+  getLinkStatus,
+  redeemLink,
+  defineClaimHostUrl
+} from '../../helpers'
 import { campaignsApi } from '../../api'
 import {
   testnetsApiUrl,
@@ -78,7 +84,7 @@ class LinkdropSDK implements ILinkdropSDK {
         signerKey,
         encryptionKey,
         campaign,
-        this.claimHostUrl,
+        this.claimHostUrl ? this.claimHostUrl : defineClaimHostUrl(campaign.chain_id),
         campaignSig,
         this.apiHost,
         this.apiKey

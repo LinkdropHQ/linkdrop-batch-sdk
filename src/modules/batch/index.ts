@@ -16,6 +16,7 @@ class Batch implements IBatch {
   campaignData: TCampaignItem
   signerKey: string
   apiKey: string
+  chainId: number
 
   constructor (
     batchId: string,
@@ -27,7 +28,8 @@ class Batch implements IBatch {
     signerKey: string,
     campaignSig: string,
     apiHost: string,
-    apiKey: string
+    apiKey: string,
+    chainId: number
   ) {
     this.batchId = batchId
     this.data = data
@@ -39,6 +41,7 @@ class Batch implements IBatch {
     this.campaignData = campaignData
     this.signerKey = signerKey
     this.apiKey = apiKey
+    this.chainId = chainId
   }
 
   addLinks: TAddLinks = async (
@@ -77,17 +80,25 @@ class Batch implements IBatch {
     )
   }
 
-  getLinks: TGetLinks = () => {
+  getLinks: TGetLinks = (
+    linkPattern
+  ) => {
     if (!this.claimLinks) {
       return []
     }
     return this.claimLinks.map(link => {
       const encryptedClaimCode = link.encrypted_claim_code
       const claimCode = crypto.decrypt(encryptedClaimCode, this.encryptionKey)
+
+      let finalLink = `${this.claimHostUrl}/#/redeem/${claimCode}?src=d`
+      if (linkPattern) {
+        finalLink = linkPattern.replace('<CODE>', claimCode)
+          .replace('<CHAIN_ID>', String(this.chainId))
+      }
       return {
         linkId: link.link_id,
         claimCode,
-        claimLink: `${this.claimHostUrl}/#/redeem/${claimCode}?src=d`
+        claimLink: finalLink
       }
     })
   }

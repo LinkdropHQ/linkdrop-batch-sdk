@@ -10,9 +10,11 @@ import redeemLink from './redeem-link'
 import getBignumberInterval from './get-bignumber-interval'
 import defineCampaignSig from './define-campaign-sig'
 import prepareAsset from './prepare-asset'
+import defineClaimHostUrl from './define-claim-host-url'
 
 export {
   parseLinkParams,
+  defineClaimHostUrl,
   defineCampaignSig,
   getBignumberInterval,
   getLinkParams,
