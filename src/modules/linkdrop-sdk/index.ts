@@ -1,4 +1,8 @@
-import { ILinkdropSDK, TNetworkName } from '../../types'
+import {
+  ILinkdropSDK,
+  TNetworkName,
+  TMode
+} from '../../types'
 import Campaign from '../campaign'
 import {
   defineCampaignSig,
@@ -21,6 +25,8 @@ class LinkdropSDK implements ILinkdropSDK {
   apiHost: string
   claimHostUrl: string
   apiKey: string
+  mode: TMode
+
   utils = {
     createLink,
     computeProxyAddress,
@@ -35,10 +41,13 @@ class LinkdropSDK implements ILinkdropSDK {
   }: {
     apiKey?: string,
     apiHost?: string,
-    mode?: 'testnets',
+    mode?: TMode,
     claimHostUrl?: string
   } = {}) {
     this.claimHostUrl = claimHostUrl || ''
+
+    this.mode = mode || 'mainnets'
+
     if (!apiKey) {
       throw new Error('ApiKey required')
     } else {
@@ -47,7 +56,7 @@ class LinkdropSDK implements ILinkdropSDK {
     if (apiHost) {
       this.apiHost = apiHost
     } else {
-      this.apiHost = mode === 'testnets' ? testnetsApiUrl : apiUrl
+      this.apiHost = this.mode === 'testnets' ? testnetsApiUrl : apiUrl
     }
   }
 
@@ -84,7 +93,7 @@ class LinkdropSDK implements ILinkdropSDK {
         signerKey,
         encryptionKey,
         campaign,
-        this.claimHostUrl ? this.claimHostUrl : defineClaimHostUrl(campaign.chain_id),
+        this.claimHostUrl ? this.claimHostUrl : defineClaimHostUrl(this.mode),
         campaignSig,
         this.apiHost,
         this.apiKey

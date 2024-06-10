@@ -90,15 +90,16 @@ class Batch implements IBatch {
       const encryptedClaimCode = link.encrypted_claim_code
       const claimCode = crypto.decrypt(encryptedClaimCode, this.encryptionKey)
 
-      let finalLink = `${this.claimHostUrl}/#/redeem/${claimCode}?src=d`
+      let finalLink = `${this.claimHostUrl}/#/redeem/${claimCode}`
       if (linkPattern) {
         finalLink = linkPattern.replace('<CODE>', claimCode)
           .replace('<CHAIN_ID>', String(this.chainId))
       }
+      const sourceParam = finalLink.includes('?') ? `&src=d` : '?src=d'
       return {
         linkId: link.link_id,
         claimCode,
-        claimLink: finalLink
+        claimLink: `${finalLink}${sourceParam}`
       }
     })
   }

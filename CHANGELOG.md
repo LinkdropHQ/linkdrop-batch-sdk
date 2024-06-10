@@ -1,6 +1,9 @@
 # Linkdrop SDK
 
 
+## 2.1.3
+- updates for src=d param (getLinks method of batch)
+
 ## 2.1.2
 - updates for claimHostUrl param (getLinks method of batch)
 

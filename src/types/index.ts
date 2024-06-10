@@ -13,10 +13,12 @@ import TAsset from './asset'
 import TCreateLinkResult from './create-link-result'
 import TLinkParsed from './parsed-link'
 import { TLinkStatusResult } from './link-status-result'
+import TMode from './mode'
 
 export {
   ILinkdropSDK,
   TLinkStatusResult,
+  TMode,
   TLinkParsed,
   TLinkItem,
   TCampaignItem,

@@ -250,6 +250,16 @@ To fetch all links created for that batch, use the `batch.getLinks` method:
 const links = await batch.getLinks()
 ```
 
+Response data includes claim links in format `https://claim.linkdrop.io/#/...`
+If you need links in custom format please provide optional parameter to `getLinks` method
+```ts
+const links = await batch.getLinks('https://wallet.coinbase.com/claim?tk=code&k=<CODE>&c=<CHAIN_ID>&v=3')
+```
+
+As a result you will get claim links with actual claim code (`<CODE>`) and chain id (`<CHAIN_ID>`)
+
+
+
 ### Deactivating / reactivating links
 
 #### Deactivate Link
