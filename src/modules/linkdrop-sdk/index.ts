@@ -1,6 +1,16 @@
-import { ILinkdropSDK, TNetworkName } from '../../types'
+import {
+  ILinkdropSDK,
+  TNetworkName,
+  TMode
+} from '../../types'
 import Campaign from '../campaign'
-import { defineCampaignSig, getLinkParams, getLinkStatus, redeemLink } from '../../helpers'
+import {
+  defineCampaignSig,
+  getLinkParams,
+  getLinkStatus,
+  redeemLink,
+  defineClaimHostUrl
+} from '../../helpers'
 import { campaignsApi } from '../../api'
 import {
   testnetsApiUrl,
@@ -14,6 +24,9 @@ class LinkdropSDK implements ILinkdropSDK {
   chain: TNetworkName
   apiHost: string
   claimHostUrl: string
+  apiKey: string
+  mode: TMode
+
   utils = {
     createLink,
     computeProxyAddress,
@@ -21,19 +34,29 @@ class LinkdropSDK implements ILinkdropSDK {
   }
 
   constructor ({
+    apiKey,
     apiHost,
     mode,
     claimHostUrl
   }: {
+    apiKey?: string,
     apiHost?: string,
-    mode?: 'testnets',
+    mode?: TMode,
     claimHostUrl?: string
   } = {}) {
     this.claimHostUrl = claimHostUrl || ''
+
+    this.mode = mode || 'mainnets'
+
+    if (!apiKey) {
+      throw new Error('ApiKey required')
+    } else {
+      this.apiKey = apiKey
+    }
     if (apiHost) {
       this.apiHost = apiHost
     } else {
-      this.apiHost = mode === 'testnets' ? testnetsApiUrl : apiUrl
+      this.apiHost = this.mode === 'testnets' ? testnetsApiUrl : apiUrl
     }
   }
 
@@ -58,6 +81,7 @@ class LinkdropSDK implements ILinkdropSDK {
     )
     const campaignData = await campaignsApi.getCampaign(
       this.apiHost,
+      this.apiKey,
       campaignSig,
       campaignId
     )
@@ -69,9 +93,10 @@ class LinkdropSDK implements ILinkdropSDK {
         signerKey,
         encryptionKey,
         campaign,
-        this.claimHostUrl,
+        this.claimHostUrl ? this.claimHostUrl : defineClaimHostUrl(this.mode),
         campaignSig,
-        this.apiHost
+        this.apiHost,
+        this.apiKey
       )
     }
   }

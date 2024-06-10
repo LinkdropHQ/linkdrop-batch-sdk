@@ -1,4 +1,6 @@
 import { TLinkParsed } from '../../../'
-type TGetLinks = () => TLinkParsed[]
+type TGetLinks = (
+  linkPattern?: string
+) => TLinkParsed[]
 
 export default TGetLinks
