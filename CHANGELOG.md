@@ -1,6 +1,9 @@
 # Linkdrop SDK
 
 
+## 2.1.4
+- added claiming_finished_button_on property
+
 ## 2.1.3
 - updates for src=d param (getLinks method of batch)
 
