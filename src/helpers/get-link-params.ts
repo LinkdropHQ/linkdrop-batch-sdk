@@ -39,6 +39,8 @@ const getLinkParams = async (
       claiming_finished_description,
       claiming_finished_button_title,
       claiming_finished_button_url,
+      claiming_finished_button_on,
+      available_wallets_on,
       available_wallets
     } : TLinkParams = data
 
@@ -61,6 +63,8 @@ const getLinkParams = async (
       claiming_finished_description,
       claiming_finished_button_title,
       claiming_finished_button_url,
+      claiming_finished_button_on,
+      available_wallets_on,
       available_wallets
     }
   }
