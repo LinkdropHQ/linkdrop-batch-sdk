@@ -20,6 +20,7 @@ type TLinkParams = {
   claiming_finished_button_url: string
   claiming_finished_button_on: boolean
   available_wallets: string[]
+  available_wallets_on: boolean
 }
 
 export default TLinkParams
