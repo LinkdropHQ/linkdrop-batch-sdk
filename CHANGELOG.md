@@ -1,5 +1,9 @@
 # Linkdrop SDK
 
+## 2.1.6
+- available_wallets_on => preferred_wallet_on
+- available_wallets property removed
+
 ## 2.1.5
 - added available_wallets_on property
 
