@@ -3,7 +3,7 @@ const defineNetworkName = (chainId: number | null) : string => {
     case 1: return 'mainnet'
     case 137: return 'matic'
     case 8453: return 'base'
-    case 13371: return 'immutableZkevm'
+    case 13371: return 'immutable-zkevm'
     default: return 'mainnet'
   }
 }
