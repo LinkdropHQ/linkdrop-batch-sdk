@@ -1,5 +1,21 @@
 # Linkdrop SDK
 
+## 2.1.8
+- added support for immutableZkevm network
+- removed support for baseGoerli, goerli and mumbai
+
+## 2.1.7
+- token_name, linkdrop_token, token_image properties added to link params
+
+## 2.1.6
+- available_wallets_on => preferred_wallet_on
+- available_wallets property removed
+
+## 2.1.5
+- added available_wallets_on property
+
+## 2.1.4
+- added claiming_finished_button_on property
 
 ## 2.1.3
 - updates for src=d param (getLinks method of batch)
