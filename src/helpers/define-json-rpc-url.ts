@@ -1,11 +1,9 @@
 import { defineNetworkName } from './'
 import {
   polygonJSONRPCUrl,
-  mumbaiJSONRPCUrl,
-  goerliJSONRPCUrl,
   mainnetJSONRPCUrl,
-  basicGoerliJSONRPCUrl,
-  basicJSONRPCUrl
+  baseJSONRPCUrl,
+  immutableZkevmJSONRPCUrl
 } from '../configs'
 
 const defineJSONRpcUrl = ({ chainId } : { chainId: number }) => {
@@ -13,16 +11,12 @@ const defineJSONRpcUrl = ({ chainId } : { chainId: number }) => {
   switch (networkName) {
     case 'matic':
       return polygonJSONRPCUrl
-    case 'mumbai':
-      return mumbaiJSONRPCUrl
-    case 'goerli':
-      return goerliJSONRPCUrl
     case 'mainnet':
       return mainnetJSONRPCUrl
-    case 'basic':
-      return basicJSONRPCUrl
-    case 'basicGoerli':
-      return basicGoerliJSONRPCUrl
+    case 'base':
+      return baseJSONRPCUrl
+    case 'immutableZkevm':
+      return immutableZkevmJSONRPCUrl
     default:
       return alert('Current chain id is not supported')
   }
