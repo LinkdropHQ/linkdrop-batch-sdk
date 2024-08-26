@@ -1,4 +1,4 @@
-import TCreateLink from '../../../types/modules/linkdrop-sdk/create-link'
+import TCreateLink from '../../../types/modules/linkdrop-batch-sdk/create-link'
 import { prepareAsset } from '../../../helpers'
 
 const createLink: TCreateLink = async (

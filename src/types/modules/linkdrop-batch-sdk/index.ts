@@ -7,7 +7,7 @@ import TCreateLink from './create-link'
 import TComputeProxyAddress from './compute-proxy-address'
 import TGenerateAccount from '../../../utils/generate-account/types'
 
-interface ILinkdropSDK {
+interface ILinkdropBatchSDK {
   chain: TNetworkName
   apiHost: string
   getCampaign: TGetCampaign
@@ -21,4 +21,4 @@ interface ILinkdropSDK {
   }
 }
 
-export default ILinkdropSDK
+export default ILinkdropBatchSDK
