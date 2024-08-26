@@ -24,21 +24,21 @@ Create a campaign using Linkdrop Dashboard. When creating a campaign you will ne
 
 First, import SDK into your code:
 ```ts
-import LinkdropSDK from 'linkdrop-sdk'
+import LinkdropBatchSDK from 'linkdrop-batch-sdk'
 // or
-// const LinkdropSDK = require('linkdrop-sdk').default
+// const LinkdropBatchSDK = require('linkdrop-batch-sdk').default
 ```
 To use SDK on a tesnet:
 ```ts
 // initializing Linkdrop SDK on a testnet (Goerli or Mumbai)
 const apiKey = /* to request an API key, please contact us at hi@linkdrop.io */
-const sdk = new LinkdropSDK({ mode: 'testnets', apiKey });
+const sdk = new LinkdropBatchSDK({ mode: 'testnets', apiKey });
 ```
 To use SDK on a production network (Ethereum Mainnet or Polygon): 
 ```ts
 // initializing Linkdrop SDK on a production network 
 const apiKey = /* to request an API key, please contact us at hi@linkdrop.io */
-const sdk = new LinkdropSDK({ apiKey });
+const sdk = new LinkdropBatchSDK({ apiKey });
 ```
 
 ## Claim methods (Can be used on Front-end & Back-end)

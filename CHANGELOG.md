@@ -1,5 +1,8 @@
 # Linkdrop SDK
 
+## 2.1.9
+- package rename to linkdrop-batch-sdk
+
 ## 2.1.8
 - added support for immutableZkevm network
 - removed support for baseGoerli, goerli and mumbai

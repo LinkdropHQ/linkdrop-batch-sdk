@@ -1,9 +1,9 @@
 import ICampaign from "./campaign"
-import ILinkdropSDK from "./linkdrop-sdk"
+import ILinkdropBatchSDK from "./linkdrop-batch-sdk"
 import IBatch from "./batch"
 
 export {
   ICampaign,
-  ILinkdropSDK,
+  ILinkdropBatchSDK,
   IBatch
 }
