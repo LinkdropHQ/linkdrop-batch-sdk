@@ -1,4 +1,4 @@
-import TComputeProxyAddress from '../../../types/modules/linkdrop-sdk/compute-proxy-address'
+import TComputeProxyAddress from '../../../types/modules/linkdrop-batch-sdk/compute-proxy-address'
 import { ethers } from 'ethers'
 
 export const buildCreate2Address = (creatorAddress: string, saltHex: string, byteCode: string) => {

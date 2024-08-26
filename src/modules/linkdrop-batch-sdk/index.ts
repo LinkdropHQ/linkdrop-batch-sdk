@@ -1,5 +1,5 @@
 import {
-  ILinkdropSDK,
+  ILinkdropBatchSDK,
   TNetworkName,
   TMode
 } from '../../types'
@@ -18,9 +18,9 @@ import {
 } from '../../configs'
 import { createLink, computeProxyAddress } from './utils'
 import { generateAccount } from '../../utils'
-import { TRedeem } from '../../types/modules/linkdrop-sdk/redeem'
+import { TRedeem } from '../../types/modules/linkdrop-batch-sdk/redeem'
 
-class LinkdropSDK implements ILinkdropSDK {
+class LinkdropSDK implements ILinkdropBatchSDK {
   chain: TNetworkName
   apiHost: string
   claimHostUrl: string
