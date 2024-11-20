@@ -15,6 +15,7 @@ class Batch implements IBatch {
   claimHostUrl: string
   campaignData: TCampaignItem
   signerKey: string
+  apiKey: string
 
   constructor (
     batchId: string,
@@ -25,7 +26,8 @@ class Batch implements IBatch {
     campaignData: TCampaignItem,
     signerKey: string,
     campaignSig: string,
-    apiHost: string
+    apiHost: string,
+    apiKey: string
   ) {
     this.batchId = batchId
     this.data = data
@@ -36,6 +38,7 @@ class Batch implements IBatch {
     this.claimHostUrl = claimHostUrl
     this.campaignData = campaignData
     this.signerKey = signerKey
+    this.apiKey = apiKey
   }
 
   addLinks: TAddLinks = async (
@@ -66,6 +69,7 @@ class Batch implements IBatch {
     if (!transformedAssets) { return alert('Error with assets') }
     return await batchesApi.addLinks(
       this.apiHost,
+      this.apiKey,
       this.campaignSig,
       this.campaignData.campaign_id,
       this.batchId,

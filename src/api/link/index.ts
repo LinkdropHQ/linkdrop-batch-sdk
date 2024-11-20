@@ -10,7 +10,7 @@ const requests: TRequests = {
   ) => {
     const headers = defineRequestKeyHeader(apiKey)
 
-    return axios.get(`${apiHost}/api/v2/claim-links/${linkId}`)
+    return axios.get(`${apiHost}/api/v2/claim-links/${linkId}`, { headers })
   },
   getStatus: (
     apiHost,
@@ -19,7 +19,7 @@ const requests: TRequests = {
   ) => {
     const headers = defineRequestKeyHeader(apiKey)
 
-    return axios.get(`${apiHost}/api/v2/claim-links/${linkId}/status`)
+    return axios.get(`${apiHost}/api/v2/claim-links/${linkId}/status`, { headers })
   },
   deactivateLink: (
     apiHost,
@@ -54,7 +54,7 @@ const requests: TRequests = {
     return axios.post(`${apiHost}/api/v2/claim-links/${linkId}/claim`, {
       receiver_address: receiverAddress,
       receiver_signature: receiverSignature
-    })
+    }, { headers })
   }
 }
 

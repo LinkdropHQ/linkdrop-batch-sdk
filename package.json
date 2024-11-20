@@ -1,5 +1,5 @@
 {
-  "name": "linkdrop-sdk",
+  "name": "linkdrop-batch-sdk",
   "version": "2.0.10",
   "main": "dist/index.js",
   "types": "dist/index.d.ts",
@@ -12,18 +12,18 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/LinkdropHQ/linkdrop-sdk.git"
+    "url": "git+https://github.com/LinkdropHQ/linkdrop-batch-sdk.git"
   },
   "author": "spacehaz <spacehaz@gmail.com>",
   "license": "MIT",
   "description": "",
   "bugs": {
-    "url": "https://github.com/LinkdropHQ/linkdrop-sdk/issues"
+    "url": "https://github.com/LinkdropHQ/linkdrop-batch-sdk/issues"
   },
   "engines": {
     "node": ">=16.x"
   },
-  "homepage": "https://github.com/LinkdropHQ/linkdrop-sdk#readme",
+  "homepage": "https://github.com/LinkdropHQ/linkdrop-batch-sdk#readme",
   "keywords": [],
   "dependencies": {
     "@stablelib/x25519": "^1.0.3",

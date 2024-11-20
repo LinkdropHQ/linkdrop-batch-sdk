@@ -1,4 +1,4 @@
-# Linkdrop SDK
+# Linkdrop Batch SDK
 
 Linkdrop provides tools to distribute NFTs with links, QR codes or claim codes. The Linkdrop SDK is a Typescript library that can be used to automate creating and managing claim links.   
 
@@ -24,19 +24,21 @@ Create a campaign using Linkdrop Dashboard. When creating a campaign you will ne
 
 First, import SDK into your code:
 ```ts
-import LinkdropSDK from 'linkdrop-sdk'
+import LinkdropBatchSDK from 'linkdrop-sdk'
 // or
 // const LinkdropSDK = require('linkdrop-sdk').default
 ```
 To use SDK on a tesnet:
 ```ts
+const apiKey = /* to request an API key, please contact us at hi@linkdrop.io */
 // initializing Linkdrop SDK on a testnet (Goerli or Mumbai)
-const sdk = new LinkdropSDK({ mode: 'testnets' });
+const sdk = new LinkdropBatchSDK({ mode: 'testnets', apiKey });
 ```
 To use SDK on a production network (Ethereum Mainnet or Polygon): 
 ```ts
+const apiKey = /* to request an API key, please contact us at hi@linkdrop.io */
 // initializing Linkdrop SDK on a production network 
-const sdk = new LinkdropSDK();
+const sdk = new LinkdropBatchSDK({ apiKey });
 ```
 
 ## Claim methods (Can be used on Front-end & Back-end)
