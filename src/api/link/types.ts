@@ -30,6 +30,7 @@ type TRedeemLinkResponse = {
 
 export type TGetLinkParams = (
   apiHost: string,
+  apiKey: string,
   linkId: string
 ) => Promise<
   AxiosResponse<
@@ -39,6 +40,7 @@ export type TGetLinkParams = (
 
 export type TGetLinkStatus = (
   apiHost: string,
+  apiKey: string,
   linkId: string
 ) => Promise<
   AxiosResponse<
@@ -48,6 +50,7 @@ export type TGetLinkStatus = (
 
 export type TDeactivateLink = (
   apiHost: string,
+  apiKey: string,
   campaignSig: string,
   linkId: string
 ) => Promise<
@@ -58,6 +61,7 @@ export type TDeactivateLink = (
 
 export type TRedeemLink = (
   apiHost: string,
+  apiKey: string,
   linkId: string,
   receiverAddress: string,
   receiverSignature: string
@@ -69,6 +73,7 @@ export type TRedeemLink = (
 
 export type TReactivateLink = (
   apiHost: string,
+  apiKey: string,
   campaignSig: string,
   linkId: string
 ) => Promise<
