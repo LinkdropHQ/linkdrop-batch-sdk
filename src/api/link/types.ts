@@ -61,6 +61,7 @@ export type TDeactivateLink = (
 
 export type TRedeemLink = (
   apiHost: string,
+  apiKey: string,
   linkId: string,
   receiverAddress: string,
   receiverSignature: string

@@ -107,7 +107,8 @@ class LinkdropSDK implements ILinkdropBatchSDK {
     const result = await redeemLink(
       claimCode,
       destination,
-      this.apiHost
+      this.apiHost,
+      this.apiKey
     )
     if (!result) {
       throw new Error('Link claim failed')

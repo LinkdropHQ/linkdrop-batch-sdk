@@ -1,5 +1,7 @@
 # Linkdrop SDK
 
+## 2.1.16
+- fix for api key
 
 ## 2.1.15
 - added api key to headers to all requests
