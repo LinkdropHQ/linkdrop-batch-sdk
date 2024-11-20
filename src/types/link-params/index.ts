@@ -19,10 +19,13 @@ type TLinkParams = {
   claiming_finished_button_title: string 
   claiming_finished_button_url: string
   claiming_finished_button_on: boolean
+  claiming_finished_auto_redirect: boolean
   preferred_wallet_on: boolean
-  linkdrop_token: boolean,
-  token_image: string,
+  linkdrop_token: boolean
+  token_image: string
   token_name: string
+  additional_wallets_on: boolean
+  factory_address: string
 }
 
 export default TLinkParams

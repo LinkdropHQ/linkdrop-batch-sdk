@@ -40,14 +40,18 @@ const getLinkParams = async (
       claiming_finished_button_title,
       claiming_finished_button_url,
       claiming_finished_button_on,
+      claiming_finished_auto_redirect,
       preferred_wallet_on,
       linkdrop_token,
       token_image,
-      token_name
+      token_name,
+      additional_wallets_on,
+      factory_address
     } : TLinkParams = data
 
     return {
       creator_address,
+      factory_address,
       sponsored,
       chain_id,
       campaign_number,
@@ -57,6 +61,7 @@ const getLinkParams = async (
       claim_pattern,
       token_id,
       token_amount,
+      claiming_finished_auto_redirect,
       sender_signature,
       proxy_contract_version,
       wei_amount,
@@ -69,7 +74,8 @@ const getLinkParams = async (
       preferred_wallet_on,
       linkdrop_token,
       token_image,
-      token_name
+      token_name,
+      additional_wallets_on
     }
   }
 }

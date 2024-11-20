@@ -1,5 +1,21 @@
 # Linkdrop SDK
 
+
+## 2.1.14
+- added claiming_finished_auto_redirect property
+
+## 2.1.13
+- fix for factory address type
+
+## 2.1.12
+- get factory address for claim link
+
+## 2.1.11
+- added X Layer network support
+
+## 2.1.10
+- added additional_wallets_on param to link
+
 ## 2.1.9
 - package rename to linkdrop-batch-sdk
 
