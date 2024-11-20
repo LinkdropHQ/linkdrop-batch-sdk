@@ -4,6 +4,7 @@ import { ethers } from 'ethers'
 
 const getLinkParams = async (
   apiHost: string,
+  apikey: string,
   claimCode: string
 ) => {
   let linkId
@@ -16,6 +17,7 @@ const getLinkParams = async (
 
   const linkParams = await linkApi.getParams(
     apiHost,
+    apikey,
     linkId
   )
   const { success, data } = linkParams.data

@@ -5,14 +5,18 @@ import { defineRequestKeyHeader } from '../../helpers'
 const requests: TRequests = {
   getParams: (
     apiHost,
+    apiKey,
     linkId,
   ) => {
+    const headers = defineRequestKeyHeader(apiKey)
     return axios.get(`${apiHost}/api/v2/claim-links/${linkId}`)
   },
   getStatus: (
     apiHost,
+    apiKey,
     linkId
   ) => {
+    const headers = defineRequestKeyHeader(apiKey)
     return axios.get(`${apiHost}/api/v2/claim-links/${linkId}/status`)
   },
   deactivateLink: (
@@ -21,7 +25,7 @@ const requests: TRequests = {
     campaignSig,
     linkId
   ) => {
-    const headers = defineRequestKeyHeader(campaignSig, apiKey)
+    const headers = defineRequestKeyHeader(apiKey, campaignSig)
     return axios.post(`${apiHost}/api/v2/dashboard/linkdrop/claim-links/${linkId}/deactivate`, {}, {
       headers
     })
@@ -32,7 +36,7 @@ const requests: TRequests = {
     campaignSig,
     linkId
   ) => {
-    const headers = defineRequestKeyHeader(campaignSig, apiKey)
+    const headers = defineRequestKeyHeader(apiKey, campaignSig)
     return axios.post(`${apiHost}/api/v2/dashboard/linkdrop/claim-links/${linkId}/reactivate`, {}, {
       headers
     })

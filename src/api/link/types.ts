@@ -30,6 +30,7 @@ type TRedeemLinkResponse = {
 
 export type TGetLinkParams = (
   apiHost: string,
+  apiKey: string,
   linkId: string
 ) => Promise<
   AxiosResponse<
@@ -39,6 +40,7 @@ export type TGetLinkParams = (
 
 export type TGetLinkStatus = (
   apiHost: string,
+  apiKey: string,
   linkId: string
 ) => Promise<
   AxiosResponse<

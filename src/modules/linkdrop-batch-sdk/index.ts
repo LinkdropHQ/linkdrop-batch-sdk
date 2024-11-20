@@ -123,6 +123,7 @@ class LinkdropSDK implements ILinkdropBatchSDK {
   ) {
     return await getLinkParams(
       this.apiHost,
+      this.apiKey,
       claimCode
     )
   }
@@ -132,6 +133,7 @@ class LinkdropSDK implements ILinkdropBatchSDK {
   ) {
     const result = await getLinkStatus(
       this.apiHost,
+      this.apiKey,
       claimCode
     )
     if (!result) {

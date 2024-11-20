@@ -1,16 +1,20 @@
 type TDefineRequestKeyHeader = (
-  campaignSig: string,
-  apiKey: string
+  apiKey: string,
+  campaignSig?: string
 ) => Record<string, string>
 
 const defineRequestKeyHeader: TDefineRequestKeyHeader = (
-  campaignSig,
-  apiKey
+  apiKey,
+  campaignSig
 ) => {
   const headers = {}
-  headers[
-    'X-CAMPAIGN-KEY'
-  ] = campaignSig
+
+  if (campaignSig) {
+    headers[
+      'X-CAMPAIGN-KEY'
+    ] = campaignSig
+  }
+  
 
   if (apiKey) {
     headers['authorization'] = `Bearer ${apiKey}`

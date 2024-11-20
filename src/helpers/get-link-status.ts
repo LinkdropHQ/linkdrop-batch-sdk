@@ -3,6 +3,7 @@ import { ethers } from 'ethers'
 
 const getLinkStatus = async (
   apiHost: string,
+  apiKey: string,
   claimCode: string
 ) => {
   let linkId
@@ -14,6 +15,7 @@ const getLinkStatus = async (
   }
   const linkStatus = await linkApi.getStatus(
     apiHost,
+    apiKey,
     linkId
   )
   if (linkStatus.data) {
