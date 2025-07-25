@@ -26,6 +26,8 @@ type TLinkParams = {
   token_name: string
   additional_wallets_on: boolean
   factory_address: string
+  redirect_link?: string
+  is_redirect: boolean
 }
 
 export default TLinkParams

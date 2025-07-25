@@ -48,7 +48,9 @@ const getLinkParams = async (
       token_image,
       token_name,
       additional_wallets_on,
-      factory_address
+      factory_address,
+      is_redirect,
+      redirect_link
     } : TLinkParams = data
 
     return {
@@ -77,7 +79,9 @@ const getLinkParams = async (
       linkdrop_token,
       token_image,
       token_name,
-      additional_wallets_on
+      additional_wallets_on,
+      is_redirect,
+      redirect_link
     }
   }
 }
